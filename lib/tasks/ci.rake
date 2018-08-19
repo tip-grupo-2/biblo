@@ -4,6 +4,6 @@ unless Rails.env.production?
 
   namespace :ci do
     desc 'Run all tests'
-    task tests: [:spec, :cucumber]
+    task tests: [:spec]
   end
 end
