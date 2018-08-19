@@ -18,7 +18,7 @@ deploy:
     secure: ZgZFF7xi7FnBTPjbCARFRu9Gi7h7eh6MdTLclZfRbMsmPQpALU5+X1b+TuzP9mB7frYyY+MEoru52qZ8na3s14CFMewjGuUWTfioERtN3Gdc6mOAbbcyn8757EehmguKLtaUKqN6sbPyVosiSRqTAlIEb27N9R6c23lpvRA4o4SkTQPEC8F/mjf6kJqkQgarQOq02ybOklox+smkOar1FhkSjBmpcpJ5Llaiz06YEe7g5Zp26+eEpVZBSf769NsBTX2yOEBdN8Esp5IS5Mh6kCvXC6jAEQYQ98z28HH6dHWITYOFjGbixNFUtKUQSaKxf4LEX4dKPHVK9kFJJ5sla0YlWj9aP25Bc9JWOe/med0w17Wq6pbwTmYZFEK5ikPAVmZfMGQTNmU0X3h5+P5V6jWk/FsVhE12ouJWaqsc9wCxwp1EItZP444lshE9R9FClg9LWi6vuOOaNJBbW8A14/TJ7YLhg6BjAznEf912BBUgtzYBsLPiTb3cZNfXte64+uOJoe5u17Ud9X3POq793bUtt3YQ8i0KLLHkhCTB3rFJZ3YP4Vq/wdca+2bWiRX+CDrzd/QXihxXCSIsp7PtzQXYw8uGYBLk7BTz0fKZ+dSjmyhKDCiRYrQk2XWIgm6OSI6xhxEKKAaBb3BpH53asXgpN0rHYyccRHzCOQ+aU9c=
   app:
     develop: biblioteca-popular-develop
-    master: biblioteca-popula-master
+    master: biblioteca-popular-master
   on:
     repo: lalopsb1/tip_grupo_2
   run:
