@@ -1,3 +1,13 @@
+<% if user_signed_in? %>
+  Bienvenido <strong><%= current_user.email %></strong>.
+  <%= link_to 'Edit profile', edit_user_registration_path %> |
+  <%= link_to "Cerrar sesion", destroy_user_session_path, method: :delete %>
+<% else %>
+  <%= link_to "Registrarse", new_user_registration_path %> |
+  <%= link_to "Ingresar", new_user_session_path %>
+<% end %>
+
+<%= yield %>
 <h2>Biblioteca Popular</h2>
 
 <p>Esta aplicación va a estar recontra buena!!!.</p>

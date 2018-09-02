@@ -10,6 +10,9 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 
+#OAuth
+gem 'devise'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
