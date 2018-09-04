@@ -9,9 +9,11 @@ gem 'puma', '~>3.7'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
+gem 'dotenv-rails'
 
 #OAuth
 gem 'devise'
+gem 'omniauth-facebook'
 
 group :development, :test do
   gem 'rspec-rails'
