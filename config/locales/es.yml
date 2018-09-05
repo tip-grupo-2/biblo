@@ -1,0 +1,15 @@
+es:
+  errors:
+    messages:
+      blank: "no puede estar vacia."
+      too_long:
+        other: "excede la longitud permitida (maximo %{count} caracteres)"
+      too_short:
+        other: "no supera la minima longitud requerida (minimo %{count} caracteres)"
+
+  activerecord:
+    models:
+      user: Usuario
+    attributes:
+      user:
+        password: "Contraseña"
