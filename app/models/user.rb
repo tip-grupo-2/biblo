@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :trackable and :omniauthable
   # :recoverable
+  #
+  has_many :copies
   devise :database_authenticatable, :registerable, :rememberable, :validatable, :timeoutable, :omniauthable,
          omniauth_providers: [:facebook, :google_oauth2]
 
@@ -15,5 +17,12 @@ class User < ActiveRecord::Base
 
   def password_required?
     super && provider.blank?
+  end
+
+  def donate a_book
+    Copy.create(
+            book: a_book,
+            user: self
+    )
   end
 end

@@ -7,4 +7,7 @@
     </div>
   </div>
 </div>
-
+<% if user_signed_in? %>
+  <%= link_to "Donar libro", new_book_path, method: :get, class: 'navbar-brand' %>
+  <%= link_to "Mis donaciones", books_path, method: :get, class: 'navbar-brand' %>
+<% end %>

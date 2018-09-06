@@ -6,6 +6,7 @@ Bundler.require(*Rails.groups)
 
 module BibliotecaPopular
   class Application < Rails::Application
+    config.autoload_paths += %W(#{config.root}/lib)
     config.generators do |generate|
       generate.assets false
       generate.view_specs false
