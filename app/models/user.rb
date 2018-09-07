@@ -25,4 +25,6 @@ class User < ActiveRecord::Base
             user: self
     )
   end
+
+  def 
 end

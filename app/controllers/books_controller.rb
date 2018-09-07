@@ -31,9 +31,13 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
   end
 
-  def index
+  def index_my_donations
     @books = Book.joins(copies: :user).where('users.id = ?', current_user.id).select('books.id, books.title, books.author, books.isbn')
 
 
+  end
+
+  def index
+    @books = Book.all
   end
 end
