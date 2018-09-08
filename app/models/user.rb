@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :trackable and :omniauthable
   # :recoverable
   #
-  has_many :copies
+  has_many :copies #TODO: Cambiar a donaciones.
+  has_many :books  #TODO: Agregar tabla intermedia, para los libros que esta leyendo.
   devise :database_authenticatable, :registerable, :rememberable, :validatable, :timeoutable, :omniauthable,
          omniauth_providers: [:facebook, :google_oauth2]
 
@@ -24,5 +25,11 @@ class User < ActiveRecord::Base
             book: a_book,
             user: self
     )
+    rent a_book
+  end
+
+  def rent a_book
+    a_book.user_id = self.id
+    a_book.save
   end
 end

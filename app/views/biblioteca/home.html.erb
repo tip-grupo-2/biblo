@@ -9,6 +9,7 @@
 </div>
 <% if user_signed_in? %>
   <%= link_to "Donar libro", new_book_path, method: :get, class: 'navbar-brand' %>
-  <%= link_to "Libros donados", books_path, method: :get, class: 'navbar-brand' %>
-  <%= link_to "Mis donaciones", my_books_path, method: :get, class: 'navbar-brand' %>
+  <%= link_to "Libros para pedir", books_path, method: :get, class: 'navbar-brand' %>
+  <%= link_to "Mis donaciones", my_donations_path, method: :get, class: 'navbar-brand' %>
+  <%= link_to "Mis libros", my_books_path, method: :get, class: 'navbar-brand' %>
 <% end %>

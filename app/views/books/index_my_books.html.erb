@@ -1,4 +1,4 @@
-<h1>Todos los libros</h1>
+<h1>Mis Libros</h1>
 
 <table>
   <tr>
@@ -13,7 +13,6 @@
       <td><%= book.author %></td>
       <td><%= book.isbn %></td>
       <td><%= link_to 'Show', book_path(book) %></td>
-      <td><%= link_to 'Rent', edit_book_path(book)%></td>
     </tr>
   <% end %>
 </table>
