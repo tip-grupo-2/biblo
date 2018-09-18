@@ -1,0 +1,25 @@
+.container-fluid
+  .row
+  .col-md-4
+  .col-md-4
+    h2 Registrarse
+    = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      = devise_error_messages!
+      .field
+        = f.label :email
+        br/
+        = f.email_field :email, autofocus: true, autocomplete: "email"
+      .field
+        = f.label :password
+        - if @minimum_password_length
+          em
+            | (Debe tener al menos #{@minimum_password_length} caracteres)
+        br/
+        = f.password_field :password, autocomplete: "new-password"
+      .field
+        = f.label :password_confirmation, 'Confirmar contraseña'
+        br/
+        = f.password_field :password_confirmation, autocomplete: "new-password"
+      .actions
+        = f.submit "Registrarse"
+    = render "users/shared/links"

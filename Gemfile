@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rest-client', '1.6'
+gem 'rest-client', '~> 1.7.3'
 gem 'rails', '4.2.8'
 gem 'pg', '~> 0.20.0'
 gem 'sass-rails', '~> 5.0'
@@ -15,6 +15,7 @@ gem 'therubyracer'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 gem 'font-awesome-less'
+gem 'slim'
 
 #OAuth
 gem 'devise'
