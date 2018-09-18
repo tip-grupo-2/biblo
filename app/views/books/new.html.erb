@@ -1,0 +1,10 @@
+<%= form_for :book, url: books_path do |f| %>
+  <p>
+    <%= f.label :isbn %><br>
+    <%= f.text_field :isbn %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

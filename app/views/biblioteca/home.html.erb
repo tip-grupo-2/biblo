@@ -1,12 +1,15 @@
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4">
+      <h1>Biblo: biblioteca popular</h1>
+      <h3>Encontra y comparti libros en tu barrio!</h3>
+    </div>
+  </div>
+</div>
 <% if user_signed_in? %>
-  Hola <strong><%= current_user.email %></strong>!
-  <%= link_to "Cerrar sesion", destroy_user_session_path, method: :delete %>
-<% else %>
-  <%= link_to "Registrarse", new_user_registration_path %> |
-  <%= link_to "Iniciar sesión", new_user_session_path %>
+  <%= link_to "Donar libro", new_book_path, method: :get, class: 'navbar-brand' %>
+  <%= link_to "Libros para pedir", books_path, method: :get, class: 'navbar-brand' %>
+  <%= link_to "Mis donaciones", my_donations_path, method: :get, class: 'navbar-brand' %>
+  <%= link_to "Mis libros", my_books_path, method: :get, class: 'navbar-brand' %>
 <% end %>
-
-<%= yield %>
-<h2>Biblioteca Popular</h2>
-
-<p>Esta aplicación va a estar recontra buena!!!.</p>

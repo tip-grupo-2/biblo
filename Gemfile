@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'rest-client', '1.6'
 gem 'rails', '4.2.8'
 gem 'pg', '~> 0.20.0'
 gem 'sass-rails', '~> 5.0'
@@ -10,11 +11,17 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'dotenv-rails'
+gem 'therubyracer'
+gem 'less-rails'
+gem 'twitter-bootstrap-rails'
+gem 'font-awesome-less'
 
 #OAuth
 gem 'devise'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
+
+gem 'openlibrary'
 
 group :development, :test do
   gem 'rspec-rails'
@@ -33,4 +40,5 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
+
 
