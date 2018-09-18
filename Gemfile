@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'rest-client', '1.6'
 gem 'rails', '4.2.8'
 gem 'pg', '~> 0.20.0'
 gem 'sass-rails', '~> 5.0'
@@ -19,6 +20,8 @@ gem 'font-awesome-less'
 gem 'devise'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
+
+gem 'openlibrary'
 
 group :development, :test do
   gem 'rspec-rails'
