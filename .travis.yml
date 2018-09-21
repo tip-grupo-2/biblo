@@ -3,11 +3,11 @@ rvm:
 - 2.4.2
 before_script:
 - bundle exec rake db:create --all
-- psql -c 'create database biblioteca_popular_test;' -U postgres
 - psql -c "CREATE USER carlos;" -U postgres
 - bundle exec rake db:migrate
 script:
 - bundle exec rake ci:tests
+- 'export PULL_REQUEST_ID=${TRAVIS_PULL_REQUEST} && bundle exec pronto run -f github_pr'
 services:
 - postgresql
 notifications:

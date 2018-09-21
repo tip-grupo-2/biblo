@@ -13,15 +13,22 @@ gem 'jbuilder', '~> 2.0'
 gem 'dotenv-rails'
 gem 'therubyracer'
 gem 'less-rails'
+
+# views
 gem 'twitter-bootstrap-rails'
 gem 'font-awesome-less'
 gem 'slim'
 
-#OAuth
+# code analysis
+gem 'pronto'
+gem 'pronto-rubocop', require: false
+
+# OAuth
 gem 'devise'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 
+# ISBN library
 gem 'openlibrary'
 
 group :development, :test do
