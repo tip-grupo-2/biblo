@@ -3,6 +3,7 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 require 'factory_bot_rails'
+require 'devise'
 
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
@@ -34,6 +35,7 @@ RSpec.configure do |config|
       example.run
     end
   end
+  config.include Devise::Test::ControllerHelpers, :type => :controller
 end
 
 Shoulda::Matchers.configure do |config|
