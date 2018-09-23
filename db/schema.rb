@@ -29,6 +29,16 @@ ActiveRecord::Schema.define(version: 20180928021051) do
     t.integer "book_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "recipient_id"
+    t.integer  "requester_id"
+    t.integer  "copy_id"
+    t.datetime "read_at"
+    t.string   "action"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",               default: "", null: false
     t.string   "encrypted_password",  default: "", null: false
