@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :trackable and :omniauthable
   # :recoverable
   #
-  has_many :copies #TODO: Cambiar a donaciones.
-  has_many :books  #TODO: Agregar tabla intermedia, para los libros que esta leyendo.
+  has_many :copies # TODO: Cambiar a donaciones.
+  has_many :books  # TODO: Agregar tabla intermedia, para los libros que esta leyendo.
   devise :database_authenticatable, :registerable, :rememberable, :validatable, :timeoutable, :omniauthable,
-         omniauth_providers: [:facebook, :google_oauth2]
+         omniauth_providers: %i[facebook google_oauth2]
 
   def self.from_omniauth(auth_info)
     User.where(provider: auth_info.provider, uid: auth_info.uid).first_or_create do |user|
@@ -20,16 +22,16 @@ class User < ActiveRecord::Base
     super && provider.blank?
   end
 
-  def donate a_book
+  def donate(a_book)
     Copy.create(
-            book: a_book,
-            user: self
+      book: a_book,
+      user: self
     )
     rent a_book
   end
 
-  def rent a_book
-    a_book.user_id = self.id
+  def rent(a_book)
+    a_book.user_id = id
     a_book.save
   end
 end
