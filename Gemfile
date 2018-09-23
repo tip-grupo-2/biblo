@@ -13,6 +13,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'dotenv-rails'
 gem 'therubyracer'
 gem 'less-rails'
+gem 'rails-i18n'
 
 # views
 gem 'twitter-bootstrap-rails'

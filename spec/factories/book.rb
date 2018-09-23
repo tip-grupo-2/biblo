@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :book do
-    isbn {'11111111'}
+    isbn {'1230123456789'}
     title {'Moby Dick'}
     author {'Herman Melville'}
   end
