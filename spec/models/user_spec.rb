@@ -7,7 +7,7 @@ describe User do
 
   describe 'donate' do
     context 'when a user donates a book' do
-      it 'a new copy of that book is added to its stack' do
+      it 'a new copy of that book is added to its stack aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' do
         subject
 
         expect(Copy.find_by(user: new_user)).to eq(new_user.copies.first)

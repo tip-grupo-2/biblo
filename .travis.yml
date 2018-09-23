@@ -7,7 +7,16 @@ before_script:
 - bundle exec rake db:migrate
 script:
 - bundle exec rake ci:tests
-- 'export PULL_REQUEST_ID=${TRAVIS_PULL_REQUEST} && bundle exec pronto run -f github_pr'
+- echo $TRAVIS_COMMIT
+- echo $TRAVIS_TAG
+- echo $TRAVIS_BRANCH
+- echo $TRAVIS_BUILD_NUMBER
+- echo $TRAVIS_REPO_SLUG
+- echo ${TRAVIS_PULL_REQUEST}
+- echo $TRAVIS_PULL_REQUEST
+- echo ${GITHUB_ACCESS_TOKEN}
+- echo GITHUB_ACCESS_TOKEN
+
 services:
 - postgresql
 notifications:

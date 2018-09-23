@@ -1,0 +1,5 @@
+github:
+  slug: tip-grupo-2/tip_grupo_2
+  access_token: ${GITHUB_ACCESS_TOKEN}
+  api_endpoint: https://api.github.com/
+  web_endpoint: https://github.com/
