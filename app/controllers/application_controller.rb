@@ -11,4 +11,9 @@ class ApplicationController < ActionController::Base
   end
   helper_method :notifications
 
+  def unread_notifications(user)
+    notifications(user).where(read_at: nil)
+  end
+  helper_method :unread_notifications
+
 end
