@@ -22,13 +22,10 @@ html
               | (#{unread_notifications(current_user).count})
             - if notifications.present?
               ul.dropdown-menu aria-labelledby="dropdownMenu1"
-                - notifications(current_user).each do |notification|
-                  - puts notification
-                  li
-                    a href="#" #{notification.requester.email} te ha #{notification.action} tu ejemplar de #{notification.copy.title}
                 li.divider role="separator"
                 li
                   a href="#"  Marcar como leidas
+            .current-user-js data-user-id=current_user.id
           = link_to "Cerrar sesion", destroy_user_session_path, method: :delete, class: 'navbar-text'
         - else
           = link_to "Registrarse", new_user_registration_path, class: 'navbar-text'

@@ -2,10 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'coffee-rails', '~> 4.1.0'
 gem 'dotenv-rails'
-gem 'jbuilder', '~> 2.0'
-gem 'jquery-rails'
 gem 'less-rails'
 gem 'pg', '~> 0.20.0'
 gem 'puma', '~>3.7'
@@ -16,6 +13,11 @@ gem 'sass-rails', '~> 5.0'
 gem 'therubyracer'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
+
+# js
+gem 'coffee-rails', '~> 4.1.0'
+gem 'jbuilder', '~> 2.0'
+gem 'jquery-rails'
 
 # views
 gem 'font-awesome-less'

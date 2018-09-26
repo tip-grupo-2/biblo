@@ -11,4 +11,10 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions',
                                     omniauth_callbacks: 'users/omniauth_callbacks', users: 'users/' }
   resources :users, only: [:show]
+
+  resources :notifications do
+    collection do
+      get :index
+    end
+  end
 end
