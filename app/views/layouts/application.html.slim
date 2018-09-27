@@ -18,8 +18,8 @@ html
             - notifications = notifications(current_user)
             - notifications_info = notifications.present? ? 'Ver notificaciones' : 'Sin notificaciones'
             li.dropdown-toggle id="dropdownMenu1" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button" title=notifications_info
-              i.fa.fa-bell
-              | (#{unread_notifications(current_user).count})
+              i.fa.fa-bell.notification-marker-js
+                | (0)
             - if notifications.present?
               ul.dropdown-menu aria-labelledby="dropdownMenu1"
                 li.divider role="separator"
