@@ -15,17 +15,14 @@ html
           p.navbar-text
             | Hola #{current_user.email}!
           .dropdown.navbar-text
-            - notifications = notifications(current_user)
-            - notifications_info = notifications.present? ? 'Ver notificaciones' : 'Sin notificaciones'
-            li.dropdown-toggle id="dropdownMenu1" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button" title=notifications_info
+            li.dropdown-toggle id="dropdownMenu1" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button"
               i.fa.fa-bell.notification-marker-js
                 | (0)
-            - if notifications.present?
-              ul.dropdown-menu aria-labelledby="dropdownMenu1"
-                li.divider role="separator"
-                li
-                  a href="#"  Marcar como leidas
-            .current-user-js data-user-id=current_user.id
+            ul.dropdown-menu aria-labelledby="dropdownMenu1" id='notifications-dropdown'
+              li.divider role="separator"
+              li
+                a.read-button-jsa  Marcar como leidas
+              .current-user-js data-user-id=current_user.id
           = link_to "Cerrar sesion", destroy_user_session_path, method: :delete, class: 'navbar-text'
         - else
           = link_to "Registrarse", new_user_registration_path, class: 'navbar-text'

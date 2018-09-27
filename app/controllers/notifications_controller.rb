@@ -6,6 +6,21 @@ class NotificationsController < ApplicationController
     render :json => generate_response(notifications)
   end
 
+  def mark_as_read
+    notifications = Notification.where(id: params[:ids])
+    puts 'miau'
+
+    puts params
+    puts notifications
+    ActiveRecord::Base.transaction do
+      notifications.each do |notification|
+        notification.read_at = DateTime.now
+        notification.save!
+      end
+    end
+    render json: { msg: 'k.' }, status: 200
+  end
+
   private
 
   def notification_params
@@ -14,7 +29,7 @@ class NotificationsController < ApplicationController
 
   def generate_response(notifications)
     notifications.map do |notification|
-      { requester: notification.requester.email, book_title: notification.copy.title, action: notification.action,
+      { id: notification.id, requester: notification.requester.email, book_title: notification.copy.title, action: notification.action,
         read_at: notification.read_at }
     end
   end
