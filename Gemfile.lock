@@ -115,12 +115,14 @@ GEM
     ffi (1.9.25)
     font-awesome-less (4.7.0)
       less (>= 2.4.0)
+    geocoder (1.5.0)
     gherkin (5.1.0)
     gitlab (4.5.0)
       httparty (>= 0.14.0)
       terminal-table (>= 1.5.1)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    gmaps4rails (2.1.2)
     grease (0.3.1)
     hashie (2.0.5)
     httparty (0.16.2)
@@ -369,6 +371,8 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   font-awesome-less
+  geocoder
+  gmaps4rails
   jbuilder (~> 2.0)
   jquery-rails
   less-rails
@@ -398,4 +402,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.16.4
+   1.16.5
