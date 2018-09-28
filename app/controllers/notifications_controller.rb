@@ -19,6 +19,8 @@ class NotificationsController < ApplicationController
       end
     end
     render json: { msg: 'k.' }, status: 200
+  rescue ActiveRecord::RecordInvalid
+    flash[:notice] = 'Ocurrio un error. Reintentelo mas tarde'
   end
 
   private

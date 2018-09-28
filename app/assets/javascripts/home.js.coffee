@@ -35,7 +35,5 @@ $(document).ready ->
       dataType: 'json',
       data: {ids: ids.get()},
     }).done((data) ->
-        console.log(data)
-      ).fail((data) ->
-        console.log(data)
-    )
+      $(".notification-marker-js")[0].innerText = "(0)"
+      )
