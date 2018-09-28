@@ -34,6 +34,11 @@ gem 'omniauth-google-oauth2'
 # ISBN library
 gem 'openlibrary'
 
+#google_maps
+
+gem 'geocoder'
+gem 'gmaps4rails'
+
 group :development, :test do
   gem 'coveralls', require: false
   gem 'cucumber-rails', require: false

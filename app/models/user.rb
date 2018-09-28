@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class User < ActiveRecord::Base
+
+  geocoded_by :address
+  after_validation :geocode
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :trackable and :omniauthable
   # :recoverable
@@ -34,4 +37,5 @@ class User < ActiveRecord::Base
     a_book.user_id = id
     a_book.save
   end
+
 end
