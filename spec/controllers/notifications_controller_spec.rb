@@ -36,7 +36,6 @@ describe NotificationsController do
 
   def expect_json_response(msg, status)
     body = JSON(response.body)
-
     expect(body['msg']).to eq msg
     expect(response.status).to eq status
   end
