@@ -11,6 +11,12 @@ class BooksController < ApplicationController
     @book = Book.new
   end
 
+  def preview
+    data = Openlibrary::Data
+    @isbn = params[:book][:isbn]
+    @book_data = data.find_by_isbn(@isbn)
+  end
+
   def create
     # view = Openlibrary::View
     # details = Openlibrary::Details
@@ -18,15 +24,12 @@ class BooksController < ApplicationController
     # book_details = details.find_by_isbn(isbn)
 
     data = Openlibrary::Data
-    isbn = params[:book][:isbn]
+    isbn = params[:isbn]
     book_data = data.find_by_isbn(isbn)
-
     raise 'El libro con isbn ' + isbn + ' no existe en la base de datos, por favor agregarlo a mano.' if book_data.nil?
-
-    @book = Book.new(isbn: isbn, title: book_data.title, author: book_data.authors.collect { |auth| auth['name'] })
-
+    @book = Book.create!(isbn: isbn, title: book_data.title, author: book_data.authors.collect { |auth| auth['name'] })
     current_user.donate(@book)
-    redirect_to @book
+    redirect_to '/my_books'
   end
 
   def show

@@ -1,0 +1,9 @@
+
+p
+  = @isbn
+  = @book_data.title
+  = @book_data.authors.collect { |auth| auth['name'] }
+  img src="#{@book_data.cover['medium']}"/
+
+= button_to "Aceptar", books_path, method: :post, params: { isbn: @isbn }
+= button_to "Cancelar", books_path, method: :get
