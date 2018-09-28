@@ -15,6 +15,10 @@ class BooksController < ApplicationController
     data = Openlibrary::Data
     @isbn = params[:book][:isbn]
     @book_data = data.find_by_isbn(@isbn)
+    raise Book::ISBN_PROVIDER_ERROR if @book_data.nil?
+  rescue Book::ISBN_PROVIDER_ERROR
+    flash[:notice] = 'No pudimos encontrar ese ISBN en nuestra base de datos'
+    redirect_to :back
   end
 
   def create
@@ -22,13 +26,10 @@ class BooksController < ApplicationController
     # details = Openlibrary::Details
     # book_view = view.find_by_isbn(isbn)
     # book_details = details.find_by_isbn(isbn)
-
     data = Openlibrary::Data
     isbn = params[:isbn]
     book_data = data.find_by_isbn(isbn)
-    raise 'El libro con isbn ' + isbn + ' no existe en la base de datos, por favor agregarlo a mano.' if book_data.nil?
-    @book = Book.create!(isbn: isbn, title: book_data.title, author: book_data.authors.collect { |auth| auth['name'] })
-    current_user.donate(@book)
+    create_book(book_data, isbn)
     redirect_to '/my_books'
   end
 
@@ -55,4 +56,15 @@ class BooksController < ApplicationController
     current_user.rent(@book)
     redirect_to '/books'
   end
+
+  private
+
+   def create_book(book_data, isbn)
+     @book = Book.find_by(isbn: isbn)
+     unless @book.present?
+       @book = Book.create!(isbn: isbn, title: book_data.title,
+                                       author: book_data.authors.collect { |auth| auth['name'] }.to_sentence)
+     end
+     current_user.donate(@book)
+   end
 end

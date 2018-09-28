@@ -1,7 +1,10 @@
-= form_for :book, url: preview_book_path do |f|
-  p
-    = f.label :isbn
-    br/
-    = f.text_field :isbn
-  p
-    = f.submit
+.container-fluid
+  .row
+  .col-md-4
+    = form_for :book, url: preview_book_path do |f|
+      p
+        = f.label :isbn
+        br
+        = f.text_field :isbn, placeholder: 'Ingrese n° de ISBN'
+      p
+        = f.submit 'Guardar'

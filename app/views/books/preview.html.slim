@@ -1,8 +1,16 @@
-p
-  = @isbn
-  = @book_data.title
-  = @book_data.authors.collect { |auth| auth['name'] }
-  img src="#{@book_data.cover['medium']}"/
-
-= button_to "Aceptar", books_path, method: :post, params: { isbn: @isbn }
-= button_to "Cancelar", books_path, method: :get
+.container-fluid
+  .row
+  .col-md-4
+    p
+      = "ISBN: #{@isbn}"
+    p
+      = "Titulo: #{@book_data.title}"
+    p
+      - authors = @book_data.authors.collect { |auth| auth['name'] }.to_sentence
+      = "Autor/es: #{authors}"
+    p
+      img src="#{@book_data.cover['medium']}"/
+    p
+      = button_to "Aceptar", books_path, method: :post, params: { isbn: @isbn }
+    p
+      = button_to "Cancelar", books_path, method: :get
