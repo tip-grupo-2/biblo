@@ -8,19 +8,16 @@ class NotificationsController < ApplicationController
 
   def mark_as_read
     notifications = Notification.where(id: params[:ids])
-    puts 'miau'
-
-    puts params
-    puts notifications
     ActiveRecord::Base.transaction do
       notifications.each do |notification|
         notification.read_at = DateTime.now
         notification.save!
       end
     end
-    render json: { msg: 'k.' }, status: 200
+    render json: { msg: 'Notificaciones marcadas como leidas.' }, status: 200
   rescue ActiveRecord::RecordInvalid
-    flash[:notice] = 'Ocurrio un error. Reintentelo mas tarde'
+    flash[:notice] = 'Ocurrio un error al actualizar las notificaciones'
+    render json: { msg: 'No se puede ejecutar la operacion.' }, status: 400
   end
 
   private

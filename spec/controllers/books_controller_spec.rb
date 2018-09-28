@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-
 describe BooksController do
   let(:new_book) { FactoryBot.create(:book) }
 
