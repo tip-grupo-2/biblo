@@ -50,8 +50,8 @@ class BooksController < ApplicationController
   end
 
   def edit
-    @book = Book.find(params[:id])
-    Notification.create!(requester_id: current_user.id, recipient_id: @book.user_id, copy_id: @book.id,
+    @book = Copy.find(params[:id])
+    Notification.create!(requester_id: current_user.id, recipient_id: @book.user_id, copy_id: @book.book.id,
                         action: 'solicitado')
     current_user.rent(@book)
     redirect_to '/books'
