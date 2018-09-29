@@ -31,7 +31,8 @@ class User < ActiveRecord::Base
   def donate(a_book)
     Copy.create(
       book: a_book,
-      user: self
+      user: self,
+      original_owner: self
     )
     rent a_book
   end

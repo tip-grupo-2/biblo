@@ -38,15 +38,18 @@ class BooksController < ApplicationController
   end
 
   def index_my_donations
-    @books = Book.joins(copies: :user).where('users.id = ?', current_user.id).select('books.id, books.title, books.author, books.isbn')
+    my_copies = Copy.where(original_owner: current_user.id).pluck(:book_id).uniq
+    @books = Book.find(my_copies)
   end
 
   def index
-    @books = Book.joins(copies: :user).where.not('books.user_id = ?', current_user.id).select('books.id, books.title, books.author, books.isbn')
+    filtered_books =  Copy.where(user_id: current_user).pluck(:book_id).uniq
+    @books = Book.where.not(id: filtered_books)
   end
 
   def index_my_books
-    @books = Book.where('books.user_id = ?', current_user.id)
+    my_copies = Copy.where(user_id: current_user).pluck(:book_id).uniq
+    @books = Book.find(my_copies)
   end
 
   def edit

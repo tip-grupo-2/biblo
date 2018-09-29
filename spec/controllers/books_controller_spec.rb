@@ -11,8 +11,9 @@ describe BooksController do
 
   describe 'edit' do
     context 'when a user requests a book' do
+      let(:new_copy) { FactoryBot.create(:copy, user: FactoryBot.create(:user)) }
       it 'gets redirected afterwards' do
-        get :edit, id: new_book.id
+        get :edit, id: new_copy.id
         expect(response).to redirect_to('/books')
       end
     end
