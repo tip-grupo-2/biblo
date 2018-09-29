@@ -19,6 +19,6 @@ deploy:
     develop: biblioteca-popular-develop
     master: biblioteca-popular-master
   on:
-    repo: lalopsb1/tip_grupo_2
+    repo: tip-grupo-2/tip_grupo_2
   run:
   - "rails db:migrate"
