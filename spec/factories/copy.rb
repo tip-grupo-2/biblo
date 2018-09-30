@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :copy do
+    user
     association :book
   end
 end

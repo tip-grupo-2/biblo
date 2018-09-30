@@ -1,9 +1,10 @@
 h1 Mis Libros
-table
+table.table
   tr
     th Titulo
     th Autores
     th ISBN
+    th
   - @books.each do |book|
     tr
       td= book.title
