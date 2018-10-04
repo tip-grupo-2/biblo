@@ -7,6 +7,7 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   body
+    .container
     .navbar.bg-info
       ul.nav.navbar-nav
         = link_to "Biblo", root_path, method: :get, class: 'navbar-brand'
@@ -23,7 +24,12 @@ html
               li
                 a.read-button-js  Marcar como leidas
               .current-user-js data-user-id=current_user.id
+      .nav.navbar-nav.navbar-right.l-login-nav
+        - if user_signed_in?
           = link_to "Cerrar sesion", destroy_user_session_path, method: :delete, class: 'navbar-text'
+          - avatar = current_user.avatar.present? ? current_user.avatar : 'default_avatar.png'
+          - puts current_user
+          = image_tag(avatar,  class: 'l-profile-image')
         - else
           = link_to "Registrarse", new_user_registration_path, class: 'navbar-text'
           = link_to "Iniciar sesión", new_user_session_path, class: 'navbar-text'
