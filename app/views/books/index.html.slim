@@ -23,6 +23,7 @@
               td
               td
               td
-              td
+              - avatar = copy.user.avatar.present? ? current_user.avatar : 'default_avatar.png'
+              td= image_tag(avatar, class: 'l-profile-image')
               td= copy.user.email
               td= link_to 'Pedir prestado', edit_book_path(copy)
