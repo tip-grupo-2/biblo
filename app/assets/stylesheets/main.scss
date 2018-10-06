@@ -1,0 +1,24 @@
+.l-profile-image{
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin: 0px 15px;
+}
+
+.l-profile-image-bg {
+  @extend .l-profile-image;
+  width: 90px;
+  height: 90px;
+}
+
+.l-login-nav {
+  margin-right: 15px;
+}
+
+.l-profile-link {
+  margin-top: 30px;
+}
+
+.top-15 { margin-top:15px; }
+
+.left-15px { margin-left: 15px }

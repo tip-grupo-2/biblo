@@ -1,0 +1,26 @@
+.container-fluid
+  .row.left-15px
+    .col-md-6
+      h1 Editar perfil
+      = form_for @user do |form|
+        .row.top-15
+          .col-md-1
+            - avatar = user_avatar(@user)
+            = image_tag(avatar, class: 'l-profile-image-bg')
+        .row.top-15
+          .col-md-1
+            = form.label :name, 'Nombre: '
+          .col-md-1
+            = form.text_field :name, size: 35, placeholder: 'Escriba aqui su nombre y apellido', required: true
+        .row.top-15
+          .col-md-1
+            = form.label :address, 'Dirección: '
+          .col-md-1
+            = form.text_field :address, size: 50, placeholder: 'Escriba aqui su dirección', required: true
+        .row.top-15
+          .col-md-1
+            = form.label :avatar, 'Avatar: '
+          .col-md-6
+            = form.text_field :avatar, size: 80, placeholder: 'Inserte aqui la URL de la imagen deseada', required: true
+        .row.top-15
+          = form.submit 'Aceptar', class: 'btn button'
