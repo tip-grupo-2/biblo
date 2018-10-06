@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
+  before_filter :current_user_only
   def show
+    @user = User.find(params[:id])
     @users = User.all
     @hash = Gmaps4rails.build_markers(@users) do |user, marker|
     marker.lat user.latitude
@@ -24,5 +26,11 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:id, :name, :address, :avatar)
+  end
+
+  def current_user_only
+    unless user_signed_in? &&  current_user.id == User.find(params[:id]).id
+      redirect_to root_path
+    end
   end
 end

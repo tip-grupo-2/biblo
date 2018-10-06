@@ -5,7 +5,7 @@
       = form_for @user do |form|
         .row.top-15
           .col-md-1
-            - avatar = current_user.avatar.present? ? current_user.avatar : 'default_avatar.png'
+            - avatar = user_avatar(@user)
             = image_tag(avatar, class: 'l-profile-image-bg')
         .row.top-15
           .col-md-1

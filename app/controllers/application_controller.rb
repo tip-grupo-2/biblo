@@ -6,6 +6,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  def user_avatar(user)
+    user.avatar.present? ? user.avatar : 'default_avatar.png'
+  end
+  helper_method :user_avatar
+
   protected
   # method necessary for devise
   def configure_permitted_parameters

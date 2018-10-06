@@ -14,7 +14,7 @@ html
         p.navbar-text.text-primary Biblioteca popular
       .nav.navbar-nav.navbar-right.l-login-nav
         - if user_signed_in?
-          - avatar = current_user.avatar.present? ? current_user.avatar : 'default_avatar.png'
+          - avatar = user_avatar(current_user)
           .navbar-left
             = link_to  user_path(:id => current_user.id) do
               = image_tag(avatar, class: 'l-profile-image')
