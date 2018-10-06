@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe UsersController do
-
   let(:user) { FactoryBot.create(:user) }
 
   before(:each) do
@@ -20,7 +21,7 @@ describe UsersController do
 
     it 'should redirect to home when a user tries to edit another users profile' do
       another_user = FactoryBot.create(:user)
-      edit_request = { id: another_user.id}
+      edit_request = { id: another_user.id }
       get :edit, edit_request
 
       expect(response).to redirect_to root_path
@@ -28,7 +29,6 @@ describe UsersController do
   end
 
   describe 'update' do
-
     it 'should update his information when the user changes it in edit profile' do
       update_request = { id: user.id, user: { name: 'new name', address: 'new address 123', avatar: 'new_avatar.jpg' } }
       patch :update, update_request

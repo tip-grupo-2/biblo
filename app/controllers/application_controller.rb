@@ -12,8 +12,9 @@ class ApplicationController < ActionController::Base
   helper_method :user_avatar
 
   protected
+
   # method necessary for devise
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :address])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name address])
   end
 end
