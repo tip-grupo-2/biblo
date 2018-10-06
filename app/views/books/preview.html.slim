@@ -11,6 +11,6 @@
     p
       img src="#{@book_data.cover['medium']}"/
     p
-      = button_to "Aceptar", books_path, method: :post, params: { isbn: @isbn }
+      = button_to "Aceptar", books_path, method: :post, params: { book_data: @book_data, isbn: @isbn}
     p
       = button_to "Cancelar", books_path, method: :get
