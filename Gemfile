@@ -34,7 +34,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 
 # ISBN library
-gem 'openlibrary'
+gem 'openlibrary', '~> 1.0.0'
 
 #google_maps
 

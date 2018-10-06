@@ -1,10 +1,13 @@
 .container-fluid
   .row
   .col-md-4
-    = form_for :book, url: preview_book_path do |f|
+    = form_for @book, url: preview_book_path do |f|
       p
         = f.label :isbn
         br
-        = f.text_field :isbn, placeholder: 'Ingrese n° de ISBN'
+        - if @book.isbn
+          = f.text_field :isbn, value: @book.isbn
+        -else
+          = f.text_field :isbn, placeholder: 'Ingrese n° de ISBN'
       p
         = f.submit 'Guardar'
