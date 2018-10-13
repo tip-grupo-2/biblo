@@ -1,9 +1,22 @@
-p
-  strong Title:
-  = @book.title
-p
-  strong Text:
-  = @book.author
-p
-  strong ISBN:
-  = @book.isbn
+br
+br
+
+.row
+  .col-sm-3
+  .col-sm-4
+  .container.book_card
+    .col-sm-3
+      img.rounded.float-left src= "#{@book.picture_url}" /
+    .col-sm-9
+      p
+        h1 = @book.title
+      p
+        h3 = @book.author
+      p
+        strong ISBN:
+        = @book.isbn
+      hr
+      p
+        = @book.description
+
+  .col-sm-3

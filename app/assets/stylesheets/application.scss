@@ -1,0 +1,57 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+.navbar-brand,
+.navbar-nav li a, .nav.navbar-nav.navbar-right.l-login-nav {
+  color: #dbc8ff;
+  line-height: 50px;
+  height: 50px;
+  padding-top: 0;
+}
+
+hr {
+  border-color: #25282a;
+  border-style: solid;
+  border-width: 1px 0;
+  margin: 15px 0;
+}
+
+ul.nav.navbar-nav li a:hover {
+  color: #EFEFEF;
+  background-color: #441757;
+}
+
+.navbar {
+  background-color: #441757;
+  margin : 0 !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, Sans-Serif;
+}
+
+.navbar-nav li:not(:nth-child(-n+2)){
+  box-shadow: -11px 0 0 -10px #ffdbe9
+}
+
+.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+  width: 100%;
+}
+
+html body {
+  background-color: rgb(44, 53, 65);
+  font-palette: light;
+}
+
+.book_card {
+  margin-top: 1%;
+  border-radius: 5px;
+  background-color: #EFEFEF;
+  padding: 35px;
+}
+
+.round-thumbnail {
+  border-radius: 100%;
+  border: #EFEFEF solid 2px;
+}
+
+.square-thumbnail {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
