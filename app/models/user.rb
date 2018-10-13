@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :rememberable, :validatable, :timeoutable, :omniauthable,
          omniauth_providers: %i[facebook google_oauth2]
 
+  validates :name, :address, presence: true
+
   def self.from_omniauth(auth_info)
     User.where(provider: auth_info.provider, uid: auth_info.uid).first_or_create do |user|
       user.provider = auth_info.provider
