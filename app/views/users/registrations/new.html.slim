@@ -5,11 +5,11 @@
     = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
       = devise_error_messages!
       .field
-        = f.label :name
+        = f.label :name, 'Nombre de usuario'
         br/
         = f.text_field :name, autofocus: true, autocomplete: "name"
       .field
-        = f.label :address
+        = f.label :address, 'Direccion'
         br/
         = f.text_field :address, autofocus: true, autocomplete: "address"
       .field
