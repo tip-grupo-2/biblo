@@ -7,6 +7,7 @@ es:
         other: "%{attribute} excede la longitud permitida (maximo %{count} caracteres)"
       too_short:
         other: "%{attribute} no supera la minima longitud requerida (minimo %{count} caracteres)"
+      taken: "Ya está en uso"
 
   activerecord:
     models:
@@ -16,3 +17,4 @@ es:
         password: "Contraseña"
         name: "Nombre de usuario"
         address: "Direccion"
+        email: "Email"
