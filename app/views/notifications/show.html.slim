@@ -1,0 +1,33 @@
+.container-fluid.left-15px
+  .row
+    .col-md-3
+      - book = @notification.copy.book
+      p
+        = "ISBN: #{book.isbn}"
+      p
+        = "Titulo: #{book.title}"
+      p
+        - authors = book.author
+        = "Autor/es: #{authors}"
+      p
+        /img src="#{@book_data.cover['medium']}"/
+    .col-md-3
+      h2 Ejemplar solicitado por:
+  .row
+    .col-md-3
+    .col-md-1
+      - avatar = user_avatar(@notification.requester)
+      = image_tag(avatar, class: 'l-profile-image-bg')
+    .col-md-6
+      h2 #{@notification.requester.name}
+      p Mail: #{@notification.requester.email}
+      p Direccion: #{@notification.requester.address}
+      P Fecha de solicitud: #{@notification.created_at.strftime('%d/%m/%Y - %H:%M')}
+
+  .row
+    .col-md-1
+      p
+        = button_to "Aceptar", respond_request_notification_path, method: :post, params: { notification: @notification, choice: 'aceptado'}
+    .col-md-1
+      p
+        = button_to "Cancelar", respond_request_notification_path, method: :post, params: { notification: @notification, choice: 'rechazado' }

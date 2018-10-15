@@ -47,7 +47,7 @@ class BooksController < ApplicationController
 
   def edit
     @copy = Copy.find(params[:id])
-    Notification.create!(requester_id: current_user.id, recipient_id: @copy.user_id, copy_id: @copy.book.id,
+    Notification.create!(requester_id: current_user.id, recipient_id: @copy.user_id, copy_id: @copy.id,
                         action: 'solicitado')
     current_user.request(@copy)
     flash[:success] = 'Tu solicitud de prestamo fue enviada satisfactoriamente!'

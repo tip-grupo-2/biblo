@@ -18,7 +18,7 @@ $(document).ready ->
       data: {user: $(".current-user-js").data("user-id")},
     }).done((data) ->
       data.forEach((notification) ->
-        $('.dropdown-menu').prepend("<li class='notification-js' data-notification-id='#{notification.id}'><a>#{notification.requester} te ha #{notification.action} tu ejemplar de #{notification.book_title}</a></li>")
+        $('.dropdown-menu').prepend("<li class='notification-js' data-notification-id='#{notification.id}'><a href='/notifications/#{notification.id}'>#{notification.requester} te ha #{notification.action} tu ejemplar de #{notification.book_title}</a></li>")
       toggleDropdown(data)
       markUnreadCounter(data)
       )).fail((data) ->
