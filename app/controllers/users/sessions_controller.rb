@@ -2,6 +2,5 @@
 
 class Users::SessionsController < Devise::SessionsController
   def show
-
   end
 end

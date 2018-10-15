@@ -1,21 +1,23 @@
-.container-fluid
-  .row
-  .col-md-4
-  .col-md-4
+- def msg(status) return "#{status}" end
+div class ='col-md-6 col-md-offset-3 panel panel-default'
+  .panel-body
     h2 Iniciar sesión
     = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-      .field
-        = f.label :email
-        br/
-        = f.email_field :email, autofocus: true, autocomplete: "email"
-      .field
-        = f.label :password
-        br/
-        = f.password_field :password, autocomplete: "current-password"
+      = form_group_for f, :email, label: false do
+        .input-group
+          span class="input-group-addon"
+            span class="fa fa-at fa-lg fa-fw"
+          = f.email_field :email, class: 'form-control', placeholder: 'Email', autocomplete: 'email'
+      = form_group_for f, :password, label: false do
+        .input-group
+          span class="input-group-addon"
+            span class="fa fa-key fa-lg fa-fw"
+          = f.password_field :password, class: 'form-control', placeholder: 'Contraseña', autocomplete: 'current-password'
       - if devise_mapping.rememberable?
         .field
           = f.check_box :remember_me
           = f.label :remember_me, 'Recordarme'
-      .actions
-        = f.submit "Continuar"
-    = render "users/shared/links"
+      = f.submit "Continuar", class:"btn btn-primary"
+      br
+      br
+      = render "users/shared/links"
