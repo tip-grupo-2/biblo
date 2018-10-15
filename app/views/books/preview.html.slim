@@ -4,12 +4,12 @@
     p
       = "ISBN: #{@isbn}"
     p
-      = "Titulo: #{@book_data.title}"
+      = "Titulo: #{@book_data['title']}"
     p
-      - authors = @book_data.authors.collect { |auth| auth['name'] }.to_sentence
+      - authors = @book_data['authors'].join(", ")
       = "Autor/es: #{authors}"
     p
-      img src="#{@book_data.cover['medium']}"/
+      img src="#{@book_data['imageLinks']['thumbnail']}"/
     p
       = button_to "Aceptar", books_path, method: :post, params: { isbn: @isbn }
     p

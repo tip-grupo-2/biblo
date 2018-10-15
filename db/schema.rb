@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20181012235825) do
     t.integer "user_id"
     t.string  "picture_url"
     t.string  "description"
+    t.string  "country"
   end
 
   create_table "copies", force: :cascade do |t|

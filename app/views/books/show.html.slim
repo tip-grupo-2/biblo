@@ -5,11 +5,17 @@ br
   .col-sm-3
   .col-sm-4
   .container.book_card
-    .col-sm-3
-      img.rounded.float-left src= "#{@book.picture_url}" /
-    .col-sm-9
-      p
-        h1 = @book.title
+    .col-sm-2
+      img.rounded.float-left src= "#{@book.picture_url}"/
+    .col-sm-10
+      .row
+        .col-sm-11
+          h1 = @book.title
+        .col-sm-1
+          - if @book.country === 'es'
+              img src="https://www.countryflags.io/es/flat/64.png"
+          - else
+              img src="https://www.countryflags.io/gb/flat/64.png"
       p
         h3 = @book.author
       p
@@ -18,5 +24,3 @@ br
       hr
       p
         = @book.description
-
-  .col-sm-3
