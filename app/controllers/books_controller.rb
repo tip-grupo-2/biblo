@@ -46,10 +46,14 @@ class BooksController < ApplicationController
   end
 
   def edit
-    @book = Copy.find(params[:id])
-    Notification.create!(requester_id: current_user.id, recipient_id: @book.user_id, copy_id: @book.book.id,
+    @copy = Copy.find(params[:id])
+    Notification.create!(requester_id: current_user.id, recipient_id: @copy.user_id, copy_id: @copy.book.id,
                         action: 'solicitado')
-    current_user.rent(@book)
+    current_user.request(@copy)
+    flash[:success] = 'Tu solicitud de prestamo fue enviada satisfactoriamente!'
+    redirect_to '/books'
+  rescue Copy::ALREADY_REQUESTED_ERROR
+    flash[:danger] = 'Oops! Lo sentimos, la copia del libro fue solicitada por otro usuario.'
     redirect_to '/books'
   end
 

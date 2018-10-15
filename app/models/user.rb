@@ -38,6 +38,16 @@ class User < ActiveRecord::Base
     rent a_book
   end
 
+  def request(copy)
+    current_copy = Copy.find(copy.id)
+    unless current_copy.requested?
+      copy.requested = true;
+      copy.save!
+    else
+      raise Copy::ALREADY_REQUESTED_ERROR
+    end
+  end
+
   def rent(a_book)
     a_book.user_id = id
     a_book.save
