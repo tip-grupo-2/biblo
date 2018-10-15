@@ -1,0 +1,27 @@
+.container-fluid
+  .row
+  .col-md-4
+    = form_for @book, url: create_manual_book_path do |f|
+      p
+        = f.label :isbn
+        br
+        - if @book.isbn
+          = f.text_field :isbn, value: @book.isbn
+        - else
+          = f.text_field :isbn, placeholder: 'Ingrese n° de ISBN'
+      p
+        = f.label :titulo
+        br
+        - if @book.title
+          = f.text_field :title, value: @book.title
+        - else
+          = f.text_field :title, placeholder: 'Ingrese titulo del libro'
+      p
+        = f.label :autores
+        br
+        - if @book.author
+          = f.text_field :author, value: @book.author
+        - else
+          = f.text_field :author, placeholder: 'Ingrese autores del libro'
+      p
+        = f.submit 'Guardar'

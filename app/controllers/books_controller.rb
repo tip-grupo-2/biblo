@@ -6,6 +6,7 @@ class BooksController < ApplicationController
   # 9788478884452
   # 9788498384482
   # 9788498381405
+  # 9788408057031
 
   def new
     @book = Book.new
@@ -15,21 +16,33 @@ class BooksController < ApplicationController
     data = Openlibrary::Data
     @isbn = params[:book][:isbn]
     @book_data = data.find_by_isbn(@isbn)
+    raise Book::ISBN_LENGTH_ERROR if @isbn.length != 13
     raise Book::ISBN_PROVIDER_ERROR if @book_data.nil?
+  rescue Book::ISBN_LENGTH_ERROR
+    flash[:notice] = 'El ISBN debe tener 13 numeros'
+    @book = Book.new
+    @book.isbn = @isbn
+    render :new and return
   rescue Book::ISBN_PROVIDER_ERROR
     flash[:notice] = 'No pudimos encontrar ese ISBN en nuestra base de datos'
-    redirect_to :back
+    @book = Book.new
+    @book.isbn = @isbn
+    render :manual_new and return
   end
+
+
 
   def create
-    # view = Openlibrary::View
-    # details = Openlibrary::Details
-    # book_view = view.find_by_isbn(isbn)
-    # book_details = details.find_by_isbn(isbn)
-    create_book(params[:book_data], params[:isbn])
+    create_book(params[:title], params[:authors], params[:isbn])
     redirect_to '/my_books'
   end
-
+  def create_manual
+    #TODO: Estos 2 metodos quedaron re parecidos
+    # Intente en el metodo create pasar un book con title, author, y isbn desde preview.html, pero no pude
+    # Tambien intente no pasar un book en el create manual, desde el form_for y no encontre como hacerlo.
+    create_book(params[:book][:title], params[:book][:author], params[:book][:isbn])
+    redirect_to '/my_books'
+  end
   def show
     @book = Book.find(params[:id])
   end
@@ -59,11 +72,11 @@ class BooksController < ApplicationController
 
   private
 
-   def create_book(book_data, isbn)
+   def create_book(title, authors, isbn)
      @book = Book.find_by(isbn: isbn)
      unless @book.present?
-       @book = Book.create!(isbn: isbn, title: book_data.title,
-                                       author: book_data.authors.collect { |auth| auth['name'] }.to_sentence)
+       @book = Book.create!(isbn: isbn, title: title,
+                                       author: authors)
      end
      current_user.donate(@book)
    end

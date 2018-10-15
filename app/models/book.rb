@@ -6,4 +6,5 @@ class Book < ActiveRecord::Base
   has_one :user # TODO: agregar tabla intermedia para dueño actual
 
   ISBN_PROVIDER_ERROR = Class.new(StandardError)
+  ISBN_LENGTH_ERROR = Class.new(StandardError)
 end
