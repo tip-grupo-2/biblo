@@ -4,7 +4,11 @@
     h1 Todos los libros
     .actions
     =render layout:'books/index_table' do |book|
-      - book.copies.each do |copy|
+      -if book.reading
+        - copies = book.copies[1..-1]
+      -else
+        - copies = book.copies
+      - copies.each do |copy|
         - avatar = user_avatar(copy.user)
         td= image_tag(avatar, class: 'l-profile-image')
         td= copy.user.email

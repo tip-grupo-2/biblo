@@ -52,4 +52,8 @@ class User < ActiveRecord::Base
     Copy.where(book_id: a_book.id, user_id: self.id).count
   end
 
+  def is_reading_book?(a_book)
+    a_book.reading
+  end
+
 end

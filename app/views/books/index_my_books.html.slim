@@ -2,5 +2,11 @@
   h1 Mis libros
   .actions
   = render layout: "books/index_table" do |book|
-    td
     td= current_user.count_reading_copies_of(book)
+    -if current_user.is_reading_book?(book)
+      td= link_to 'Finish reading', finish_book_path(book), method: :put
+    -else
+      td= link_to 'Start reading', start_book_path(book), method: :put
+
+
+

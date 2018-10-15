@@ -54,7 +54,12 @@ class BooksController < ApplicationController
 
   def index
     filtered_books =  Copy.where(user_id: current_user).pluck(:book_id).uniq
-    @books = Book.where.not(id: filtered_books)
+    @books = []
+    Book.where.not(id: filtered_books).each do |book|
+      unless(book.copies.count == 1 && book.reading)
+        @books.push(book)
+      end
+    end
   end
 
   def index_my_books
@@ -68,6 +73,20 @@ class BooksController < ApplicationController
                         action: 'solicitado')
     current_user.rent(@book)
     redirect_to '/books'
+  end
+
+  def start
+    @book = Book.find(params[:id])
+    @book.reading = true
+    @book.save
+    redirect_to :back
+  end
+
+  def finish
+    @book = Book.find(params[:id])
+    @book.reading = false
+    @book.save
+    redirect_to :back
   end
 
   private

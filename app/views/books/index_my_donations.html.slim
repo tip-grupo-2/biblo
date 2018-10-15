@@ -2,5 +2,4 @@
   h1 Mis donaciones
   .actions
   = render layout: "books/index_table" do |book|
-    td
     td= current_user.count_donated_copies_of(book).as_json
