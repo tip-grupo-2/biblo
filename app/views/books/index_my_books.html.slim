@@ -1,4 +1,6 @@
 .container-fluid
   h1 Mis libros
   .actions
-  = render partial: "books/index_table"
+  = render layout: "books/index_table" do |book|
+    td
+    td= current_user.count_reading_copies_of(book)

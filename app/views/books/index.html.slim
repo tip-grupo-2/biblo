@@ -5,12 +5,12 @@
     .actions
     =render layout:'books/index_table' do |book|
       - book.copies.each do |copy|
-        tr
-        td
-        td
-        td= copy.user.email
-        td= link_to 'Pedir prestado', edit_book_path(copy)
         - avatar = user_avatar(copy.user)
         td= image_tag(avatar, class: 'l-profile-image')
         td= copy.user.email
         td= link_to 'Pedir prestado', edit_book_path(copy)
+        tr
+        td
+        td
+        td
+        td
