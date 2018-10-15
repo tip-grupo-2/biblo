@@ -53,8 +53,12 @@ class BooksController < ApplicationController
   end
 
   def index
+    title = params[:search_title]
+    author = params[:search_author]
     filtered_books =  Copy.where(user_id: current_user).pluck(:book_id).uniq
     @books = Book.where.not(id: filtered_books)
+                 .where('title LIKE ?', "%#{title}%")
+                 .where('author LIKE ?', "%#{author}%")
   end
 
   def index_my_books
@@ -69,6 +73,7 @@ class BooksController < ApplicationController
     current_user.rent(@book)
     redirect_to '/books'
   end
+
 
   private
 

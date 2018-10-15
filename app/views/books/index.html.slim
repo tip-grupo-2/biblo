@@ -3,6 +3,10 @@
   .col-md-6
     h1 Todos los libros
     .actions
+    = form_tag(books_path, method: :get, id: "search-form") do
+      = text_field_tag :search_title, params[:search_title], placeholder: "Search title"
+      = text_field_tag :search_author, params[:search_author], placeholder: "Search title"
+      = submit_tag "Search"
     =render layout:'books/index_table' do |book|
       - book.copies.each do |copy|
         - avatar = user_avatar(copy.user)
