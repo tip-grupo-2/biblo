@@ -26,10 +26,7 @@ class BooksController < ApplicationController
     # details = Openlibrary::Details
     # book_view = view.find_by_isbn(isbn)
     # book_details = details.find_by_isbn(isbn)
-    data = Openlibrary::Data
-    isbn = params[:isbn]
-    book_data = data.find_by_isbn(isbn)
-    create_book(book_data, isbn)
+    create_book(params[:book_data], params[:isbn])
     redirect_to '/my_books'
   end
 
