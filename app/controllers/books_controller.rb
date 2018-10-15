@@ -37,7 +37,7 @@ class BooksController < ApplicationController
   end
 
   def index
-    filtered_books =  Copy.where(user_id: current_user).pluck(:book_id).uniq
+    filtered_books =  Copy.where('user_id = ? OR requested = ?', current_user, true).pluck(:book_id).uniq
     @books = Book.where.not(id: filtered_books)
   end
 
