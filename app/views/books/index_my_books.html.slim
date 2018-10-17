@@ -3,16 +3,19 @@
   hr
     table.table.table-hover
       tr
+        th ID
         th
         th Titulo
         th Autores
         th ISBN
         th
-      - @books.each do |book|
+      - @copies.each do |copy|
         tr
+          td= copy.id
           td
-            img.thumbnail src="#{book.picture_url}" height= "100px"
-          td= book.title
-          td= book.author
-          td= book.isbn
-          td= link_to 'Show', book_path(book)
+            img.thumbnail src="#{copy.book.picture_url}" height= "100px"
+          td= copy.book.title
+          td= copy.book.author
+          td= copy.book.isbn
+          td
+            = link_to 'Show', book_path(copy.book)
