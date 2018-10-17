@@ -24,6 +24,8 @@
               td
               td
               - avatar = user_avatar(copy.user)
-              td= image_tag(avatar, class: 'l-profile-image')
-              td= copy.user.email
+              td
+                .l-profile-image
+                  =image_tag(avatar, class: 'l-profile-image')
+              td.white-font= copy.user.email
               td= link_to 'Pedir prestado', edit_book_path(copy)

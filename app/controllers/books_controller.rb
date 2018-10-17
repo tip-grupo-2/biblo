@@ -15,7 +15,7 @@ class BooksController < ApplicationController
     @isbn = params[:book][:isbn]
     response = RestClient.get "https://www.googleapis.com/books/v1/volumes?q=isbn:#{@isbn}"
     response_data = JSON.parse(response)
-    @book_data = response_data.dig(:items, 0, :volumeInfo)
+    @book_data = response_data.dig('items', 0, 'volumeInfo')
     raise Book::ISBN_PROVIDER_ERROR if @book_data.nil?
   rescue Book::ISBN_PROVIDER_ERROR
     flash[:notice] = 'No pudimos encontrar ese ISBN en nuestra base de datos'
@@ -33,7 +33,7 @@ class BooksController < ApplicationController
   end
 
   def index_my_donations
-    @copies = Copy.where(original_owner: current_user.id, for_donation: true)
+    @copies = Copy.where(original_owner: current_user.id)
   end
 
   def index
