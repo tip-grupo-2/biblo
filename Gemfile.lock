@@ -120,6 +120,8 @@ GEM
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.25)
+    flag-icons-rails (3.1.0)
+      sass (~> 3.2)
     font-awesome-less (4.7.0)
       less (>= 2.4.0)
     geocoder (1.5.0)
@@ -384,6 +386,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   factory_bot_rails
+  flag-icons-rails
   font-awesome-less
   geocoder
   gmaps4rails

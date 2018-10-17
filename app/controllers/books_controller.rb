@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require 'open-uri'
 require 'openlibrary'
 class BooksController < ApplicationController
   # Algunos ISBN para probar:
@@ -12,9 +12,10 @@ class BooksController < ApplicationController
   end
 
   def preview
-    data = Openlibrary::Data
     @isbn = params[:book][:isbn]
-    @book_data = data.find_by_isbn(@isbn)
+    response = RestClient.get "https://www.googleapis.com/books/v1/volumes?q=isbn:#{@isbn}"
+    response_data = JSON.parse(response)
+    @book_data = response_data.dig(:items, 0, :volumeInfo)
     raise Book::ISBN_PROVIDER_ERROR if @book_data.nil?
   rescue Book::ISBN_PROVIDER_ERROR
     flash[:notice] = 'No pudimos encontrar ese ISBN en nuestra base de datos'
@@ -22,14 +23,8 @@ class BooksController < ApplicationController
   end
 
   def create
-    # view = Openlibrary::View
-    # details = Openlibrary::Details
-    # book_view = view.find_by_isbn(isbn)
-    # book_details = details.find_by_isbn(isbn)
-    data = Openlibrary::Data
     isbn = params[:isbn]
-    book_data = data.find_by_isbn(isbn)
-    create_book(book_data, isbn)
+    create_book(isbn)
     redirect_to '/my_books'
   end
 
@@ -38,8 +33,7 @@ class BooksController < ApplicationController
   end
 
   def index_my_donations
-    my_copies = Copy.where(original_owner: current_user.id).pluck(:book_id).uniq
-    @books = Book.find(my_copies)
+    @copies = Copy.where(original_owner: current_user.id, for_donation: true)
   end
 
   def index
@@ -48,8 +42,7 @@ class BooksController < ApplicationController
   end
 
   def index_my_books
-    my_copies = Copy.where(user_id: current_user).pluck(:book_id).uniq
-    @books = Book.find(my_copies)
+    @copies = Copy.where(user_id: current_user)
   end
 
   def edit
@@ -62,18 +55,19 @@ class BooksController < ApplicationController
 
   private
 
-   def create_book(book_data, isbn)
+   def create_book(isbn)
+     response = RestClient.get "https://www.googleapis.com/books/v1/volumes?q=isbn:#{isbn}"
+     response_data = JSON.parse(response)
+     book_info = response_data['items'][0]['volumeInfo']
      @book = Book.find_by(isbn: isbn)
      unless @book.present?
-       book_response = RestClient.get"http://openlibrary.org/api/books?bibkeys=isbn:#{isbn}&format=json&jscmd=details"
-       book_details = JSON.parse(book_response)
-       details = book_details.dig("isbn:#{isbn}".to_sym, :details, :description, :value)
        @book = Book.create!(isbn: isbn,
-                            title: book_data.title,
-                            author: book_data.authors.collect { |auth| auth['name'] }.to_sentence,
-                            picture_url: book_data.cover['medium'],
-                            description: details)
+                            title: book_info['title'],
+                            author: book_info['authors'][0],
+                            picture_url: book_info['imageLinks']['thumbnail'],
+                            description: book_info['description'],
+                            country: book_info['language'])
      end
-     current_user.donate(@book)
+     current_user.add(@book)
    end
 end

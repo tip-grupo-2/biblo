@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
     super && provider.blank?
   end
 
-  def donate(a_book)
+  def add(a_book)
     Copy.create(
       book: a_book,
       user: self,
