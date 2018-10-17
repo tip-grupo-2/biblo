@@ -1,11 +1,12 @@
 .container-fluid
   .row
-    .col-md-4
-      h1 Biblo: biblioteca popular
-      h3 Encontra y comparti libros en tu barrio!
-- if user_signed_in?
-  = link_to "Donar libro", new_book_path, method: :get, class: 'navbar-brand'
-  = link_to "Libros para pedir", books_path, method: :get, class: 'navbar-brand'
-  = link_to "Mis donaciones", my_donations_path, method: :get, class: 'navbar-brand'
-  = link_to "Mis libros", my_books_path, method: :get, class: 'navbar-brand'
-  = link_to "Perfil", user_path(:id => current_user.id), method: :get, class: 'navbar-brand'
+    .col-md-12
+    #carouselExampleSlidesOnly.carousel.slide data-ride="carousel"
+      .carousel-inner role="listbox"
+        .item.active
+          img.mw-100 alt=("First slide") src=("https://s3.amazonaws.com/prod.assets.thebanner/styles/article-large/s3/article/large/TunedIn_BooksfromtheBanner_large.jpg") /
+        .item
+          img.mw-100 alt=("Second slide") src=("https://www.animaladvocatesscpa.com/wp-content/uploads/2016/10/Book-Club-Pic-900x250.jpg") /
+        .item
+          img.mw-100 alt=("Third slide") src=("http://epjinternacional.org/wp-content/uploads/2013/10/documentospag-900x250.jpg") /
+| <%= "#{controller_name}/#{action_name}" %>

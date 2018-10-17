@@ -1,20 +1,16 @@
-.container-fluid
+.container.book_card
+  h1 Mi Perfil
+  hr
   .row
-    .col-md-1
+    .col-sm-3
       - avatar = user_avatar(@user)
-      = image_tag(avatar, class: 'l-profile-image-bg')
-    .col-md-2
-      h2 #{@user.name}
-    .col-md-1.l-profile-link
-      =  button_to 'Editar perfil',  edit_user_path(@user), method: :get, class: 'btn button'
-  .row.top-15
-    .col-md-1
-    .col-md-2
-      p Mail: #{@user.email}
-  .row.top-15
-    .col-md-1
-    .col-md-2
-      p Direccion: #{@user.address}
+      = image_tag(avatar, class: 'square-thumbnail', size: "250")
+    .col-sm-4
+      h1 #{@user.name}
+      h4 #{@user.email}
+      h4 #{@user.address}
+      br
+      = button_to 'Editar perfil',  edit_user_path(@user), method: :get, class: 'btn btn-info'
 
 / <script src="//maps.google.com/maps/api/js?key=AIzaSyAZ50aglY-isuwXjiAGCcISHi5nsorLVAM"></script>
 / <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>

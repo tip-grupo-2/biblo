@@ -65,8 +65,14 @@ class BooksController < ApplicationController
    def create_book(book_data, isbn)
      @book = Book.find_by(isbn: isbn)
      unless @book.present?
-       @book = Book.create!(isbn: isbn, title: book_data.title,
-                                       author: book_data.authors.collect { |auth| auth['name'] }.to_sentence)
+       book_response = RestClient.get"http://openlibrary.org/api/books?bibkeys=isbn:#{isbn}&format=json&jscmd=details"
+       book_details = JSON.parse(book_response)
+       details = book_details.dig("isbn:#{isbn}".to_sym, :details, :description, :value)
+       @book = Book.create!(isbn: isbn,
+                            title: book_data.title,
+                            author: book_data.authors.collect { |auth| auth['name'] }.to_sentence,
+                            picture_url: book_data.cover['medium'],
+                            description: details)
      end
      current_user.donate(@book)
    end

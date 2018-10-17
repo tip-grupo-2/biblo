@@ -1,10 +1,15 @@
-.container-fluid
+br
+br
+.container.book_card
+  h1 Agregar libro a la biblioteca
+  hr
   .row
   .col-md-4
-    = form_for :book, url: preview_book_path do |f|
-      p
-        = f.label :isbn
+      = form_for :book, url: preview_book_path do |f|
         br
-        = f.text_field :isbn, placeholder: 'Ingrese n° de ISBN'
-      p
-        = f.submit 'Guardar'
+        p
+          = f.text_field :isbn, placeholder: 'Ingrese n° de ISBN', class: 'form-control form-control-lg', type: 'text'
+        p
+          = f.submit :Buscar, class: 'btn btn-success'
+
+

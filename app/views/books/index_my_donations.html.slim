@@ -1,13 +1,18 @@
 h1 Mis donaciones
-table.table
-  tr
-    th Titulo
-    th Autores
-    th ISBN
-    th
-  - @books.each do |book|
+
+.container
+  table.table.table-hover
     tr
-      td= book.title
-      td= book.author
-      td= book.isbn
-      td= link_to 'Show', book_path(book)
+      th
+      th Titulo
+      th Autores
+      th ISBN
+      th
+    - @books.each do |book|
+      tr
+        td
+          img.thumbnail src="#{book.picture_url}" height= "100px"
+        td= book.title
+        td= book.author
+        td= book.isbn
+        td= link_to 'Show', book_path(book)
