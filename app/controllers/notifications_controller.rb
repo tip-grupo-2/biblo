@@ -44,7 +44,7 @@ class NotificationsController < ApplicationController
 
   def notify_requester(choice, notification)
     Notification.create!(requester_id: notification.recipient_id, recipient_id: notification.requester_id, copy_id: notification.copy.id,
-                         action: choice)
+                         action: choice, book_request: notification.book_request)
     flash[:success] = 'La solicitud fue contestada satisfactoriamente!'
     redirect_to root_path
   end

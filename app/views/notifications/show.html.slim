@@ -2,6 +2,7 @@
   .row
     .col-md-3
       - book = @notification.copy.book
+      - book_request = @notification.book_request
       p
         = "ISBN: #{book.isbn}"
       p
@@ -12,7 +13,7 @@
       p
         img src="#{book.picture_url}"
     .col-md-3
-      h2 Ejemplar solicitado por:
+      h2 Acerca de:
   .row
     .col-md-3
     .col-md-1
@@ -20,18 +21,23 @@
       = image_tag(avatar, class: 'l-profile-image-bg')
     .col-md-6
       h2 #{@notification.requester.name}
-      p Mail: #{@notification.requester.email}
-      p Direccion: #{@notification.requester.address}
+      - if book_request.accepted?
+        p Mail: #{@notification.requester.email}
+        p Direccion: #{@notification.requester.address}
       P Fecha de solicitud: #{@notification.created_at.strftime('%d/%m/%Y - %H:%M')}
 
   .row
-    .col-md-1
-      p
-        = button_to "Aceptar", respond_request_notification_path, method: :post, params: { notification: @notification,
-                                                                                           message: 'aceptado',
-                                                                                           choice: true }
-    .col-md-1
-      p
-        = button_to "Cancelar", respond_request_notification_path, method: :post, params: { notification: @notification,
-                                                                                            message: 'rechazado',
+    - if book_request.accepted.nil? && book_request.recipient_id == current_user.id
+      .col-md-1
+        p
+          = button_to "Aceptar", respond_request_notification_path, method: :post, params: { notification: @notification,
+                                                                                             message: 'aceptado',
+                                                                                             choice: true }
+      .col-md-1
+        p
+          = button_to "Cancelar", respond_request_notification_path, method: :post, params: { notification: @notification,
+                                                                                              message: 'rechazado',
                                                                                             choice: false }
+    - else
+      .col-md-1
+        p Esta solicitud #{notification_status(book_request)}

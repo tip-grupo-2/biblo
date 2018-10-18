@@ -11,6 +11,18 @@ class ApplicationController < ActionController::Base
   end
   helper_method :user_avatar
 
+  def notification_status(request)
+    case request.accepted
+      when nil
+        'Aun no ha sido contestada.'
+      when true
+        'Ha sido aceptada.'
+      when false
+        'Ha sido rechazada.'
+    end
+  end
+  helper_method :notification_status
+
   protected
 
   # method necessary for devise
