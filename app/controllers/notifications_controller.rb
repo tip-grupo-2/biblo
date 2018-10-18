@@ -1,7 +1,9 @@
 class NotificationsController < ApplicationController
+  before_filter :only_logged_users
+  before_filter :only_recipient_user, :only => :show
 
   def index
-    notifications = Notification.where(recipient_id: params[:user]).order(:created_at).limit(10)
+    notifications = Notification.where(recipient_id: params[:user]).order(created_at: :desc).limit(10).reverse
     render :json => generate_response(notifications)
   end
 
@@ -43,8 +45,10 @@ class NotificationsController < ApplicationController
   end
 
   def notify_requester(choice, notification)
+    request = BookRequest.new(requester_id: notification.recipient_id, recipient_id: notification.requester_id,
+                    copy_id: notification.copy.id, accepted: notification.book_request.accepted )
     Notification.create!(requester_id: notification.recipient_id, recipient_id: notification.requester_id, copy_id: notification.copy.id,
-                         action: choice, book_request: notification.book_request)
+                         action: choice, book_request: request)
     flash[:success] = 'La solicitud fue contestada satisfactoriamente!'
     redirect_to root_path
   end
@@ -58,4 +62,7 @@ class NotificationsController < ApplicationController
     end
   end
 
+  def only_recipient_user
+    redirect_to root_path unless Notification.find(notification_params[:id]).recipient_id == current_user.id
+  end
 end
