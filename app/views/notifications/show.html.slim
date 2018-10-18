@@ -15,13 +15,20 @@
         = "ISBN: #{book.isbn}"
     .col-md-5
       h2 Acerca de:
+      - requester_name = @notification.requester.name
       - avatar = user_avatar(@notification.requester)
       = image_tag(avatar, class: 'l-profile-image-bg')
-      h2 #{@notification.requester.name}
+      h2 #{requester_name}
       - if book_request.accepted?
         p Mail: #{@notification.requester.email}
         p Direccion: #{@notification.requester.address}
       P Fecha de solicitud: #{@notification.created_at.strftime('%d/%m/%Y - %H:%M')}
+      - phone = @notification.requester.phone_number
+      - if phone
+        p Telefono: +#{phone}
+        - message = "Hola! Mi nombre es #{current_user.name} te contacto por el prestamo del libro #{book.title} que acordamos a traves de Biblo"
+        = link_to "https://api.whatsapp.com/send?phone=54#{phone}&text=#{message}" do
+          button.btn.wp-button Contactar por WhatsApp
 
   .row
     - if book_request.accepted.nil? && book_request.recipient_id == current_user.id
