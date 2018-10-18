@@ -18,11 +18,11 @@ class ApplicationController < ActionController::Base
   def notification_status(request)
     case request.accepted
       when nil
-        'Aun no ha sido contestada.'
+        'aun no ha sido contestada.'
       when true
-        'Ha sido aceptada.'
+        'ha sido aceptada.'
       when false
-        'Ha sido rechazada.'
+        'ha sido rechazada.'
     end
   end
   helper_method :notification_status

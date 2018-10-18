@@ -39,7 +39,7 @@ class NotificationsController < ApplicationController
 
   def generate_response(notifications)
     notifications.map do |notification|
-      { id: notification.id, requester: notification.requester.email, book_title: notification.copy.book.title, action: notification.action,
+      { id: notification.id, requester: notification.requester.name, book_title: notification.copy.book.title, action: notification.action,
         read_at: notification.read_at }
     end
   end

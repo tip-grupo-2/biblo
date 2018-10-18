@@ -1,25 +1,22 @@
-.container-fluid.left-15px
+.container.book_card
   .row
-    .col-md-3
+    .col-md-5.left-15px
+      h2 Libro pedido:
       - book = @notification.copy.book
       - book_request = @notification.book_request
       p
-        = "ISBN: #{book.isbn}"
+        img src="#{book.picture_url}"
       p
         = "Titulo: #{book.title}"
       p
         - authors = book.author
         = "Autor/es: #{authors}"
       p
-        img src="#{book.picture_url}"
-    .col-md-3
+        = "ISBN: #{book.isbn}"
+    .col-md-5
       h2 Acerca de:
-  .row
-    .col-md-3
-    .col-md-1
       - avatar = user_avatar(@notification.requester)
       = image_tag(avatar, class: 'l-profile-image-bg')
-    .col-md-6
       h2 #{@notification.requester.name}
       - if book_request.accepted?
         p Mail: #{@notification.requester.email}
@@ -39,5 +36,5 @@
                                                                                               message: 'rechazado',
                                                                                             choice: false }
     - else
-      .col-md-1
-        p Esta solicitud #{notification_status(book_request)}
+      .col-md-5
+        .alert.biblo-alert Esta solicitud #{notification_status(book_request)}
