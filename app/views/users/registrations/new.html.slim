@@ -1,34 +1,38 @@
+- def msg(status) return "#{status}" end
 .container.book_card
   .col-md-4
     h1 Registrarse
     hr
-  .col-md-4
-    = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-      = devise_error_messages!
-      .field
-        = f.label :name, class: 'h4'
-        br/
-        = f.text_field :name, autofocus: true, class: 'form-control form-control-lg', autocomplete: "name"
-      .field
-        = f.label :address, class: 'h4'
-        br/
-        = f.text_field :address, autofocus: true, class: 'form-control form-control-lg', autocomplete: "address"
-      .field
-        = f.label :email, class: 'h4'
-        br/
-        = f.email_field :email, autofocus: true, class: 'form-control form-control-lg', autocomplete: "email"
-      .field
-        = f.label :password, class: 'h4'
-        - if @minimum_password_length
-          em
-            | (Debe tener al menos #{@minimum_password_length} caracteres)
-        br/
-        = f.password_field :password, class: 'form-control form-control-lg', autocomplete: "new-password"
-      .field
-        = f.label :password_confirmation, 'Confirmar contraseña', class: 'h4'
-        br/
-        = f.password_field :password_confirmation, class: 'form-control form-control-lg', autocomplete: "new-password"
-        br
-      .actions
-        = f.submit 'Registrarse', class: 'btn btn-primary'
-    = render "users/shared/links"
+  .col-md-8
+    div class ='col-md-16 panel panel-default'
+      .panel-body
+        = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+          = form_group_for f, :name, label: false do
+            .input-group
+              span class="input-group-addon"
+                span class="fa fa-user fa-lg fa-fw"
+              =f.text_field :name, class: 'form-control', placeholder: 'Nombre de usuario'
+          = form_group_for f, :address, label: false do
+            .input-group
+              span class="input-group-addon"
+                span class="fa fa-map-marker fa-lg fa-fw"
+              = f.text_field :address, class: 'form-control', placeholder: 'Direccion'
+          = form_group_for f, :email, label: false do
+            .input-group
+              span class="input-group-addon"
+                span class="fa fa-at fa-lg fa-fw"
+              = f.email_field :email, class: 'form-control', placeholder: 'Email'
+          = form_group_for f, :password, label: false do
+            .input-group
+              span class="input-group-addon"
+                span class="fa fa-key fa-lg fa-fw"
+              = f.password_field :password, class: 'form-control', placeholder: 'Contraseña'
+          = form_group_for f, :password_confirmation, label: false do
+            .input-group
+              span class="input-group-addon"
+                span class="fa fa-key fa-lg fa-fw"
+              = f.password_field :password_confirmation, class: 'form-control', placeholder: 'Confirmacion de contraseña'
+          = f.submit("Continuar", class:"btn btn-primary")
+          br
+          br
+          = render "users/shared/links"

@@ -1,11 +1,13 @@
 es:
   errors:
+    format: "%{message}"
     messages:
-      blank: "no puede estar vacia."
+      blank: "El campo '%{attribute}' no puede estar vacio."
       too_long:
-        other: "excede la longitud permitida (maximo %{count} caracteres)"
+        other: "%{attribute} excede la longitud permitida (maximo %{count} caracteres)"
       too_short:
-        other: "no supera la minima longitud requerida (minimo %{count} caracteres)"
+        other: "%{attribute} no supera la minima longitud requerida (minimo %{count} caracteres)"
+      taken: "Ya está en uso"
 
   activerecord:
     models:
@@ -13,3 +15,6 @@ es:
     attributes:
       user:
         password: "Contraseña"
+        name: "Nombre de usuario"
+        address: "Direccion"
+        email: "Email"

@@ -6,6 +6,7 @@ class BooksController < ApplicationController
   # 9788478884452
   # 9788498384482
   # 9788498381405
+  # 9788408057031
 
   def new
     @book = Book.new
@@ -17,17 +18,32 @@ class BooksController < ApplicationController
     response_data = JSON.parse(response)
     @book_data = response_data.dig('items', 0, 'volumeInfo')
     raise Book::ISBN_PROVIDER_ERROR if @book_data.nil?
+  rescue Book::ISBN_LENGTH_ERROR
+    flash[:notice] = 'El ISBN debe tener 13 numeros'
+    @book = Book.new
+    @book.isbn = @isbn
+    render :new and return
   rescue Book::ISBN_PROVIDER_ERROR
     flash[:notice] = 'No pudimos encontrar ese ISBN en nuestra base de datos'
-    redirect_to :back
+    @book = Book.new
+    @book.isbn = @isbn
+    render :manual_new and return
   end
+
+
 
   def create
     isbn = params[:isbn]
     create_book(isbn)
     redirect_to '/my_books'
   end
-
+  def create_manual
+    #TODO: Estos 2 metodos quedaron re parecidos
+    # Intente en el metodo create pasar un book con title, author, y isbn desde preview.html, pero no pude
+    # Tambien intente no pasar un book en el create manual, desde el form_for y no encontre como hacerlo.
+    create_book(params[:book][:title], params[:book][:author], params[:book][:isbn])
+    redirect_to '/my_books'
+  end
   def show
     @book = Book.find(params[:id])
   end
