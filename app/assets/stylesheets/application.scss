@@ -39,6 +39,7 @@ ul.nav.navbar-nav li a:hover {
 html body {
   background-color: rgb(44, 53, 65);
   font-palette: light;
+  color: lightslategray;
 }
 
 .book_card {
@@ -63,4 +64,47 @@ html body {
 
 .left-divider {
   border-right: 2px dashed
+}
+.l-profile-image{
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin: 0px 15px;
+}
+
+.l-profile-image-bg {
+  @extend .l-profile-image;
+  width: 90px;
+  height: 90px;
+}
+
+.l-login-nav {
+  margin-right: 15px;
+}
+
+.l-profile-link {
+  margin-top: 30px;
+}
+
+.white-font {
+  color: white;
+}
+
+.top-5px {
+  margin-top: 5px;
+}
+
+.left-15px {
+  margin-left: 15px;
+}
+
+.biblo-alert {
+  background-color: #d6b6e9;
+  border-color: #d6b6e9;
+}
+
+.wp-button {
+  background-color: #1ebea5;
+  border-color: #1ebea5;
+  color: white;
 }

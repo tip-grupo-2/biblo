@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   resources :users, only: %i[show edit update]
 
   resources :notifications do
+    member do
+      get :show
+      post :respond_request
+    end
     collection do
       get :index
       post :mark_as_read

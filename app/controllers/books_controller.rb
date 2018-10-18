@@ -15,7 +15,7 @@ class BooksController < ApplicationController
     @isbn = params[:book][:isbn]
     response = RestClient.get "https://www.googleapis.com/books/v1/volumes?q=isbn:#{@isbn}"
     response_data = JSON.parse(response)
-    @book_data = response_data.dig(:items, 0, :volumeInfo)
+    @book_data = response_data.dig('items', 0, 'volumeInfo')
     raise Book::ISBN_PROVIDER_ERROR if @book_data.nil?
   rescue Book::ISBN_PROVIDER_ERROR
     flash[:notice] = 'No pudimos encontrar ese ISBN en nuestra base de datos'
@@ -33,11 +33,11 @@ class BooksController < ApplicationController
   end
 
   def index_my_donations
-    @copies = Copy.where(original_owner: current_user.id, for_donation: true)
+    @copies = Copy.where(original_owner: current_user.id)
   end
 
   def index
-    filtered_books =  Copy.where(user_id: current_user).pluck(:book_id).uniq
+    filtered_books =  Copy.where('user_id = ? OR requested = ?', current_user, true).pluck(:book_id).uniq
     @books = Book.where.not(id: filtered_books)
   end
 
@@ -46,10 +46,15 @@ class BooksController < ApplicationController
   end
 
   def edit
-    @book = Copy.find(params[:id])
-    Notification.create!(requester_id: current_user.id, recipient_id: @book.user_id, copy_id: @book.book.id,
-                        action: 'solicitado')
-    current_user.rent(@book)
+    @copy = Copy.find(params[:id])
+    raise Copy::ALREADY_REQUESTED_ERROR if @copy.requested?
+    request = BookRequest.new(requester_id: current_user.id, recipient_id: @copy.user_id, copy_id: @copy.id)
+    Notification.create!(requester_id: current_user.id, recipient_id: @copy.user_id, copy_id: @copy.id,
+                        action: 'solicitado', book_request: request)
+    flash[:success] = 'Tu solicitud de prestamo fue enviada satisfactoriamente!'
+    redirect_to '/books'
+  rescue Copy::ALREADY_REQUESTED_ERROR
+    flash[:danger] = 'Oops! Lo sentimos, la copia del libro fue solicitada por otro usuario.'
     redirect_to '/books'
   end
 

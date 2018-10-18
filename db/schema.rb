@@ -11,15 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181015163213) do
+ActiveRecord::Schema.define(version: 20181018205636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "book_requests", force: :cascade do |t|
+    t.integer  "recipient_id"
+    t.integer  "requester_id"
+    t.integer  "copy_id"
+    t.boolean  "accepted"
+    t.integer  "notification_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "book_requests", ["notification_id"], name: "index_book_requests_on_notification_id", using: :btree
+
   create_table "books", force: :cascade do |t|
-    t.string  "isbn",    null: false
-    t.string  "title",   null: false
-    t.string  "author",  null: false
+    t.string  "isbn",        null: false
+    t.string  "title",       null: false
+    t.string  "author",      null: false
     t.integer "copy_id"
     t.integer "user_id"
     t.string  "picture_url"
@@ -31,6 +43,7 @@ ActiveRecord::Schema.define(version: 20181015163213) do
     t.integer "user_id"
     t.integer "book_id"
     t.integer "original_owner_id"
+    t.boolean "requested",         default: false
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -56,6 +69,7 @@ ActiveRecord::Schema.define(version: 20181015163213) do
     t.float    "latitude"
     t.float    "longitude"
     t.string   "avatar"
+    t.string   "phone_number"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
