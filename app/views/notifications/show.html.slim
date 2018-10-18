@@ -10,7 +10,7 @@
         - authors = book.author
         = "Autor/es: #{authors}"
       p
-        /img src="#{@book_data.cover['medium']}"/
+        img src="#{book.picture_url}"
     .col-md-3
       h2 Ejemplar solicitado por:
   .row
@@ -27,7 +27,11 @@
   .row
     .col-md-1
       p
-        = button_to "Aceptar", respond_request_notification_path, method: :post, params: { notification: @notification, choice: 'aceptado'}
+        = button_to "Aceptar", respond_request_notification_path, method: :post, params: { notification: @notification,
+                                                                                           message: 'aceptado',
+                                                                                           choice: true }
     .col-md-1
       p
-        = button_to "Cancelar", respond_request_notification_path, method: :post, params: { notification: @notification, choice: 'rechazado' }
+        = button_to "Cancelar", respond_request_notification_path, method: :post, params: { notification: @notification,
+                                                                                            message: 'rechazado',
+                                                                                            choice: false }

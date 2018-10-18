@@ -25,13 +25,14 @@ class NotificationsController < ApplicationController
 
   def respond_request
     notification = Notification.find(notification_params[:id])
-    notify_requester(notification_params[:choice], notification)
+    update_book_and_request(notification_params[:choice], notification)
+    notify_requester(notification_params[:message], notification)
   end
 
   private
 
   def notification_params
-    params.permit(:user, :id, :choice)
+    params.permit(:user, :id, :choice, :message)
   end
 
   def generate_response(notifications)
@@ -46,6 +47,15 @@ class NotificationsController < ApplicationController
                          action: choice)
     flash[:success] = 'La solicitud fue contestada satisfactoriamente!'
     redirect_to root_path
+  end
+
+  def update_book_and_request(choice, notification)
+    copy_request = notification.book_request
+    copy = copy_request.copy
+    ActiveRecord::Base.transaction do
+      copy.update_attributes!(requested: choice) unless copy.requested?
+      copy_request.update_attributes!(accepted: choice)
+    end
   end
 
 end

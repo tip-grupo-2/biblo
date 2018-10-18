@@ -47,9 +47,10 @@ class BooksController < ApplicationController
 
   def edit
     @copy = Copy.find(params[:id])
+    raise Copy::ALREADY_REQUESTED_ERROR if @copy.requested?
+    request = BookRequest.new(requester_id: current_user.id, recipient_id: @copy.user_id, copy_id: @copy.id)
     Notification.create!(requester_id: current_user.id, recipient_id: @copy.user_id, copy_id: @copy.id,
-                        action: 'solicitado')
-    current_user.request(@copy)
+                        action: 'solicitado', book_request: request)
     flash[:success] = 'Tu solicitud de prestamo fue enviada satisfactoriamente!'
     redirect_to '/books'
   rescue Copy::ALREADY_REQUESTED_ERROR
