@@ -17,6 +17,7 @@ class BooksController < ApplicationController
     response = RestClient.get "https://www.googleapis.com/books/v1/volumes?q=isbn:#{@isbn}"
     response_data = JSON.parse(response)
     @book_data = response_data.dig('items', 0, 'volumeInfo')
+    raise Book::ISBN_LENGTH_ERROR if @isbn.length != 13
     raise Book::ISBN_PROVIDER_ERROR if @book_data.nil?
   rescue Book::ISBN_LENGTH_ERROR
     flash[:notice] = 'El ISBN debe tener 13 numeros'

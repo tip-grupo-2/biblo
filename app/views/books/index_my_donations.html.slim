@@ -1,20 +1,4 @@
 .container.book_card
   h1 Mis Donaciones
   hr
-  table.table.table-hover
-    tr
-      th
-      th ID
-      th Titulo
-      th Autores
-      th ISBN
-      th
-    - @copies.each do |copy|
-      tr
-        td= copy.id
-        td
-          img.thumbnail src="#{copy.book.picture_url}" height= "100px"
-        td= copy.book.title
-        td= copy.book.author
-        td= copy.book.isbn
-        td= link_to 'Show', book_path(copy.book)
+  =render partial:'books/index_table'
