@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181018205636) do
+ActiveRecord::Schema.define(version: 20181019031347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20181018205636) do
     t.integer "book_id"
     t.integer "original_owner_id"
     t.boolean "requested",         default: false
+    t.boolean "reading"
   end
 
   create_table "notifications", force: :cascade do |t|

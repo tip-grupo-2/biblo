@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   root 'biblioteca#show', page: 'home'
   post '/preview_book', to: 'books#preview'
   post '/create_manual_book', to: 'books#create_manual'
+  put '/finish_book/:id(.:format)', to: 'books#finish', as: 'finish_book'
+  put '/start_book/:id(.:format)', to: 'books#start', as: 'start_book'
   # devise
   devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions',
                                     omniauth_callbacks: 'users/omniauth_callbacks', users: 'users/' }

@@ -44,5 +44,4 @@ class User < ActiveRecord::Base
     a_book.user_id = id
     a_book.save
   end
-
 end

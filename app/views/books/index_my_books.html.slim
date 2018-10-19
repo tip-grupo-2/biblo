@@ -1,4 +1,8 @@
 .container.book_card
   h1 Mis Libros
   hr
-  =render partial:'books/index_table'
+  =render layout:'books/index_table' do |copy|
+    - if copy.reading
+      td= link_to 'Finish reading', finish_book_path(copy), method: :put
+    - else
+      td= link_to 'Start reading', start_book_path(copy), method: :put

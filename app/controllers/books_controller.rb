@@ -59,8 +59,7 @@ class BooksController < ApplicationController
   end
 
   def index
-    @copies =  Copy.where.not('user_id = ? OR requested = ?', current_user, true)
-
+    @copies =  Copy.where.not('user_id = ? OR requested = ?', current_user, true).where('reading = ?', false)
   end
 
   def index_my_books
@@ -78,6 +77,20 @@ class BooksController < ApplicationController
   rescue Copy::ALREADY_REQUESTED_ERROR
     flash[:danger] = 'Oops! Lo sentimos, la copia del libro fue solicitada por otro usuario.'
     redirect_to '/books'
+  end
+
+  def start
+    @copy = Copy.find(params[:id])
+    @copy.reading = true
+    @copy.save
+    redirect_to :back
+  end
+
+  def finish
+    @copy = Copy.find(params[:id])
+    @copy.reading = false
+    @copy.save
+    redirect_to :back
   end
 
   private
