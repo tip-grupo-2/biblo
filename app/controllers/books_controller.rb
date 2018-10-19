@@ -35,14 +35,19 @@ class BooksController < ApplicationController
 
   def create
     isbn = params[:isbn]
-    create_book(isbn)
+    title = params[:title]
+    authors = params[:authors]
+    picture_url = params[:picture_url]
+    description = params[:description]
+    country = params[:country]
+    create_book(isbn, title, authors, picture_url, description, country)
     redirect_to '/my_books'
   end
   def create_manual
     #TODO: Estos 2 metodos quedaron re parecidos
     # Intente en el metodo create pasar un book con title, author, y isbn desde preview.html, pero no pude
     # Tambien intente no pasar un book en el create manual, desde el form_for y no encontre como hacerlo.
-    create_book(params[:book][:title], params[:book][:author], params[:book][:isbn])
+    create_book(params[:book][:isbn], params[:book][:title], params[:book][:author], nil, params[:book][:description], 'ES')
     redirect_to '/my_books'
   end
   def show
@@ -55,7 +60,7 @@ class BooksController < ApplicationController
 
   def index
     filtered_books =  Copy.where('user_id = ? OR requested = ?', current_user, true).pluck(:book_id).uniq
-    @books = Book.where.not(id: filtered_books)
+    @copies = Book.where.not(id: filtered_books)
   end
 
   def index_my_books
@@ -77,19 +82,17 @@ class BooksController < ApplicationController
 
   private
 
-   def create_book(isbn)
-     response = RestClient.get "https://www.googleapis.com/books/v1/volumes?q=isbn:#{isbn}"
-     response_data = JSON.parse(response)
-     book_info = response_data['items'][0]['volumeInfo']
-     @book = Book.find_by(isbn: isbn)
-     unless @book.present?
+   def create_book(isbn, title, author, picture_url, description, country)
+     @book = Book.find_by_isbn(isbn)
+     unless @book
        @book = Book.create!(isbn: isbn,
-                            title: book_info['title'],
-                            author: book_info['authors'][0],
-                            picture_url: book_info['imageLinks']['thumbnail'],
-                            description: book_info['description'],
-                            country: book_info['language'])
+                            title: title,
+                            author: author,
+                            picture_url: picture_url,
+                            description: description,
+                            country: country)
      end
+
      current_user.add(@book)
    end
 end

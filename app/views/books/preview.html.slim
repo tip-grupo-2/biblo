@@ -14,6 +14,6 @@
     p
       img src="#{@book_data['imageLinks']['thumbnail']}"/
     p
-      = button_to "Aceptar", books_path, method: :post, params: {isbn: @isbn}
+      = button_to "Aceptar", books_path, method: :post, params: {isbn: @isbn, title: @book_data['title'], authors: authors, description: @book_data['description'], picture_url: @book_data['imageLinks']['thumbnail'],  country: @book_data['language']}
     p
       = button_to "Cancelar", books_path, method: :get

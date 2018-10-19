@@ -24,4 +24,11 @@
         - else
           = f.text_field :author, placeholder: 'Ingrese autores del libro'
       p
+        = f.label :description
+        br
+        - if @book.description
+          = f.text_field :description, value: @book.author
+        - else
+          = f.text_field :description, placeholder: 'Ingrese una descripcion del libro'
+      p
         = f.submit 'Guardar'
