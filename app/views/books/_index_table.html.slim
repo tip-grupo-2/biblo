@@ -13,5 +13,5 @@ table.table.table-hover
       td= copy.book.title
       td= copy.book.author
       td= copy.book.isbn
-      td= link_to 'Show', book_path(copy.book)
+      td= button_to 'Mostrar', book_path(copy.book), class: 'btn btn-light'
       =yield copy

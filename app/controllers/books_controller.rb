@@ -26,6 +26,10 @@ class BooksController < ApplicationController
     render :new and return
   rescue Book::ISBN_PROVIDER_ERROR
     flash[:notice] = 'No pudimos encontrar ese ISBN en nuestra base de datos'
+    enter_manual
+  end
+
+  def enter_manual
     @book = Book.new
     @book.isbn = @isbn
     render :manual_new and return

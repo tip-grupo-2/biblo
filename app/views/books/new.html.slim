@@ -4,13 +4,32 @@ br
   h1 Agregar libro a la biblioteca
   hr
   .row
-  .col-md-4
-    = form_for @book, url: preview_book_path do |f|
-      p
-        br
-        - if @book.isbn
-          = f.text_field :isbn, value: @book.isbn, class: 'form-control form-control-lg'
-        -else
-          = f.text_field :isbn, placeholder: 'Ingrese n° de ISBN', class: 'form-control form-control-lg'
-      p
-        = f.submit 'Guardar', class: 'btn btn-primary'
+    .col-md-3
+      h3 Búsqueda por ISBN
+      hr
+      = form_for @book, url: preview_book_path do |f|
+        p
+          br
+          - if @book.isbn
+            = f.text_field :isbn, value: @book.isbn, class: 'form-control form-control-lg'
+          -else
+            = f.text_field :isbn, placeholder: 'Ingrese n° de ISBN', class: 'form-control form-control-lg'
+        p
+          = f.submit 'Buscar por isbn', class: 'btn btn-primary'
+    .col-md-3
+      h3 Búsqueda por Título
+      hr
+      = form_for @book, url: preview_book_title_path do |f|
+        p
+          br
+          - if @book.title
+            = f.text_field :title, value: @book.title, class: 'form-control form-control-lg'
+          - else
+            = f.text_field :title, placeholder: 'Ingrese título', class: 'form-control form-control-lg'
+        p
+          = f.submit 'Buscar por título', class: 'btn btn-primary'
+    .col-sm-6
+      h3 Tambien puedes agregar el libro manualmente
+      hr
+      br
+      = button_to "Agregar", manual_book_path, method: :post, class: 'btn btn-primary btn-block', params: {isbn: ''}
