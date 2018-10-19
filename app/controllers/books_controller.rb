@@ -31,6 +31,13 @@ class BooksController < ApplicationController
     render :manual_new and return
   end
 
+  def preview_title
+    @title = params[:book][:title].gsub(/\s/,'+')
+    response = RestClient.get "https://www.googleapis.com/books/v1/volumes?q=#{@title}"
+    response_data = JSON.parse(response)
+    @books = response_data['items']
+  end
+
 
 
   def create
