@@ -9,8 +9,8 @@ br
       p
         br
         - if @book.isbn
-          = f.text_field :isbn, value: @book.isbn
+          = f.text_field :isbn, value: @book.isbn, class: 'form-control form-control-lg'
         -else
-          = f.text_field :isbn, placeholder: 'Ingrese n° de ISBN'
+          = f.text_field :isbn, placeholder: 'Ingrese n° de ISBN', class: 'form-control form-control-lg'
       p
-        = f.submit 'Guardar'
+        = f.submit 'Guardar', class: 'btn btn-primary'

@@ -43,8 +43,9 @@ ActiveRecord::Schema.define(version: 20181019031347) do
     t.integer "user_id"
     t.integer "book_id"
     t.integer "original_owner_id"
+    t.boolean "for_donation"
     t.boolean "requested",         default: false
-    t.boolean "reading",           default: false
+    t.boolean "reading"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -60,8 +61,8 @@ ActiveRecord::Schema.define(version: 20181019031347) do
   create_table "users", force: :cascade do |t|
     t.string   "email",               default: "", null: false
     t.string   "encrypted_password",  default: "", null: false
-    t.string   "name",                             null: false
-    t.string   "address",                          null: false
+    t.string   "name"
+    t.string   "address"
     t.datetime "remember_created_at"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
