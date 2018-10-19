@@ -5,7 +5,6 @@ table.table.table-hover
     th Titulo
     th Autores
     th ISBN
-    th
   - @copies.each do |copy|
     tr
       td= copy.id
@@ -15,3 +14,4 @@ table.table.table-hover
       td= copy.book.author
       td= copy.book.isbn
       td= link_to 'Show', book_path(copy.book)
+      =yield copy

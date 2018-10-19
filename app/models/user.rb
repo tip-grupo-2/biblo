@@ -45,11 +45,4 @@ class User < ActiveRecord::Base
     a_book.save
   end
 
-  def count_donated_copies_of(a_book)
-    Copy.where(book_id: a_book.id, original_owner_id: self.id).count
-  end
-  def count_reading_copies_of(a_book)
-    Copy.where(book_id: a_book.id, user_id: self.id).count
-  end
-
 end
