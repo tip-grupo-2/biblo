@@ -1,5 +1,9 @@
 .container.book_card
     h1 Todos los libros
+    = form_tag(books_path, method: :get, id: "search-form") do
+        = text_field_tag :search_title, params[:search_title], placeholder: "Search title"
+        = text_field_tag :search_author, params[:search_author], placeholder: "Search title"
+        = submit_tag "Search"
     =render layout: 'books/index_table' do |copy|
         - avatar = user_avatar(copy.user)
         td=image_tag(avatar, class: 'l-profile-image')

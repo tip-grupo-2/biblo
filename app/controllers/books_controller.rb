@@ -59,7 +59,15 @@ class BooksController < ApplicationController
   end
 
   def index
-    @copies =  Copy.where.not('user_id = ? OR requested = ?', current_user, true).where('reading = ?', false)
+    title = params[:search_title]
+    author = params[:search_author]
+    filtered_books = Book.where('title LIKE ?', "%#{title}%")
+                         .where('author LIKE ?', "%#{author}%")
+                         .pluck(:id)
+    @copies =  Copy.where.not('user_id = ? OR requested = ?', current_user, true)
+                   .where('reading = ?', false)
+                   .where(book_id: filtered_books)
+
   end
 
   def index_my_books

@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20181019031347) do
     t.integer "book_id"
     t.integer "original_owner_id"
     t.boolean "requested",         default: false
-    t.boolean "reading"
+    t.boolean "reading",           default: false
   end
 
   create_table "notifications", force: :cascade do |t|
