@@ -26,9 +26,20 @@ class BooksController < ApplicationController
     render :new and return
   rescue Book::ISBN_PROVIDER_ERROR
     flash[:notice] = 'No pudimos encontrar ese ISBN en nuestra base de datos'
+    enter_manual
+  end
+
+  def enter_manual
     @book = Book.new
     @book.isbn = @isbn
     render :manual_new and return
+  end
+
+  def preview_title
+    @title = params[:book][:title].gsub(/\s/,'+')
+    response = RestClient.get "https://www.googleapis.com/books/v1/volumes?q=#{@title}"
+    response_data = JSON.parse(response)
+    @books = response_data['items']
   end
 
 
@@ -65,7 +76,6 @@ class BooksController < ApplicationController
                          .where('author LIKE ?', "%#{author}%")
                          .pluck(:id)
     @copies =  Copy.where.not('user_id = ? OR requested = ?', current_user, true)
-                   .where('reading = ?', false)
                    .where(book_id: filtered_books)
 
   end
