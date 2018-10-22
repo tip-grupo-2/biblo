@@ -1,4 +1,6 @@
-$(document).ready ->
+$(document).on "turbolinks:load", ->
+
+  $('.biblo-alert').delay(2000).fadeOut(3500)
 
   markUnreadCounter = (notifications) ->
     n = notifications.filter((notif) -> notif.read_at ==  null).length
