@@ -8,11 +8,12 @@ gem 'pg', '~> 0.20.0'
 gem 'puma', '~>3.7'
 gem 'rails', '4.2.8'
 gem 'rails-i18n'
-gem 'rest-client', '~> 2.0.1'
+gem 'rest-client', '~> 2.0.2'
 gem 'sass-rails', '~> 5.0'
 gem 'therubyracer'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
+gem 'flag-icons-rails'
 
 # js
 gem 'coffee-rails', '~> 4.1.0'
@@ -23,6 +24,7 @@ gem 'jquery-rails'
 gem 'font-awesome-less'
 gem 'slim'
 gem 'twitter-bootstrap-rails'
+gem 'bootstrap-sass'
 
 # code analysis
 gem 'pronto'

@@ -11,6 +11,22 @@ class ApplicationController < ActionController::Base
   end
   helper_method :user_avatar
 
+  def only_logged_users
+    redirect_to root_path unless user_signed_in?
+  end
+
+  def notification_status(request)
+    case request.accepted
+      when nil
+        'aun no ha sido contestada.'
+      when true
+        'ha sido aceptada.'
+      when false
+        'ha sido rechazada.'
+    end
+  end
+  helper_method :notification_status
+
   protected
 
   # method necessary for devise

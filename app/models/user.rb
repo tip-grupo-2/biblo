@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
     super && provider.blank?
   end
 
-  def donate(a_book)
+  def add(a_book)
     Copy.create(
       book: a_book,
       user: self,
@@ -44,12 +44,4 @@ class User < ActiveRecord::Base
     a_book.user_id = id
     a_book.save
   end
-
-  def count_donated_copies_of(a_book)
-    Copy.where(book_id: a_book.id, original_owner_id: self.id).count
-  end
-  def count_reading_copies_of(a_book)
-    Copy.where(book_id: a_book.id, user_id: self.id).count
-  end
-
 end

@@ -5,7 +5,7 @@ require 'rails_helper'
 describe User do
   let(:new_user) { FactoryBot.create(:user) }
   let(:new_book) { FactoryBot.create(:book) }
-  subject { new_user.donate new_book }
+  subject { new_user.add new_book }
 
   describe 'donate' do
     context 'when a user donates a book' do

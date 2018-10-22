@@ -1,0 +1,134 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "flag-icon";
+
+
+
+.navbar-brand,
+.navbar-nav li a, .nav.navbar-nav.navbar-right.l-login-nav {
+  color: #dbc8ff;
+  line-height: 50px;
+  height: 50px;
+  padding-top: 0;
+}
+
+hr {
+  border-color: #25282a;
+
+  border-width: 1px 0;
+  margin: 15px 0;
+}
+
+ul.nav.navbar-nav li a:hover {
+  color: #EFEFEF;
+  background-color: #441757;
+}
+
+.navbar {
+  background-color: #441757;
+  margin : 0 !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, Sans-Serif;
+}
+
+.navbar-nav li:not(:nth-child(-n+2)){
+  box-shadow: -11px 0 0 -10px #ffdbe9
+}
+
+.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+  width: 100%;
+}
+
+html body {
+  background-color: rgb(44, 53, 65);
+  font-palette: light;
+  color: lightslategray;
+}
+
+.book_card {
+  margin-top: 1%;
+  border-radius: 5px;
+  background-color: #EFEFEF;
+  padding: 35px;
+}
+
+.round-thumbnail {
+  border-radius: 100%;
+  border: #EFEFEF solid 2px;
+}
+
+.square-thumbnail {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.form-check-label {
+  padding-left: 5px;
+}
+
+.l-profile-image{
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin: 0px 15px;
+}
+
+.l-profile-image-bg {
+  @extend .l-profile-image;
+  width: 90px;
+  height: 90px;
+}
+
+.l-login-nav {
+  margin-right: 15px;
+}
+
+.l-profile-link {
+  margin-top: 30px;
+}
+
+.white-font {
+  color: white;
+}
+
+.top-5px {
+  margin-top: 5px;
+}
+
+.left-15px {
+  margin-left: 15px;
+}
+
+.biblo-notice {
+  background-color: #d6b6e9;
+  border-color: #d6b6e9;
+}
+
+.biblo-alert {
+  background-color: #d6b6e9;
+  border-color: #d6b6e9;
+  position:absolute;
+  z-index:1;
+  text-align: center;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.3%;
+
+  .content {
+    color: lightslategray;
+  }
+}
+
+.wp-button {
+  background-color: #1ebea5;
+  border-color: #1ebea5;
+  color: white;
+}
+
+.btn-info {
+  margin-right: 5px;
+}
+
+.left-alignment { float: left; }
+
+.margin-top-1-per { margin-top: 1%; }

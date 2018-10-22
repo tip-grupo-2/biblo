@@ -1,20 +1,49 @@
-.container-fluid
+script src="https://api.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js"
+link href="https://api.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css" rel="stylesheet" /
+
+.container.book_card
+  h1 Mi Perfil
+  hr
   .row
-    .col-md-1
+    .col-sm-3
       - avatar = user_avatar(@user)
-      = image_tag(avatar, class: 'l-profile-image-bg')
-    .col-md-2
-      h2 #{@user.name}
-    .col-md-1.l-profile-link
-      =  button_to 'Editar perfil',  edit_user_path(@user), method: :get, class: 'btn button'
-  .row.top-15
-    .col-md-1
-    .col-md-2
-      p Mail: #{@user.email}
-  .row.top-15
-    .col-md-1
-    .col-md-2
-      p Direccion: #{@user.address}
+      = image_tag(avatar, class: 'square-thumbnail', size: "250")
+    .col-sm-3
+      h1 #{@user.name}
+      h4 #{@user.email}
+      h4#address #{@user.address}
+      br
+      = button_to 'Editar perfil',  edit_user_path(@user), method: :get, class: 'btn btn-info'
+    .col-sm-4
+      #map.square-thumbnail style=("width: 500px; height: 300px;")
+      script src="https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js"
+      script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"
+      javascript:
+          var address = document.getElementById("address").textContent;
+          console.log(address)
+          mapboxgl.accessToken = 'pk.eyJ1IjoiY2FybG9zLXBlcmV6IiwiYSI6ImNqbmR6bjk2ejY0azAzcW4xdW0yd2Rkem4ifQ.KrBYuTxvvYdVGY18UNNxGg';
+          var mapboxClient = mapboxSdk({accessToken: mapboxgl.accessToken});
+          mapboxClient.geocoding.forwardGeocode({
+            query: address.toString(),
+            autocomplete: false,
+            limit: 1,
+
+          })
+          .send()
+              .then(function (response) {
+                  if (response && response.body && response.body.features && response.body.features.length) {
+                      var feature = response.body.features[0];
+                      var map = new mapboxgl.Map({
+                        container: 'map',
+                        style: 'mapbox://styles/mapbox/streets-v9',
+                        center: feature.center,
+                        zoom: 14
+                      });
+                      new mapboxgl.Marker()
+                          .setLngLat(feature.center)
+                          .addTo(map);
+                  }
+              });
 
 / <script src="//maps.google.com/maps/api/js?key=AIzaSyAZ50aglY-isuwXjiAGCcISHi5nsorLVAM"></script>
 / <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>

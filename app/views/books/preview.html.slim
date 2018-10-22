@@ -4,17 +4,16 @@
     p
       = "ISBN: #{@isbn}"
     p
-      = "Titulo: #{@book_data.title}"
+      = "Titulo: #{@book_data['title']}"
     p
-      - if @book_data.authors
-        - authors = @book_data.authors.collect { |auth| auth['name'] }.to_sentence
+      - if !@book_data['authors'].nil?
+        - authors = @book_data['authors'].join(", ")
       - else
         - authors = ""
       = "Autor/es: #{authors}"
     p
-      - if @book_data.cover
-        img src="#{@book_data.cover['medium']}"/
+      img src="#{@book_data['imageLinks']['thumbnail']}"/
     p
-      = button_to "Aceptar", books_path, method: :post, params: { title: @book_data.title, authors: "#{authors}", isbn: @isbn}
+      = button_to "Aceptar", books_path, method: :post, params: {isbn: @isbn, title: @book_data['title'], authors: authors, description: @book_data['description'], picture_url: @book_data['imageLinks']['thumbnail'],  country: @book_data['language']}
     p
       = button_to "Cancelar", books_path, method: :get

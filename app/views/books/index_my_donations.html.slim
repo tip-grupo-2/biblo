@@ -1,6 +1,4 @@
-.container-fluid
-  h1 Mis donaciones
-  .actions
-  = render layout: "books/index_table" do |book|
-    td
-    td= current_user.count_donated_copies_of(book).as_json
+.container.book_card
+  h1 Mis Donaciones
+  hr
+  =render partial:'books/index_table'

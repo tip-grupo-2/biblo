@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:id, :name, :address, :avatar)
+    params.require(:user).permit(:id, :name, :address, :avatar, :phone_number)
   end
 
   def current_user_only
