@@ -97,9 +97,26 @@ html body {
   margin-left: 15px;
 }
 
+.biblo-notice {
+  background-color: #d6b6e9;
+  border-color: #d6b6e9;
+}
+
 .biblo-alert {
   background-color: #d6b6e9;
   border-color: #d6b6e9;
+  position:absolute;
+  z-index:1;
+  text-align: center;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.3%;
+
+  .content {
+    color: lightslategray;
+  }
 }
 
 .wp-button {
@@ -111,3 +128,7 @@ html body {
 .btn-info {
   margin-right: 5px;
 }
+
+.left-alignment { float: left; }
+
+.margin-top-1-per { margin-top: 1%; }

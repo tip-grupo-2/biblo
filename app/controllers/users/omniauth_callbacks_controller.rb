@@ -12,7 +12,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   private
 
   def authenticate_user
-    puts session['devise.user_attributes']
     user = User.from_omniauth(request.env['omniauth.auth'])
     if user.persisted?
       flash[:info] = 'Bienvenido/a!'
