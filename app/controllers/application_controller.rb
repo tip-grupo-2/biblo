@@ -27,6 +27,16 @@ class ApplicationController < ActionController::Base
   end
   helper_method :notification_status
 
+  def chose_if(predicate, opt1, opt2)
+    predicate ? opt1 : opt2
+  end
+  helper_method :chose_if
+
+  def current_and_original_owner(copy)
+    copy.user_id == current_user.id && copy.original_owner_id == current_user.id
+  end
+  helper_method :current_and_original_owner
+
   protected
 
   # method necessary for devise
