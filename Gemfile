@@ -41,7 +41,6 @@ gem 'openlibrary', '~> 1.0.0'
 #google_maps
 
 gem 'geocoder'
-gem 'gmaps4rails'
 
 group :development, :test do
   gem 'coveralls', require: false

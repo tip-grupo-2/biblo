@@ -2,8 +2,6 @@
 @import "bootstrap";
 @import "flag-icon";
 
-
-
 .navbar-brand,
 .navbar-nav li a, .nav.navbar-nav.navbar-right.l-login-nav {
   color: #dbc8ff;
@@ -110,4 +108,15 @@ html body {
 
 .btn-info {
   margin-right: 5px;
+}
+
+#barcode-scanner canvas.drawingBuffer, #barcode-scanner video.drawingBuffer {
+  display: none;
+}
+
+#barcode-scanner canvas, #barcode-scanner video {
+  width: 100%;
+  height: auto;
+  border: 4px solid;
+  border-color: black;
 }

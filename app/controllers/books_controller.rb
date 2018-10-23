@@ -2,6 +2,7 @@
 require 'open-uri'
 require 'openlibrary'
 class BooksController < ApplicationController
+  skip_before_filter :verify_authenticity_token
   # Algunos ISBN para probar:
   # 9788478884452
   # 9788498384482
@@ -13,10 +14,18 @@ class BooksController < ApplicationController
   end
 
   def preview
-    @isbn = params[:book][:isbn]
+    puts
+    if !params[:book]
+      @book = Book.new
+      @isbn = params[:isbn]
+    else
+      @isbn = params[:book][:isbn]
+    end
+    puts @isbn.length
     response = RestClient.get "https://www.googleapis.com/books/v1/volumes?q=isbn:#{@isbn}"
     response_data = JSON.parse(response)
     @book_data = response_data.dig('items', 0, 'volumeInfo')
+    puts @book_data
     raise Book::ISBN_LENGTH_ERROR if @isbn.length != 13
     raise Book::ISBN_PROVIDER_ERROR if @book_data.nil?
   rescue Book::ISBN_LENGTH_ERROR
@@ -109,6 +118,9 @@ class BooksController < ApplicationController
     @copy.reading = false
     @copy.save
     redirect_to :back
+  end
+
+  def capture_barcode
   end
 
   private
