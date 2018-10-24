@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
   helper_method :chose_if
 
   def current_and_original_owner(copy)
-    copy.user_id == current_user.id && copy.original_owner_id == current_user.id
+    copy.current_and_original_owner(current_user)
   end
   helper_method :current_and_original_owner
 
