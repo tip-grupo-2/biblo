@@ -2,7 +2,6 @@
 
 Rails.application.routes.draw do
   get '/biblioteca/:page' => 'biblioteca#show'
-  resources :books
   get '/my_donations', to: 'books#index_my_donations', as: 'my_donations'
   get '/my_books', to: 'books#index_my_books', as: 'my_books'
   root 'biblioteca#show', page: 'home'
@@ -27,4 +26,11 @@ Rails.application.routes.draw do
       post :mark_as_read
     end
   end
+
+  resources :books do
+    member do
+      post :mark_as_private
+    end
+  end
+
 end

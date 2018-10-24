@@ -12,6 +12,11 @@
   padding-top: 0;
 }
 
+
+th, td {
+  text-align: center;
+}
+
 hr {
   border-color: #25282a;
 
@@ -132,3 +137,5 @@ html body {
 .left-alignment { float: left; }
 
 .margin-top-1-per { margin-top: 1%; }
+
+.centered-text { text-align: center; }
