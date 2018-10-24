@@ -141,7 +141,7 @@ class BooksController < ApplicationController
     if state
       "Tu ejemplar de #{title} se encuentra disponible para todos los usuarios de Biblo!"
     else
-      "Restringiste la disponibilidad de tu ejemplar de #{title}. Solo sera visible en tu coleccion y desaparecera de
+      "Restringiste la disponibilidad de tu ejemplar de #{title}. Solo será visible en tu colección y desaparecerá de
        los catalogos de prestamo de Biblo."
     end
   end
