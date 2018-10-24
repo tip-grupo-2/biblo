@@ -50,14 +50,14 @@ class NotificationsController < ApplicationController
     Notification.create!(requester_id: notification.recipient_id, recipient_id: notification.requester_id, copy_id: notification.copy.id,
                          action: choice, book_request: request)
     flash[:success] = 'La solicitud fue contestada satisfactoriamente!'
-    redirect_to root_path
+    redirect_to :back
   end
 
   def update_book_and_request(choice, notification)
     copy_request = notification.book_request
     copy = copy_request.copy
     ActiveRecord::Base.transaction do
-      copy.update_attributes!(requested: choice) unless copy.requested?
+      copy.update_attributes!(requested: choice)
       copy_request.update_attributes!(accepted: choice)
     end
   end

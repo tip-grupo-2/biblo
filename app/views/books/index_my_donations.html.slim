@@ -1,4 +1,32 @@
 .container.book_card
   h1 Mis Donaciones
   hr
-  =render partial:'books/index_table'
+  table.table.table-hover
+    tr
+      th
+      th ID
+      th Titulo
+      th Autores
+      th ISBN
+      th ¿En donación?
+      th
+      th
+      th
+    - @copies.each do |copy|
+      tr
+        td= copy.id
+        td
+          img.thumbnail src="#{copy.book.picture_url}" height= "100px"
+        td= copy.book.title
+        td= copy.book.author
+        td= copy.book.isbn
+        - in_donation = copy.in_donation?
+        td= chose_if(in_donation, 'Si', 'No')
+        - if current_and_original_owner(copy)
+          - privacy_text = chose_if(in_donation, 'Marcar como privado', 'Marcar como publico')
+          - privacy_btn_style = chose_if(in_donation, 'btn-danger', 'btn-info')
+          td= link_to privacy_text, mark_as_private_book_path(copy), method: 'post', class: "btn #{privacy_btn_style}"
+        - else
+          td
+        td= link_to 'Ver detalle', book_path(copy.book), class: 'btn btn-info'
+        = yield copy
