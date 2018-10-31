@@ -1,0 +1,24 @@
+// Typography
+$base-font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+$heading-font-family: $base-font-family;
+
+$base-font-size: 1em;
+
+$bold-font-weight: 80;
+
+$base-line-height: 1.5;
+$heading-line-height: 1.2;
+
+// Other Sizes
+$base-border-radius: 7px;
+$base-spacing: $base-line-height * 1em;
+$small-spacing: $base-spacing / 2;
+
+//colors
+$main-dark-color: #3F0038;
+$biblo-white: #EFF9F0;
+$background-dark: #30343F;
+$background-light: #F6F6F6;
+$contrast-red: #E80C6E;
+
+$light-font-color: $biblo-white;

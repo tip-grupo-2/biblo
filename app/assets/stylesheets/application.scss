@@ -3,62 +3,80 @@
 @import "flag-icon";
 @import "font-awesome-sprockets";
 @import "font-awesome";
+@import "variables";
+@import "typography";
 
 .navbar-brand,
 .navbar-nav li a, .nav.navbar-nav.navbar-right.l-login-nav {
-  color: #dbc8ff;
+  color: $light-font-color;
   line-height: 50px;
   height: 50px;
   padding-top: 0;
 }
 
+.navbar-nav li a:hover, .navbar-nav li a:focus {
+  background-color: $main-dark-color;
+  border-bottom: 3px solid $contrast-red;
+}
+
+.navbar-selector:hover {
+  border-bottom: 3px solid $contrast-red;
+  color: $contrast-red;
+  cursor: pointer;
+}
 
 th, td {
   text-align: center;
 }
 
 hr {
-  border-color: #25282a;
+  border-color: $main-dark-color;
 
   border-width: 1px 0;
   margin: 15px 0;
 }
 
 ul.nav.navbar-nav li a:hover {
-  color: #EFEFEF;
-  background-color: #441757;
+  color: $contrast-red;
+  background-color: $main-dark-color;
 }
 
 .navbar {
-  background-color: #441757;
+  background-color: $main-dark-color;
   margin : 0 !important;
   font-family: "Helvetica Neue", Helvetica, Arial, Sans-Serif;
 }
 
-.navbar-nav li:not(:nth-child(-n+2)){
-  box-shadow: -11px 0 0 -10px #ffdbe9
-}
+//.navbar-nav li:not(:nth-child(-n+2)){
+//  box-shadow: -11px 0 0 -10px #ffdbe9
+//}
 
 .carousel-inner > .item > img, .carousel-inner > .item > a > img {
   width: 100%;
 }
 
-html body {
-  background-color: rgb(44, 53, 65);
-  font-palette: light;
-  color: lightslategray;
+body {
+  background-color: $background-dark;
+//  font-palette: light;
+//  color: lightslategray;
 }
 
 .book_card {
   margin-top: 1%;
   border-radius: 5px;
-  background-color: #EFEFEF;
+  background-color: $background-light;
   padding: 35px;
 }
 
 .round-thumbnail {
   border-radius: 100%;
-  border: #EFEFEF solid 2px;
+  border: 3px solid transparent;
+}
+
+.round-thumbnail:hover {
+  border: 3px solid $contrast-red;
+  border-radius: 100%;
+  cursor: pointer;
 }
 
 .square-thumbnail {

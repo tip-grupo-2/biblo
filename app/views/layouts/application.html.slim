@@ -25,15 +25,16 @@ html
             = link_to "Mis libros", my_books_path, method: :get, class: 'navbar-brand'
           li
             = link_to "Perfil", user_path(:id => current_user.id), method: :get, class: 'navbar-brand'
-      .nav.navbar-nav.navbar-right.l-login-nav
+      ul.nav.navbar-nav.navbar-right.l-login-nav
         - if user_signed_in?
           - avatar = user_avatar(current_user)
           .navbar-left
-            = link_to  user_path(:id => current_user.id) do
-              = image_tag(avatar, class: 'l-profile-image round-thumbnail', size: "45")
+            = link_to user_path(:id => current_user.id) do
+              .navbar-picture-selecter
+                = image_tag(avatar, class: 'l-profile-image round-thumbnail', size: "45")
               p
                 - current_user.name
-          .dropdown.navbar-brand
+          .dropdown.navbar-brand.navbar-selector
             li.dropdown-toggle id="dropdownMenu1" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button"
               i.fa.fa-bell.notification-marker-js
                 | (0)
@@ -42,11 +43,14 @@ html
               li
                 a.read-button-js  Marcar como leidas
               .current-user-js data-user-id=current_user.id
-          .nav.navbar-brand
-            = link_to "Cerrar sesion", destroy_user_session_path, method: :delete, class: 'navbar-brand'
+          ul.nav.navbar-nav
+            li
+              = link_to "Cerrar sesion", destroy_user_session_path, method: :delete, class: 'navbar-brand'
         - else
-          = link_to "Registrarse", new_user_registration_path, class: 'navbar-brand'
-          = link_to "Iniciar sesión", new_user_session_path, class: 'navbar-brand'
+          li
+            = link_to "Registrarse", new_user_registration_path, class: 'navbar-brand'
+          li
+            = link_to "Iniciar sesión", new_user_session_path, class: 'navbar-brand'
     - flash.each do |message_type, message|
       = content_tag :div, role: 'alert', class: "alert alert-#{message_type} col-md-6 biblo-alert"
         a.close aria-label="close" data-dismiss="alert" href="#"  &times;
