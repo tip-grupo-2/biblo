@@ -6,6 +6,8 @@
 @import "variables";
 @import "typography";
 
+// navbar
+
 .navbar-brand,
 .navbar-nav li a, .nav.navbar-nav.navbar-right.l-login-nav {
   color: $light-font-color;
@@ -25,17 +27,6 @@
   cursor: pointer;
 }
 
-th, td {
-  text-align: center;
-}
-
-hr {
-  border-color: $main-dark-color;
-
-  border-width: 1px 0;
-  margin: 15px 0;
-}
-
 ul.nav.navbar-nav li a:hover {
   color: $contrast-red;
   background-color: $main-dark-color;
@@ -50,6 +41,45 @@ ul.nav.navbar-nav li a:hover {
 //.navbar-nav li:not(:nth-child(-n+2)){
 //  box-shadow: -11px 0 0 -10px #ffdbe9
 //}
+
+.round-thumbnail {
+  border-radius: 100%;
+  border: 3px solid transparent;
+}
+
+.round-thumbnail:hover {
+  border: 3px solid $contrast-red;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  background-color: $background-light;
+  li a {
+    color: $dark-font-color;
+  }
+
+  li a:hover {
+    color: $contrast-red!important;
+    background-color: $background-light!important;
+    border-bottom: 3px solid $background-light;
+  }
+}
+
+
+// general
+
+th, td {
+  text-align: center;
+}
+
+hr {
+  border-color: $main-dark-color;
+
+  border-width: 1px 0;
+  margin: 15px 0;
+}
+
 
 .carousel-inner > .item > img, .carousel-inner > .item > a > img {
   width: 100%;
@@ -68,16 +98,6 @@ body {
   padding: 35px;
 }
 
-.round-thumbnail {
-  border-radius: 100%;
-  border: 3px solid transparent;
-}
-
-.round-thumbnail:hover {
-  border: 3px solid $contrast-red;
-  border-radius: 100%;
-  cursor: pointer;
-}
 
 .square-thumbnail {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
