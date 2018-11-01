@@ -7,7 +7,7 @@
     .col-sm-4
         = text_field_tag :search_author, params[:search_author], placeholder: "Buscar por autor", class: 'form-control form-control-lg'
     .col-sm-4
-        = submit_tag "Buscar", class: 'btn btn-primary'
+        = submit_tag "Buscar", class: 'btn btn-classic'
     =render layout: 'books/index_table' do |copy|
         - avatar = user_avatar(copy.user)
         td=image_tag(avatar, class: 'l-profile-image')

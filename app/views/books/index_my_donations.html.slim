@@ -24,9 +24,9 @@
         td= chose_if(in_donation, 'Si', 'No')
         - if current_and_original_owner(copy)
           - privacy_text = chose_if(in_donation, 'Marcar como privado', 'Marcar como publico')
-          - privacy_btn_style = chose_if(in_donation, 'btn-danger', 'btn-info')
+          - privacy_btn_style = chose_if(in_donation, 'btn-contrast', 'btn-classic')
           td= link_to privacy_text, mark_as_private_book_path(copy), method: 'post', class: "btn #{privacy_btn_style}"
         - else
           td
-        td= link_to 'Ver detalle', book_path(copy.book), class: 'btn btn-info'
+        td= link_to 'Ver detalle', book_path(copy.book), class: 'btn btn-classic'
         = yield copy

@@ -18,17 +18,17 @@
 
 .navbar-nav li a:hover, .navbar-nav li a:focus {
   background-color: $main-dark-color;
-  border-bottom: 3px solid $contrast-red;
+  border-bottom: 3px solid $contrast-color;
 }
 
 .navbar-selector:hover {
-  border-bottom: 3px solid $contrast-red;
-  color: $contrast-red;
+  border-bottom: 3px solid $contrast-color;
+  color: $contrast-color;
   cursor: pointer;
 }
 
 ul.nav.navbar-nav li a:hover {
-  color: $contrast-red;
+  color: $contrast-color;
   background-color: $main-dark-color;
 }
 
@@ -48,7 +48,7 @@ ul.nav.navbar-nav li a:hover {
 }
 
 .round-thumbnail:hover {
-  border: 3px solid $contrast-red;
+  border: 3px solid $contrast-color;
   border-radius: 100%;
   cursor: pointer;
 }
@@ -60,7 +60,7 @@ ul.nav.navbar-nav li a:hover {
   }
 
   li a:hover {
-    color: $contrast-red!important;
+    color: $contrast-color!important;
     background-color: $background-light!important;
     border-bottom: 3px solid $background-light;
   }
@@ -161,6 +161,8 @@ body {
   }
 }
 
+// buttons
+
 .wp-button {
   background-color: #1ebea5;
   border-color: #1ebea5;
@@ -171,8 +173,35 @@ body {
   margin-right: 5px;
 }
 
+.btn-classic, .btn-classic:hover {
+  background-color: $secondary-color;
+  color: $light-font-color;
+}
+
+.btn-neutral, .btn-neutral:hover {
+  background-color: $neutral-color;
+  color: $dark-font-color;
+}
+
+.btn-contrast, .btn-contrast:hover {
+  background-color: $contrast-color;
+  color: $light-font-color;
+}
+
+
+// layout
+
 .left-alignment { float: left; }
 
 .margin-top-1-per { margin-top: 1%; }
 
 .centered-text { text-align: center; }
+
+.margin-4-sides { margin: 0 4px }
+.margin-4-right { margin-right: 4px }
+
+
+.flex-row {
+  display: flex;
+  justify-content: center;
+}

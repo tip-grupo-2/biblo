@@ -36,12 +36,12 @@
         p
           = button_to "Aceptar", respond_request_notification_path, method: :post, params: { notification: @notification,
                                                                                              message: 'aceptado',
-                                                                                             choice: true }
+                                                                                             choice: true }, class: 'btn btn-classic'
       .col-md-1
         p
           = button_to "Cancelar", respond_request_notification_path, method: :post, params: { notification: @notification,
                                                                                               message: 'rechazado',
-                                                                                            choice: false }
+                                                                                            choice: false }, class: 'btn btn-classic'
     - else
       .col-md-5
         .alert.biblo-notice Esta solicitud #{notification_status(book_request)}
