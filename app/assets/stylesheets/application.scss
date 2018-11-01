@@ -145,8 +145,8 @@ body {
 }
 
 .biblo-alert {
-  background-color: #d6b6e9;
-  border-color: #d6b6e9;
+  background-color: $neutral-color;
+  border-color: $neutral-color;
   position:absolute;
   z-index:1;
   text-align: center;
@@ -157,7 +157,7 @@ body {
   margin-top: 0.3%;
 
   .content {
-    color: lightslategray;
+    color: $dark-font-color;
   }
 }
 
