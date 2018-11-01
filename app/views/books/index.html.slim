@@ -12,4 +12,4 @@
         - avatar = user_avatar(copy.user)
         td=image_tag(avatar, class: 'l-profile-image')
         td= copy.user.email
-        td= link_to 'Pedir prestado', edit_book_path(copy)
+        td= link_to 'Pedir prestado', edit_book_path(copy), class: 'btn btn-contrast'
