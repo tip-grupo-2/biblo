@@ -137,8 +137,10 @@ body {
 }
 
 .biblo-notice {
-  background-color: #d6b6e9;
-  border-color: #d6b6e9;
+  background-color: $neutral-color;
+  border-color: $neutral-color;
+  padding: 8px;
+  border-radius: 4px;
 }
 
 .biblo-alert {
