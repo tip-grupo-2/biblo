@@ -28,7 +28,7 @@
         p Telefono: +#{phone}
         - message = "Hola! Mi nombre es #{current_user.name} te contacto por el prestamo del libro #{book.title} que acordamos a traves de Biblo"
         = link_to "https://api.whatsapp.com/send?phone=54#{phone}&text=#{message}" do
-          button.btn.wp-button Contactar por WhatsApp
+          button.btn.wp-contrast Contactar por WhatsApp
 
   .row
     - if book_request.accepted.nil? && book_request.recipient_id == current_user.id
