@@ -1,6 +1,3 @@
-br
-br
-
 .row
   .col-sm-3
   .col-sm-4
@@ -13,9 +10,9 @@ br
           h1 = @book.title
         .col-sm-1
           - if @book.country === 'es'
-              img src="https://www.countryflags.io/es/flat/64.png"
+            img src="https://www.countryflags.io/es/flat/64.png"
           - else
-              img src="https://www.countryflags.io/gb/flat/64.png"
+            img src="https://www.countryflags.io/gb/flat/64.png"
       p
         h3 = @book.author
       p
