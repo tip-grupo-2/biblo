@@ -41,6 +41,9 @@ gem 'openlibrary', '~> 1.0.0'
 gem 'geocoder'
 gem 'gmaps4rails'
 
+#State pattern
+gem 'aasm', '~> 4.12'
+
 group :development, :test do
   gem 'coveralls', require: false
   gem 'cucumber-rails', require: false

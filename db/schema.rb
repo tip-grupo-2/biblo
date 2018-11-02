@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181023022403) do
+ActiveRecord::Schema.define(version: 20181102011723) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,7 +45,16 @@ ActiveRecord::Schema.define(version: 20181023022403) do
     t.integer "original_owner_id"
     t.boolean "requested",         default: false
     t.boolean "reading",           default: false
+    t.boolean "for_donation"
     t.boolean "in_donation",       default: true
+  end
+
+  create_table "donations", force: :cascade do |t|
+    t.integer "requester_id"
+    t.integer "giver_id"
+    t.integer "copy_id"
+    t.string  "state"
+    t.string  "address"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -61,8 +70,8 @@ ActiveRecord::Schema.define(version: 20181023022403) do
   create_table "users", force: :cascade do |t|
     t.string   "email",               default: "", null: false
     t.string   "encrypted_password",  default: "", null: false
-    t.string   "name"
-    t.string   "address"
+    t.string   "name",                             null: false
+    t.string   "address",                          null: false
     t.datetime "remember_created_at"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -72,6 +81,7 @@ ActiveRecord::Schema.define(version: 20181023022403) do
     t.float    "longitude"
     t.string   "avatar"
     t.string   "phone_number"
+    t.integer  "donation_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
