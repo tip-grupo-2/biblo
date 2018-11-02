@@ -11,7 +11,6 @@ class User < ActiveRecord::Base
   has_many :copies # Donaciones
   has_many :books  # Libros que lee
   has_many :notifications, foreign_key: :recipient_id
-  has_many :donations, inverse_of: :giver
   devise :database_authenticatable, :registerable, :rememberable, :validatable, :timeoutable, :omniauthable,
          omniauth_providers: %i[facebook google_oauth2]
 
