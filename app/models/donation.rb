@@ -1,9 +1,9 @@
 class Donation < ActiveRecord::Base
   include AASM
-  belongs_to :giver, class_name: User           #El donante de la copia
-  has_one :requester, class_name: User    #El que pidio la copia
-  has_one :copy                           #La copia donada
-  assm column: 'state' do
+  belongs_to :giver, class_name: User        #El donante de la copia
+  belongs_to :requester, class_name: User    #El que pidio la copia
+  belongs_to :copy                           #La copia donada
+  aasm column: 'state' do
     state :donated, initial: true
     state :requested
     state :accepted
