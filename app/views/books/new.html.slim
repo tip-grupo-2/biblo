@@ -13,7 +13,7 @@
           -else
             = f.text_field :isbn, placeholder: 'Ingrese n° de ISBN', class: 'form-control form-control-lg'
         p
-          = f.submit 'Buscar por isbn', class: 'btn btn-primary'
+          = f.submit 'Buscar por isbn', class: 'btn btn-classic'
     .col-md-3
       h3 Búsqueda por Título
       hr
@@ -25,9 +25,9 @@
           - else
             = f.text_field :title, placeholder: 'Ingrese título', class: 'form-control form-control-lg'
         p
-          = f.submit 'Buscar por título', class: 'btn btn-primary'
+          = f.submit 'Buscar por título', class: 'btn btn-classic'
     .col-sm-6
       h3 Tambien puedes agregar el libro manualmente
       hr
       br
-      = button_to "Agregar", manual_book_path, method: :post, class: 'btn btn-primary btn-block', params: {isbn: ''}
+      = button_to "Agregar", manual_book_path, method: :post, class: 'btn btn-classic btn-block', params: {isbn: ''}

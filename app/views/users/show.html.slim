@@ -13,7 +13,7 @@ link href="https://api.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css" rel="style
       h4 #{@user.email}
       h4#address #{@user.address}
       br
-      = button_to 'Editar perfil',  edit_user_path(@user), method: :get, class: 'btn btn-info'
+      = button_to 'Editar perfil',  edit_user_path(@user), method: :get, class: 'btn btn-classic'
     .col-sm-4
       #map.square-thumbnail style=("width: 500px; height: 300px;")
       script src="https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js"

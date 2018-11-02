@@ -1,0 +1,20 @@
+body {
+  color: black;
+  font-family: $base-font-family!important;
+  line-height: $base-line-height;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $heading-font-family;
+  line-height: $heading-line-height;
+  margin: 0;
+}
+
+p {
+  margin: 0 0 $small-spacing;
+}

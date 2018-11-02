@@ -27,4 +27,6 @@
           - if description
             p #{description}
         td
-          = button_to "Agregar", books_path, method: :post, class: 'btn btn-primary', params: {isbn: isbn, title: title, authors: authors, description: description, picture_url: image,  country: language}
+          - params = { isbn: isbn, title: title, authors: authors, description: description, picture_url: image,
+                      country: language }
+          = button_to "Agregar", books_path, method: :post, class: 'btn btn-classic', params: params
