@@ -3,7 +3,6 @@
 source 'https://rubygems.org'
 
 gem 'dotenv-rails'
-gem 'less-rails'
 gem 'pg', '~> 0.20.0'
 gem 'puma', '~>3.7'
 gem 'rails', '4.2.8'
@@ -21,10 +20,9 @@ gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 
 # views
-gem 'font-awesome-less'
+gem 'font-awesome-sass', '~> 4.7.0'
 gem 'slim'
-gem 'twitter-bootstrap-rails'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 3.3.6'
 
 # code analysis
 gem 'pronto'

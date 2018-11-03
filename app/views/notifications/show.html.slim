@@ -28,7 +28,7 @@
         p Telefono: +#{phone}
         - message = "Hola! Mi nombre es #{current_user.name} te contacto por el prestamo del libro #{book.title} que acordamos a traves de Biblo"
         = link_to "https://api.whatsapp.com/send?phone=54#{phone}&text=#{message}" do
-          button.btn.wp-button Contactar por WhatsApp
+          button.btn.btn-contrast Contactar por WhatsApp
 
   .row
     - if book_request.accepted.nil? && book_request.recipient_id == current_user.id
@@ -36,12 +36,12 @@
         p
           = button_to "Aceptar", respond_request_notification_path, method: :post, params: { notification: @notification,
                                                                                              message: 'aceptado',
-                                                                                             choice: true }
+                                                                                             choice: true }, class: 'btn btn-classic'
       .col-md-1
         p
           = button_to "Cancelar", respond_request_notification_path, method: :post, params: { notification: @notification,
                                                                                               message: 'rechazado',
-                                                                                            choice: false }
+                                                                                            choice: false }, class: 'btn btn-classic'
     - else
-      .col-md-5
-        .alert.biblo-alert Esta solicitud #{notification_status(book_request)}
+      .col-md-5.centered-text
+        .biblo-notice Esta solicitud #{notification_status(book_request)}

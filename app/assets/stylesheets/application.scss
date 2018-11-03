@@ -1,58 +1,100 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "flag-icon";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import "variables";
+@import "typography";
+@import "map";
+
+// navbar
 
 .navbar-brand,
 .navbar-nav li a, .nav.navbar-nav.navbar-right.l-login-nav {
-  color: #dbc8ff;
+  color: $light-font-color;
   line-height: 50px;
   height: 50px;
   padding-top: 0;
 }
 
+.navbar-nav li a:hover, .navbar-nav li a:focus {
+  background-color: $main-dark-color;
+  border-bottom: 3px solid $contrast-color;
+}
+
+.navbar-selector:hover {
+  border-bottom: 3px solid $contrast-color;
+  color: $contrast-color;
+  cursor: pointer;
+}
+
+ul.nav.navbar-nav li a:hover {
+  color: $contrast-color;
+  background-color: $main-dark-color;
+}
+
+.navbar {
+  background-color: $main-dark-color;
+  margin : 0 !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, Sans-Serif;
+}
+
+
+.round-thumbnail {
+  border-radius: 100%;
+  border: 3px solid transparent;
+}
+
+.round-thumbnail:hover {
+  border: 3px solid $contrast-color;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  background-color: $background-light;
+  li a {
+    color: $dark-font-color;
+  }
+
+  li a:hover {
+    color: $contrast-color!important;
+    background-color: $background-light!important;
+    border-bottom: 3px solid $background-light;
+  }
+}
+
+
+// general
+
+th, td {
+  text-align: center;
+}
+
 hr {
-  border-color: #25282a;
+  border-color: $main-dark-color;
 
   border-width: 1px 0;
   margin: 15px 0;
 }
 
-ul.nav.navbar-nav li a:hover {
-  color: #EFEFEF;
-  background-color: #441757;
-}
-
-.navbar {
-  background-color: #441757;
-  margin : 0 !important;
-  font-family: "Helvetica Neue", Helvetica, Arial, Sans-Serif;
-}
-
-.navbar-nav li:not(:nth-child(-n+2)){
-  box-shadow: -11px 0 0 -10px #ffdbe9
-}
 
 .carousel-inner > .item > img, .carousel-inner > .item > a > img {
   width: 100%;
 }
 
-html body {
-  background-color: rgb(44, 53, 65);
-  font-palette: light;
-  color: lightslategray;
+body {
+  background-color: $background-dark;
+  color: $dark-font-color;
 }
 
 .book_card {
   margin-top: 1%;
   border-radius: 5px;
-  background-color: #EFEFEF;
+  background-color: $background-light;
   padding: 35px;
 }
 
-.round-thumbnail {
-  border-radius: 100%;
-  border: #EFEFEF solid 2px;
-}
 
 .square-thumbnail {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -94,21 +136,44 @@ html body {
 .left-15px {
   margin-left: 15px;
 }
+// notifications
+
+.biblo-notice {
+  background-color: $neutral-color;
+  border-color: $neutral-color;
+  padding: 8px;
+  border-radius: 4px;
+}
 
 .biblo-alert {
-  background-color: #d6b6e9;
-  border-color: #d6b6e9;
+  background-color: $neutral-color;
+  // position
+  position:absolute;
+  z-index:1;
+  text-align: center;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  // borders
+  margin-top: 0.3%;
+  border-radius: 0 4px 4px 0px;
+  border-bottom: 0;
+  border-top: 0;
+  border-color: transparent;
+  border-left: 8px solid $contrast-color;
+
+  .content {
+    color: $dark-font-color;
+  }
 }
 
-.wp-button {
-  background-color: #1ebea5;
-  border-color: #1ebea5;
-  color: white;
-}
+// buttons
 
 .btn-info {
   margin-right: 5px;
 }
+
 
 #barcode-scanner canvas.drawingBuffer, #barcode-scanner video.drawingBuffer {
   display: none;
@@ -119,4 +184,53 @@ html body {
   height: auto;
   border: 4px solid;
   border-color: black;
+
+.btn-classic, .btn-classic:hover {
+  background-color: $secondary-color;
+  color: $light-font-color;
+}
+
+.btn-neutral, .btn-neutral:hover {
+  background-color: $neutral-color;
+  color: $dark-font-color;
+}
+
+.btn-contrast, .btn-contrast:hover {
+  background-color: $contrast-color;
+  color: $light-font-color;
+}
+
+
+// layout
+
+.left-alignment { float: left; }
+
+.margin-top-1-per { margin-top: 1%; }
+
+.centered-text { text-align: center; }
+
+.margin-4-sides { margin: 0 4px }
+.margin-4-right { margin-right: 4px }
+
+
+.flex-row {
+  display: flex;
+  justify-content: center;
+}
+
+.overlay-gradient:before {
+  content: '';
+  position:absolute;
+  top:0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(65, 182, 200, 0.5) 0%, rgba(63, 0, 56, 1) 100%);
+  z-index: 1;
+}
+
+.color-connector {
+  width: 100%;
+  height: 15px;
+  background-color: $main-dark-color;
 }

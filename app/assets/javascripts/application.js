@@ -10,14 +10,16 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require turbolinks
+//= require underscore
+//= require quagga
+//= require gmaps/google
 //= require jquery
 //= require jquery_ujs
-//= require twitter/bootstrap
-//= require turbolinks
-//= require_tree .
-//= require underscore
 //= require bootstrap
-//= require quagga
+//= require bootstrap-sprockets
+//= require map
+//= require_tree .
 
 function post_form(path, params) {
     var form = document.createElement("form");

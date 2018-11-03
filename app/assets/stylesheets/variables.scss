@@ -1,0 +1,23 @@
+// Typography
+$base-font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+$heading-font-family: $base-font-family;
+
+$base-line-height: 1.5;
+$heading-line-height: 1.2;
+
+// Other Sizes
+$base-spacing: $base-line-height * 1em;
+$small-spacing: $base-spacing / 2;
+
+//colors
+$main-dark-color: #3F0038;
+$biblo-white: #EFF9F0;
+$background-dark: #30343F;
+$background-light: #F6F6F6;
+$contrast-color: #E80C6E;
+$secondary-color: #008CA0;
+// tint of bg-dark
+$neutral-color: #CFD2DA;
+
+$light-font-color: $biblo-white;
+$dark-font-color: $background-dark;

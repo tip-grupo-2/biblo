@@ -1,7 +1,6 @@
 # frozen_string_literal: true
-require 'open-uri'
-require 'openlibrary'
 class BooksController < ApplicationController
+  
   skip_before_filter :verify_authenticity_token
   # Algunos ISBN para probar:
   # 9788478884452
@@ -51,8 +50,6 @@ class BooksController < ApplicationController
     @books = response_data['items']
   end
 
-
-
   def create
     isbn = params[:isbn]
     title = params[:title]
@@ -84,7 +81,7 @@ class BooksController < ApplicationController
     filtered_books = Book.where('title LIKE ?', "%#{title}%")
                          .where('author LIKE ?', "%#{author}%")
                          .pluck(:id)
-    @copies =  Copy.where.not('user_id = ? OR requested = ?', current_user, true)
+    @copies =  Copy.where.not('user_id = ? OR requested = ? OR in_donation = ?', current_user, true, false)
                    .where(book_id: filtered_books)
 
   end
@@ -97,8 +94,12 @@ class BooksController < ApplicationController
     @copy = Copy.find(params[:id])
     raise Copy::ALREADY_REQUESTED_ERROR if @copy.requested?
     request = BookRequest.new(requester_id: current_user.id, recipient_id: @copy.user_id, copy_id: @copy.id)
-    Notification.create!(requester_id: current_user.id, recipient_id: @copy.user_id, copy_id: @copy.id,
-                        action: 'solicitado', book_request: request)
+
+    ActiveRecord::Base.transaction do
+      Notification.create!(requester_id: current_user.id, recipient_id: @copy.user_id, copy_id: @copy.id,
+                           action: 'solicitado', book_request: request)
+      @copy.update!(requested: true)
+    end
     flash[:success] = 'Tu solicitud de prestamo fue enviada satisfactoriamente!'
     redirect_to '/books'
   rescue Copy::ALREADY_REQUESTED_ERROR
@@ -120,7 +121,25 @@ class BooksController < ApplicationController
     redirect_to :back
   end
 
+
   def capture_barcode
+  end
+  
+  def mark_as_private
+    copy = Copy.find(params[:id])
+    raise Copy::NOT_IN_POSSESSION_ERROR unless copy.current_and_original_owner(current_user)
+    raise Copy::ALREADY_REQUESTED_ERROR if copy.requested?
+    change_to = !copy.in_donation
+    copy.update!(in_donation: change_to)
+    flash[:notice] = mark_as_message(copy.book.title, change_to)
+    redirect_to :back
+  rescue Copy::NOT_IN_POSSESSION_ERROR
+    flash[:notice] = "Oops! El libro seleccionado no se encuentra actualmente en tu poder."
+    redirect_to :back
+  rescue Copy::ALREADY_REQUESTED_ERROR
+    flash[:notice] = "Oops! Alguien ha solicitado el prestamo de esta copia. Por favor responde la solicitud antes de
+                      restringir su disponibilidad"
+    redirect_to :back
   end
 
   private
@@ -135,7 +154,15 @@ class BooksController < ApplicationController
                             description: description,
                             country: country)
      end
-
      current_user.add(@book)
    end
+
+  def mark_as_message(title, state)
+    if state
+      "Tu ejemplar de #{title} se encuentra disponible para todos los usuarios de Biblo!"
+    else
+      "Restringiste la disponibilidad de tu ejemplar de #{title}. Solo será visible en tu colección y desaparecerá de
+       los catalogos de prestamo de Biblo."
+    end
+  end
 end
