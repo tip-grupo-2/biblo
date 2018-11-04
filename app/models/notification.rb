@@ -2,7 +2,7 @@ class Notification < ActiveRecord::Base
   belongs_to :recipient, class_name: User
   belongs_to :requester, class_name: User
   belongs_to :copy, class_name: Copy
-  has_one :book_request
+  belongs_to :donation, class_name: Donation
   validates_presence_of :recipient, :requester, :action
 
   def self.new_request_notification(requester, copy)

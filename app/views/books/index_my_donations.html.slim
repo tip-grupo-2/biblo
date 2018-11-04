@@ -8,25 +8,24 @@
       th Titulo
       th Autores
       th ISBN
-      th ¿En donación?
+      th Estado
       th
       th
       th
-    - @copies.each do |copy|
+    - @donations.each do |donation|
       tr
-        td= copy.id
+        td= donation.copy.id
         td
-          img.thumbnail src="#{copy.book.picture_url}" height= "100px"
-        td= copy.book.title
-        td= copy.book.author
-        td= copy.book.isbn
-        - in_donation = copy.in_donation?
-        td= chose_if(in_donation, 'Si', 'No')
-        - if current_and_original_owner(copy)
-          - privacy_text = chose_if(in_donation, 'Marcar como privado', 'Marcar como publico')
-          - privacy_btn_style = chose_if(in_donation, 'btn-contrast', 'btn-classic')
-          td= link_to privacy_text, mark_as_private_book_path(copy), method: 'post', class: "btn #{privacy_btn_style}"
+          img.thumbnail src="#{donation.copy.book.picture_url}" height= "100px"
+        td= donation.copy.book.title
+        td= donation.copy.book.author
+        td= donation.copy.book.isbn
+        td= donation.getStateName()
+        - if current_and_original_owner(donation)
+          - privacy_text = chose_if(donation.donated?, 'Marcar como privado', 'Marcar como publico')
+          - privacy_btn_style = chose_if(donation.donated?, 'btn-contrast', 'btn-classic')
+          td= link_to privacy_text, mark_as_private_book_path(donation), method: 'post', class: "btn #{privacy_btn_style}"
         - else
           td
-        td= link_to 'Ver detalle', book_path(copy.book), class: 'btn btn-classic'
-        = yield copy
+        td= link_to 'Ver detalle', book_path(donation.copy.book), class: 'btn btn-classic'
+        = yield donation
