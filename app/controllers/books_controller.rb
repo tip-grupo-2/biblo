@@ -60,7 +60,7 @@ class BooksController < ApplicationController
     #TODO: filtrar donaciones por distancia maxima.
     title = params[:search_title]
     author = params[:search_author]
-    @donations = Donation
+    @donations = Donation.near(current_user.address, current_user.max_distance, units: :km)
                      .joins("INNER JOIN copies ON copies.id = donations.copy_id
                              INNER JOIN books ON copies.book_id = books.id")
                      .where('books.title LIKE ?', "%#{title}%")
