@@ -2,14 +2,14 @@
     h1 Todos los libros
     hr
     = form_tag(books_path, method: :get, id: "search-form") do
-    .col-sm-4
-        = text_field_tag :search_title, params[:search_title], placeholder: "Buscar por título", class: 'form-control form-control-lg'
-    .col-sm-4
-        = text_field_tag :search_author, params[:search_author], placeholder: "Buscar por autor", class: 'form-control form-control-lg'
-    .col-sm-4
-        = submit_tag "Buscar", class: 'btn btn-classic'
-    =render layout: 'books/index_table' do |copy|
-        - avatar = user_avatar(copy.user)
+        .col-sm-4
+            = text_field_tag :search_title, params[:search_title], placeholder: "Buscar por título", class: 'form-control form-control-lg'
+        .col-sm-4
+            = text_field_tag :search_author, params[:search_author], placeholder: "Buscar por autor", class: 'form-control form-control-lg'
+        .col-sm-4
+            = submit_tag "Buscar", class: 'btn btn-classic'
+    =render layout: 'books/index_table' do |donation|
+        - avatar = user_avatar(donation.giver)
         td=image_tag(avatar, class: 'l-profile-image')
-        td= copy.user.email
-        td= link_to 'Pedir prestado', edit_book_path(copy), class: 'btn btn-contrast'
+        td= donation.giver.email
+        td= link_to 'Pedir prestado', edit_book_path(donation), class: 'btn btn-contrast'

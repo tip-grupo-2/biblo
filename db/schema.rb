@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181102011723) do
+ActiveRecord::Schema.define(version: 20181103231914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,12 +50,17 @@ ActiveRecord::Schema.define(version: 20181102011723) do
   end
 
   create_table "donations", force: :cascade do |t|
-    t.integer "requester_id"
-    t.integer "giver_id"
-    t.integer "copy_id"
-    t.string  "state"
-    t.string  "address"
+    t.integer  "requester_id"
+    t.integer  "giver_id"
+    t.integer  "copy_id"
+    t.string   "state"
+    t.string   "address"
+    t.integer  "notification_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
+
+  add_index "donations", ["notification_id"], name: "index_donations_on_notification_id", using: :btree
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "recipient_id"
@@ -65,6 +70,7 @@ ActiveRecord::Schema.define(version: 20181102011723) do
     t.string   "action"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "donation_id"
   end
 
   create_table "users", force: :cascade do |t|
