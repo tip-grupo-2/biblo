@@ -56,19 +56,10 @@ class NotificationsController < ApplicationController
 
   def update_book_and_request(choice, notification)
     donation = notification.donation
-    puts "-----------------CHOICE----------------------"
-    puts choice
-    puts "---------------------------------------------"
     ActiveRecord::Base.transaction do
       if choice == 'true' # :c
-        puts "-----------------CHOICE----------------------"
-        puts choice
-        puts "---------------------whot---------------------"
         donation.accept
       else
-        puts "--------------------------------what-"
-        puts 'REJECT'
-        puts "--------------------------------thefuck-"
         donation.reject
       end
       donation.save
