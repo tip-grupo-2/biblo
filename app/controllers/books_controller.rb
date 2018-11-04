@@ -56,6 +56,8 @@ class BooksController < ApplicationController
   end
 
   def index
+
+    #TODO: filtrar donaciones por distancia maxima.
     title = params[:search_title]
     author = params[:search_author]
     @donations = Donation
