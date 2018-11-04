@@ -45,20 +45,33 @@ class NotificationsController < ApplicationController
   end
 
   def notify_requester(choice, notification)
-    request = BookRequest.new(requester_id: notification.recipient_id, recipient_id: notification.requester_id,
-                    copy_id: notification.copy.id, accepted: notification.book_request.accepted )
-    Notification.create!(requester_id: notification.recipient_id, recipient_id: notification.requester_id, copy_id: notification.copy.id,
-                         action: choice, book_request: request)
+    Notification.create!(requester_id: notification.recipient_id,
+                         recipient_id: notification.requester_id,
+                         copy_id: notification.copy.id,
+                         action: choice,
+                         donation: notification.donation)
     flash[:success] = 'La solicitud fue contestada satisfactoriamente!'
     redirect_to :back
   end
 
   def update_book_and_request(choice, notification)
-    copy_request = notification.book_request
-    copy = copy_request.copy
+    donation = notification.donation
+    puts "-----------------CHOICE----------------------"
+    puts choice
+    puts "---------------------------------------------"
     ActiveRecord::Base.transaction do
-      copy.update_attributes!(requested: choice)
-      copy_request.update_attributes!(accepted: choice)
+      if choice == 'true' # :c
+        puts "-----------------CHOICE----------------------"
+        puts choice
+        puts "---------------------whot---------------------"
+        donation.accept
+      else
+        puts "--------------------------------what-"
+        puts 'REJECT'
+        puts "--------------------------------thefuck-"
+        donation.reject
+      end
+      donation.save
     end
   end
 

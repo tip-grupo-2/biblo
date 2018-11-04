@@ -55,34 +55,35 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
   end
 
-  def index_my_donations
-    @copies = Copy.where(original_owner: current_user.id)
-  end
-
   def index
     title = params[:search_title]
     author = params[:search_author]
-    filtered_books = Book.where('title LIKE ?', "%#{title}%")
-                         .where('author LIKE ?', "%#{author}%")
-                         .pluck(:id)
-    @copies =  Copy.where.not('user_id = ? OR requested = ? OR in_donation = ?', current_user, true, false)
-                   .where(book_id: filtered_books)
-
+    @donations = Donation
+                     .joins("INNER JOIN copies ON copies.id = donations.copy_id
+                             INNER JOIN books ON copies.book_id = books.id")
+                     .where('books.title LIKE ?', "%#{title}%")
+                     .where('books.author LIKE ?', "%#{author}%")
+                     .where.not(giver_id: current_user.id)
+                     .where(state: :donated)
   end
 
   def index_my_books
-    @copies = Copy.where(user_id: current_user)
+    @donations = Donation.joins(:copy).where("copies.user_id = ?", current_user.id)
+  end
+  def index_my_donations
+    @donations = Donation.joins(:copy).where("copies.original_owner_id = ?", current_user.id)
+    #@copies = Copy.where(original_owner: current_user.id)
   end
 
   def edit
-    @copy = Copy.find(params[:id])
-    raise Copy::ALREADY_REQUESTED_ERROR if @copy.requested?
-    request = BookRequest.new(requester_id: current_user.id, recipient_id: @copy.user_id, copy_id: @copy.id)
-
+    @donation = Donation.find(params[:id])
+    raise Copy::ALREADY_REQUESTED_ERROR unless @donation.donated? || @donation.locked?
+    #request = BookRequest.new(requester_id: current_user.id, recipient_id: @copy.user_id, copy_id: @copy.id)
+    @donation.request(current_user)
     ActiveRecord::Base.transaction do
-      Notification.create!(requester_id: current_user.id, recipient_id: @copy.user_id, copy_id: @copy.id,
-                           action: 'solicitado', book_request: request)
-      @copy.update!(requested: true)
+      Notification.create!(requester_id: current_user.id, recipient_id: @donation.giver.id, copy_id: @donation.copy.id,
+                           action: 'solicitado', donation: @donation)
+      @donation.save
     end
     flash[:success] = 'Tu solicitud de prestamo fue enviada satisfactoriamente!'
     redirect_to '/books'
@@ -92,26 +93,30 @@ class BooksController < ApplicationController
   end
 
   def start
-    @copy = Copy.find(params[:id])
-    @copy.reading = true
-    @copy.save
+    @donation = Donation.find(params[:id])
+    @donation.lock
+    @donation.save
     redirect_to :back
   end
 
   def finish
-    @copy = Copy.find(params[:id])
-    @copy.reading = false
-    @copy.save
+    @donation = Donation.find(params[:id])
+    @donation.unlock
+    @donation.save
     redirect_to :back
   end
 
   def mark_as_private
-    copy = Copy.find(params[:id])
-    raise Copy::NOT_IN_POSSESSION_ERROR unless copy.current_and_original_owner(current_user)
-    raise Copy::ALREADY_REQUESTED_ERROR if copy.requested?
-    change_to = !copy.in_donation
-    copy.update!(in_donation: change_to)
-    flash[:notice] = mark_as_message(copy.book.title, change_to)
+    donation = Donation.find(params[:id])
+    raise Copy::NOT_IN_POSSESSION_ERROR unless donation.copy.current_and_original_owner(current_user)
+    raise Copy::ALREADY_REQUESTED_ERROR unless donation.donated? or donation.locked?
+    if(donation.donated?)
+      donation.lock
+    else
+      donation.unlock
+    end
+    donation.save
+    flash[:notice] = mark_as_message(donation.copy.book.title, donation.donated?)
     redirect_to :back
   rescue Copy::NOT_IN_POSSESSION_ERROR
     flash[:notice] = "Oops! El libro seleccionado no se encuentra actualmente en tu poder."
@@ -137,8 +142,8 @@ class BooksController < ApplicationController
      current_user.add(@book)
    end
 
-  def mark_as_message(title, state)
-    if state
+  def mark_as_message(title, unlocked)
+    if unlocked
       "Tu ejemplar de #{title} se encuentra disponible para todos los usuarios de Biblo!"
     else
       "Restringiste la disponibilidad de tu ejemplar de #{title}. Solo será visible en tu colección y desaparecerá de

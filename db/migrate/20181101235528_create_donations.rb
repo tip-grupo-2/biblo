@@ -6,6 +6,7 @@ class CreateDonations < ActiveRecord::Migration
       t.integer :copy_id
       t.string :state
       t.string :address
+      t.timestamps null: false
     end
   end
 end
