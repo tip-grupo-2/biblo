@@ -78,7 +78,6 @@ hr {
   margin: 15px 0;
 }
 
-
 .carousel-inner > .item > img, .carousel-inner > .item > a > img {
   width: 100%;
 }
@@ -222,4 +221,8 @@ body {
   width: 100%;
   height: 15px;
   background-color: $main-dark-color;
+}
+
+.left {
+  border-left: 1px solid $main-dark-color;
 }

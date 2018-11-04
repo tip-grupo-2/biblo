@@ -43,24 +43,19 @@ ActiveRecord::Schema.define(version: 20181103231914) do
     t.integer "user_id"
     t.integer "book_id"
     t.integer "original_owner_id"
+    t.boolean "for_donation"
     t.boolean "requested",         default: false
     t.boolean "reading",           default: false
-    t.boolean "for_donation"
     t.boolean "in_donation",       default: true
   end
 
   create_table "donations", force: :cascade do |t|
-    t.integer  "requester_id"
-    t.integer  "giver_id"
-    t.integer  "copy_id"
-    t.string   "state"
-    t.string   "address"
-    t.integer  "notification_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.integer "requester_id"
+    t.integer "giver_id"
+    t.integer "copy_id"
+    t.string  "state"
+    t.string  "address"
   end
-
-  add_index "donations", ["notification_id"], name: "index_donations_on_notification_id", using: :btree
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "recipient_id"
@@ -76,8 +71,8 @@ ActiveRecord::Schema.define(version: 20181103231914) do
   create_table "users", force: :cascade do |t|
     t.string   "email",               default: "", null: false
     t.string   "encrypted_password",  default: "", null: false
-    t.string   "name",                             null: false
-    t.string   "address",                          null: false
+    t.string   "name"
+    t.string   "address"
     t.datetime "remember_created_at"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -87,7 +82,6 @@ ActiveRecord::Schema.define(version: 20181103231914) do
     t.float    "longitude"
     t.string   "avatar"
     t.string   "phone_number"
-    t.integer  "donation_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
