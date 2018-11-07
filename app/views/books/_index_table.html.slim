@@ -15,5 +15,8 @@ table.table.table-hover
       td= donation.copy.book.title
       td= donation.copy.book.author
       td= donation.copy.book.isbn
-      td= link_to 'Ver detalle', book_path(donation.copy.book), class: 'btn btn-classic'
+      - if donation.copy.in_donation? && current_user != donation.copy.user
+        td= link_to 'Ver detalle', donation_path(donation), class: 'btn btn-classic'
+      - else
+        td= link_to 'Ver detalle', book_path(donation.copy.book), class: 'btn btn-classic'
       =yield donation

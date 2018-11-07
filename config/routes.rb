@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions',
                                     omniauth_callbacks: 'users/omniauth_callbacks', users: 'users/' }
   resources :users, only: %i[show edit update]
+  resources :donations
 
   resources :notifications do
     member do
@@ -32,5 +33,4 @@ Rails.application.routes.draw do
       post :mark_as_private
     end
   end
-
 end

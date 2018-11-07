@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20181103231914) do
     t.integer "user_id"
     t.integer "book_id"
     t.integer "original_owner_id"
+    t.boolean "for_donation"
     t.boolean "requested",         default: false
     t.boolean "reading",           default: false
     t.boolean "for_donation"
