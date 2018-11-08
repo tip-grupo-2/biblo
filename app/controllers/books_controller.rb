@@ -6,8 +6,7 @@ class BooksController < ApplicationController
 
   def preview
     @isbn = params[:book][:isbn]
-    response = RestClient.get "https://www.googleapis.com/books/v1/volumes?q=isbn:#{@isbn}"
-    response_data = JSON.parse(response)
+    response_data = getGoogleApiBooks("isbn:#{@isbn}")
     @book_data = response_data.dig('items', 0, 'volumeInfo')
     raise Book::ISBN_LENGTH_ERROR if @isbn.length != 13
     raise Book::ISBN_PROVIDER_ERROR if @book_data.nil?
@@ -29,9 +28,13 @@ class BooksController < ApplicationController
 
   def preview_title
     @title = params[:book][:title].gsub(/\s/,'+')
-    response = RestClient.get "https://www.googleapis.com/books/v1/volumes?q=#{@title}"
-    response_data = JSON.parse(response)
+    response_data = getGoogleApiBooks(@title)
     @books = response_data['items']
+  end
+
+  def getGoogleApiBooks(queryBy)
+    response = RestClient.get "https://www.googleapis.com/books/v1/volumes?q=#{queryBy}"
+    response_data = JSON.parse(response)
   end
 
   def create
@@ -56,18 +59,17 @@ class BooksController < ApplicationController
   end
 
   def index
-
-    #TODO: filtrar donaciones por distancia maxima.
     title = params[:search_title]
     author = params[:search_author]
-    @donations = Donation
+    donations = Donation
                      .joins("INNER JOIN copies ON copies.id = donations.copy_id
                              INNER JOIN books ON copies.book_id = books.id")
                      .where('books.title LIKE ?', "%#{title}%")
                      .where('books.author LIKE ?', "%#{author}%")
                      .where.not(giver_id: current_user.id)
                      .where(state: :donated)
-                     .near(current_user.address, current_user.max_distance, units: :km)
+    filtered_donations = filter_by_max_distance(donations, current_user)
+    @donations = sort_by_distance(filtered_donations, current_user)
   end
 
   def index_my_books
@@ -152,5 +154,29 @@ class BooksController < ApplicationController
       "Restringiste la disponibilidad de tu ejemplar de #{title}. Solo será visible en tu colección y desaparecerá de
        los catalogos de prestamo de Biblo."
     end
+  end
+
+  def filter_by_max_distance(donations, current_user)
+    donations.select do |donation|
+      giver = donation.giver
+      distance = calculate_distance_between([giver.latitude, giver.longitude],
+                                            [current_user.latitude, current_user.longitude])
+      distance <= current_user.max_distance
+    end
+  end
+
+  def sort_by_distance(donations, current_user)
+    donations.sort! do |donation_a, donation_b|
+      giver_a = donation_a.giver
+      giver_b = donation_b.giver
+      calculate_distance_between([giver_a.latitude, giver_a.longitude],
+                                 [current_user.latitude, current_user.longitude]) <=>
+          calculate_distance_between([giver_b.latitude, giver_b.longitude],
+                                     [current_user.latitude, current_user.longitude])
+    end
+  end
+
+  def calculate_distance_between(point_a, point_b)
+    Geocoder::Calculations.distance_between(point_a, point_b)
   end
 end

@@ -2,8 +2,6 @@
 
 class User < ActiveRecord::Base
 
-  geocoded_by :address
-  after_validation :geocode
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :trackable and :omniauthable
   # :recoverable
@@ -14,7 +12,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :rememberable, :validatable, :timeoutable, :omniauthable,
          omniauth_providers: %i[facebook google_oauth2]
 
-  validates :name, :address, presence: true
+  validates :name, presence: true
 
   def self.from_omniauth(auth_info)
     User.where(provider: auth_info.provider, uid: auth_info.uid).first_or_create do |user|
