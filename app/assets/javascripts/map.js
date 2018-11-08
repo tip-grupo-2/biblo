@@ -37,6 +37,12 @@ initMap = function() {
         marker.setPosition(place.geometry.location);
         marker.setVisible(true);
 
+        // event for updating location in user
+        if(document.getElementById('latitude')) {
+            document.getElementById('latitude').value = place.geometry.location.lat();
+            document.getElementById('longitude').value = place.geometry.location.lng();
+        }
+
         var address = '';
         if (place.address_components) {
             address = [
