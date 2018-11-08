@@ -80,3 +80,50 @@ initStaticGeoCodeMap = function(){
 urlizeString = function(string){
     return string.replace(" ","+");
 };
+
+initStaticGeoCodeMapWithZone = function(){
+    var address = document.getElementById('address');
+    $.getJSON(`https://maps.googleapis.com/maps/api/geocode/json?address=${urlizeString(address.value)}&key=AIzaSyA7FZ14h7xhNNN5QmXt5lJpzPArNjvNfOQ`, function success(response){
+    })
+    .then(data => {
+            var locatedAt = data.results[0].geometry.location;
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: locatedAt.lat, lng: locatedAt.lng},
+                zoom: 15,
+                gestureHandling: 'cooperative',
+                zoomControl: false,
+                scrollwheel: false
+            });
+            var marker = new google.maps.Marker({
+                map: map,
+                anchorPoint: new google.maps.Point(0, -29),
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 90.5,
+                    fillColor: "#481d5a",
+                    fillOpacity: 0.3,
+                    strokeWeight: 0.4
+                }
+
+            });
+            marker.setPosition(locatedAt);
+            marker.setVisible(true);
+        });
+};
+
+urlizeString = function(string){
+    return string.replace(" ","+");
+};
+
+getDistanceAndTime = function(){
+    var destination = document.getElementById('address');
+    var origin = document.getElementById('current_user_address');
+    $.getJSON(`https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${urlizeString(origin.value)}&destinations=${urlizeString(destination.value)}&key=AIzaSyA7FZ14h7xhNNN5QmXt5lJpzPArNjvNfOQ`, function success(response){
+    })
+    .then(data => {
+        var time = data.rows[0].elements[0].duration.text;
+        var distance = data.rows[0].elements[0].distance.text;
+        document.getElementById('time').innerHTML = "Tiempo de llegada: " + time;
+        document.getElementById('distance').innerHTML = "Distancia: " + distance;
+    });
+};

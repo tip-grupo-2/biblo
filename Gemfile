@@ -23,6 +23,7 @@ gem 'jquery-rails'
 gem 'font-awesome-sass', '~> 4.7.0'
 gem 'slim'
 gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap-slider-rails'
 
 # code analysis
 gem 'pronto'

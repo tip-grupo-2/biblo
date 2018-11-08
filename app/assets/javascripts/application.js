@@ -18,5 +18,6 @@
 //= require bootstrap
 //= require bootstrap-sprockets
 //= require map
+//= require bootstrap-slider
 //= require_tree .
 

@@ -1,0 +1,25 @@
+script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7FZ14h7xhNNN5QmXt5lJpzPArNjvNfOQ&libraries=places&callback=initStaticGeoCodeMapWithZone"
+script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7FZ14h7xhNNN5QmXt5lJpzPArNjvNfOQ&libraries=places&callback=getDistanceAndTime"
+.container.book_card
+  input#address type="hidden" value="#{@donation.giver.address}" /
+  input#current_user_address type="hidden" value="#{current_user.address}" /
+  .col-sm-2
+    img.rounded.float-left src= "#{@donation.copy.book.picture_url}"/
+  .col-sm-4
+    h1 = @donation.copy.book.title
+    p
+      h3 = @donation.copy.book.author
+    p
+      strong ISBN:
+      = @donation.copy.book.isbn
+    p
+      = @donation.copy.book.description
+  .col-sm-6.left
+    h3 Ubicación aproximada
+    br
+    #map.square-thumbnail
+    #infowindow-content
+      span#place-address
+    br
+    h4#time
+    h4#distance
