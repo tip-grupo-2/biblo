@@ -6,8 +6,7 @@ class BooksController < ApplicationController
 
   def preview
     @isbn = params[:book][:isbn]
-    response = RestClient.get "https://www.googleapis.com/books/v1/volumes?q=isbn:#{@isbn}"
-    response_data = JSON.parse(response)
+    response_data = getGoogleApiBooks("isbn:#{@isbn}")
     @book_data = response_data.dig('items', 0, 'volumeInfo')
     raise Book::ISBN_LENGTH_ERROR if @isbn.length != 13
     raise Book::ISBN_PROVIDER_ERROR if @book_data.nil?
@@ -29,9 +28,13 @@ class BooksController < ApplicationController
 
   def preview_title
     @title = params[:book][:title].gsub(/\s/,'+')
-    response = RestClient.get "https://www.googleapis.com/books/v1/volumes?q=#{@title}"
-    response_data = JSON.parse(response)
+    response_data = getGoogleApiBooks(@title)
     @books = response_data['items']
+  end
+
+  def getGoogleApiBooks(queryBy)
+    response = RestClient.get "https://www.googleapis.com/books/v1/volumes?q=#{queryBy}"
+    response_data = JSON.parse(response)
   end
 
   def create
