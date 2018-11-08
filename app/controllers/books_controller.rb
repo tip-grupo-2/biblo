@@ -63,14 +63,17 @@ class BooksController < ApplicationController
     #TODO: filtrar donaciones por distancia maxima.
     title = params[:search_title]
     author = params[:search_author]
-    @donations = Donation
+    donations = Donation
                      .joins("INNER JOIN copies ON copies.id = donations.copy_id
                              INNER JOIN books ON copies.book_id = books.id")
                      .where('books.title LIKE ?', "%#{title}%")
                      .where('books.author LIKE ?', "%#{author}%")
                      .where.not(giver_id: current_user.id)
                      .where(state: :donated)
-                     .near(current_user.address, current_user.max_distance, units: :km).reorder('distance DESC')
+    #puts 'haaro'
+   # puts donations.select {|a| a.distance_from([current_user.latitude, current_user.longitude]) <= current_user.max_distance}
+    @donations = filter_distance_and_order(donations, current_user)
+  # @donations = donations
   end
 
   def index_my_books
@@ -156,4 +159,21 @@ class BooksController < ApplicationController
        los catalogos de prestamo de Biblo."
     end
   end
+
+  def filter_distance_and_order(donations, current_user)
+    #donations.select {|a| a.distance_from([current_user.latitude, current_user.longitude]) <= current_user.max_distance}
+    #Geocoder::Calculations.distance_between([], [])
+    filtered_d = donations.select do |donation|
+      distance = Geocoder::Calculations.distance_between([donation.giver.latitude, donation.giver.longitude],
+                                                         [current_user.latitude, current_user.longitude])
+      distance <= current_user.max_distance
+    end
+    filtered_d.sort! do |a, b|
+      Geocoder::Calculations.distance_between([a.giver.latitude, a.giver.longitude],
+                                              [current_user.latitude, current_user.longitude]) <=>
+          Geocoder::Calculations.distance_between([b.giver.latitude, b.giver.longitude],
+                                                  [current_user.latitude, current_user.longitude])
+    end
+  end
+
 end
