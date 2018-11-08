@@ -19,6 +19,7 @@
 //= require bootstrap
 //= require bootstrap-sprockets
 //= require map
+//= require bootstrap-slider
 //= require_tree .
 
 function post_form(path, params) {

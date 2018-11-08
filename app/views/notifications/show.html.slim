@@ -3,7 +3,7 @@
     .col-md-5.left-15px
       h2 Libro pedido:
       - book = @notification.copy.book
-      - book_request = @notification.book_request
+      - donation = @notification.donation
       p
         img src="#{book.picture_url}"
       p
@@ -19,7 +19,7 @@
       - avatar = user_avatar(@notification.requester)
       = image_tag(avatar, class: 'l-profile-image-bg')
       h2 #{requester_name}
-      - if book_request.accepted?
+      - if donation.accepted?
         p Mail: #{@notification.requester.email}
         p Direccion: #{@notification.requester.address}
       P Fecha de solicitud: #{@notification.created_at.strftime('%d/%m/%Y - %H:%M')}
@@ -31,7 +31,7 @@
           button.btn.btn-contrast Contactar por WhatsApp
 
   .row
-    - if book_request.accepted.nil? && book_request.recipient_id == current_user.id
+    - if donation.requested? && @notification.recipient_id == current_user.id
       .col-md-1
         p
           = button_to "Aceptar", respond_request_notification_path, method: :post, params: { notification: @notification,
@@ -44,4 +44,4 @@
                                                                                             choice: false }, class: 'btn btn-classic'
     - else
       .col-md-5.centered-text
-        .biblo-notice Esta solicitud #{notification_status(book_request)}
+        .biblo-notice Esta solicitud #{notification_status(donation)}

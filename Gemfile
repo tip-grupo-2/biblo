@@ -23,6 +23,7 @@ gem 'jquery-rails'
 gem 'font-awesome-sass', '~> 4.7.0'
 gem 'slim'
 gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap-slider-rails'
 
 # code analysis
 gem 'pronto'
@@ -39,6 +40,9 @@ gem 'openlibrary', '~> 1.0.0'
 #google_maps
 
 gem 'geocoder'
+
+#State pattern
+gem 'aasm', '~> 4.12'
 
 group :development, :test do
   gem 'coveralls', require: false

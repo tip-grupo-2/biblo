@@ -32,10 +32,15 @@ class User < ActiveRecord::Base
   end
 
   def add(a_book)
-    Copy.create(
-      book: a_book,
-      user: self,
-      original_owner: self
+    copy = Copy.create(
+        book: a_book,
+        user: self,
+        original_owner: self
+    )
+    Donation.create(
+        giver: self,
+        copy: copy,
+        address: self.address
     )
     rent a_book
   end

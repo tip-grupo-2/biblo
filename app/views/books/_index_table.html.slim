@@ -7,14 +7,17 @@ table.table.table-hover
     th ISBN
     th
     th
-  - @copies.each do |copy|
+  - @donations.each do |donation|
     tr
-      td= copy.id
+      td= donation.copy.id
       td
-        img.thumbnail src="#{copy.book.picture_url}" height= "100px"
-      td= copy.book.title
-      td= copy.book.author
-      td= copy.book.isbn
-      td= link_to 'Ver detalle', book_path(copy.book), class: 'btn btn-classic'
-      =yield copy
+        img.thumbnail src="#{donation.copy.book.picture_url}" height= "100px"
+      td= donation.copy.book.title
+      td= donation.copy.book.author
+      td= donation.copy.book.isbn
+      - if donation.donated? && current_user != donation.copy.user
+        td= link_to 'Ver detalle', donation_path(donation), class: 'btn btn-classic'
+      - else
+        td= link_to 'Ver detalle', book_path(donation.copy.book), class: 'btn btn-classic'
+      =yield donation
 

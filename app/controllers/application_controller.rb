@@ -15,14 +15,17 @@ class ApplicationController < ActionController::Base
     redirect_to root_path unless user_signed_in?
   end
 
-  def notification_status(request)
-    case request.accepted
-      when nil
-        'aun no ha sido contestada.'
-      when true
-        'ha sido aceptada.'
-      when false
-        'ha sido rechazada.'
+  def notification_status(donation)
+    case donation.state
+    when 'requested'          then 'aun no ha sido contestada.'
+    when 'donated',
+         'locked'             then 'ha sido rechazada.'
+    when 'accepted',
+         'delivery_confirmed',
+         'receive_confirmed',
+         'finished'           then "ha sido aceptada"
+    else
+      raise "Incorrect donation state"
     end
   end
   helper_method :notification_status
@@ -32,8 +35,8 @@ class ApplicationController < ActionController::Base
   end
   helper_method :chose_if
 
-  def current_and_original_owner(copy)
-    copy.current_and_original_owner(current_user)
+  def current_and_original_owner(donation)
+    donation.copy.current_and_original_owner(current_user)
   end
   helper_method :current_and_original_owner
 
