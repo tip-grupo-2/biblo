@@ -10,9 +10,11 @@
           br
           - if @book.isbn
             = f.text_field :isbn, value: @book.isbn, class: 'form-control form-control-lg'
-          -else
+          - else
             = f.text_field :isbn, placeholder: 'Ingrese n° de ISBN', class: 'form-control form-control-lg'
         p
+          = f.submit 'Buscar por isbn', class: 'btn btn-primary'
+      = link_to 'Capturar código de barras', capture_barcode_path, class: 'btn btn-primary'
           = f.submit 'Buscar por isbn', class: 'btn btn-classic'
     .col-md-3
       h3 Búsqueda por Título
