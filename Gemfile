@@ -40,6 +40,7 @@ gem 'openlibrary', '~> 1.0.0'
 #google_maps
 
 gem 'geocoder'
+gem 'gmaps4rails'
 
 #State pattern
 gem 'aasm', '~> 4.12'

@@ -1,30 +1,14 @@
 # frozen_string_literal: true
 class BooksController < ApplicationController
-  
-  skip_before_filter :verify_authenticity_token
-  # Algunos ISBN para probar:
-  # 9788478884452
-  # 9788498384482
-  # 9788498381405
-  # 9788408057031
-
   def new
     @book = Book.new
   end
 
   def preview
-    puts
-    if !params[:book]
-      @book = Book.new
-      @isbn = params[:isbn]
-    else
-      @isbn = params[:book][:isbn]
-    end
-    puts @isbn.length
+    @isbn = params[:book][:isbn]
     response = RestClient.get "https://www.googleapis.com/books/v1/volumes?q=isbn:#{@isbn}"
     response_data = JSON.parse(response)
     @book_data = response_data.dig('items', 0, 'volumeInfo')
-    puts @book_data
     raise Book::ISBN_LENGTH_ERROR if @isbn.length != 13
     raise Book::ISBN_PROVIDER_ERROR if @book_data.nil?
   rescue Book::ISBN_LENGTH_ERROR
@@ -125,10 +109,6 @@ class BooksController < ApplicationController
     redirect_to :back
   end
 
-
-  def capture_barcode
-  end
-  
   def mark_as_private
     donation = Donation.find(params[:id])
     raise Copy::NOT_IN_POSSESSION_ERROR unless donation.copy.current_and_original_owner(current_user)
