@@ -18,6 +18,8 @@ script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSy
         = form.label :phone_number, 'Celular', class: 'h4'
         = form.text_field :phone_number, placeholder: 'Ingrese aqui su número telefónico', class: 'form-control form-control-lg', type: 'text'
         = form.label :max_distance, 'Distancia maxima', class: 'h4'
+        = form.hidden_field :latitude, value: @user.latitude,  id: 'latitude'
+        = form.hidden_field :longitude, value: @user.longitude, id: 'longitude'
         br
         b 5km
         = form.text_field :max_distance, id: 'ex1', type: 'text', \
