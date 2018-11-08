@@ -9,8 +9,8 @@
         .col-sm-4
             = submit_tag "Buscar", class: 'btn btn-classic'
     =render layout: 'books/index_table' do |donation|
-        - distance = Geocoder::Calculations.distance_between(donation.giver, current_user, units: :km).round.to_s + "km"
-        td = distance
+        - distance = Geocoder::Calculations.distance_between([donation.giver.latitude, donation.giver.longitude], [current_user.latitude, current_user.longitude], units: :km).round(1)
+        td = "#{distance} Km."
         - avatar = user_avatar(donation.giver)
         td=image_tag(avatar, class: 'l-profile-image')
         td= donation.giver.email
