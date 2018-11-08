@@ -67,7 +67,7 @@ class BooksController < ApplicationController
                      .where('books.author LIKE ?', "%#{author}%")
                      .where.not(giver_id: current_user.id)
                      .where(state: :donated)
-                     .near(current_user.address, current_user.max_distance, units: :km)
+                     .near(current_user.address, current_user.max_distance, units: :km).reorder('distance DESC')
   end
 
   def index_my_books
