@@ -11,6 +11,7 @@
     =render layout: 'books/index_table' do |donation|
         - distance = Geocoder::Calculations.distance_between([donation.giver.latitude, donation.giver.longitude], [current_user.latitude, current_user.longitude], units: :km).round(1)
         td = "#{distance} Km."
+        td = "giver: #{[donation.giver.latitude, donation.giver.longitude]}, yo: #{[current_user.latitude, current_user.longitude]}"
         - avatar = user_avatar(donation.giver)
         td=image_tag(avatar, class: 'l-profile-image')
         td= donation.giver.email

@@ -2,7 +2,9 @@ class Donation < ActiveRecord::Base
   include AASM
 
   geocoded_by :address
-  after_validation :geocode
+  # after_validation :geocode
+  #reverse_geocoded_by :latitude, :longitude
+  #after_validation :reverse_geocode
   belongs_to :giver, class_name: User        #El donante de la copia
   belongs_to :requester, class_name: User    #El que pidio la copia
   belongs_to :copy                           #La copia donada
