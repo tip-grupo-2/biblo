@@ -1,0 +1,21 @@
+.container.book_card
+  h1 Mis Notificaciones
+  hr
+  table.table.table-hover
+    tr
+      th Requester
+      th
+    - @notifications_as_requester.each do |notification|
+      tr
+        td= notification.donation.copy.book.title
+        td= link_to 'Ver detalle', notification_path(notification.id), class: 'btn btn-classic'
+        = yield notification
+  table.table.table-hover
+    tr
+      th Recipient
+      th
+    - @notifications_as_recipient.each do |notification|
+      tr
+        td= notification.donation.copy.book.title
+        td= link_to 'Ver detalle', notification_path(notification), class: 'btn btn-classic'
+        = yield notification

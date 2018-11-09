@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post '/manual_book', to: 'books#enter_manual'
   put '/finish_book/:id(.:format)', to: 'books#finish', as: 'finish_book'
   put '/start_book/:id(.:format)', to: 'books#start', as: 'start_book'
+  get '/all_notifications', to: 'notifications#all_notifications'
   # devise
   devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions',
                                     omniauth_callbacks: 'users/omniauth_callbacks', users: 'users/' }
@@ -21,6 +22,8 @@ Rails.application.routes.draw do
     member do
       get :show
       post :respond_request
+      post :confirm_delivery
+      post :confirm_reception
     end
     collection do
       get :index

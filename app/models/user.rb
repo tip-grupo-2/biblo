@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
     super && provider.blank?
   end
 
-  def add(a_book)
+  def add a_book
     copy = Copy.create(
         book: a_book,
         user: self,
@@ -41,6 +41,17 @@ class User < ActiveRecord::Base
         address: self.address
     )
     rent a_book
+  end
+
+  def receive_donated_copy(a_copy)
+    a_copy.update!(user_id: self.id)
+    Donation.create!(
+        giver: self,
+        copy: a_copy,
+        address: self.address,
+        state: 'unavailable',
+    )
+    rent a_copy.book
   end
 
   def rent(a_book)

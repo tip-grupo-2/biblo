@@ -1,47 +1,91 @@
 .container.book_card
   .row
-    .col-md-5.left-15px
-      h2 Libro pedido:
+    .col-md-4.left-10px
+      h2 Libro
+      hr
       - book = @notification.copy.book
       - donation = @notification.donation
       p
         img src="#{book.picture_url}"
-      p
-        = "Titulo: #{book.title}"
+      h4
+        = "#{book.title}"
+      br
       p
         - authors = book.author
         = "Autor/es: #{authors}"
       p
         = "ISBN: #{book.isbn}"
-    .col-md-5
-      h2 Acerca de:
-      - requester_name = @notification.requester.name
-      - avatar = user_avatar(@notification.requester)
+    .col-md-4
+      - if current_user == donation.giver
+        - counterpart = donation.requester
+        h2 Solicitante
+      - elsif current_user == donation.requester
+        - counterpart = donation.giver
+        h2 Donante
+      hr
+      - counterpart_name = counterpart.name
+      - avatar = user_avatar(counterpart)
       = image_tag(avatar, class: 'l-profile-image-bg')
-      h2 #{requester_name}
-      - if donation.accepted?
-        p Mail: #{@notification.requester.email}
-        p Direccion: #{@notification.requester.address}
-      P Fecha de solicitud: #{@notification.created_at.strftime('%d/%m/%Y - %H:%M')}
-      - phone = @notification.requester.phone_number
-      - if phone
-        p Telefono: +#{phone}
-        - message = "Hola! Mi nombre es #{current_user.name} te contacto por el prestamo del libro #{book.title} que acordamos a traves de Biblo"
-        = link_to "https://api.whatsapp.com/send?phone=54#{phone}&text=#{message}" do
-          button.btn.btn-contrast Contactar por WhatsApp
+      h2
+        = "#{counterpart_name}"
+      br
+      - if donation.accepted? || donation.delivery_confirmed? || donation.reception_confirmed?
+        p Mail: #{counterpart.email}
+        p Direccion: #{counterpart.address}
+        P Fecha de solicitud: #{@notification.created_at.strftime('%d/%m/%Y - %H:%M')}
+        - phone = counterpart.phone_number
+        - if phone
+          p Telefono: +#{phone}
+          - message = "Hola! Mi nombre es #{current_user.name} te contacto por el prestamo del libro #{book.title} que acordamos a traves de Biblo"
+          = link_to "https://api.whatsapp.com/send?phone=54#{phone}&text=#{message}" do
+            button.btn.btn-contrast Contactar por WhatsApp
+    .col-sm-4
+      h2 Acciones
+      hr
 
-  .row
-    - if donation.requested? && @notification.recipient_id == current_user.id
-      .col-md-1
-        p
-          = button_to "Aceptar", respond_request_notification_path, method: :post, params: { notification: @notification,
-                                                                                             message: 'aceptado',
-                                                                                             choice: true }, class: 'btn btn-classic'
-      .col-md-1
-        p
-          = button_to "Cancelar", respond_request_notification_path, method: :post, params: { notification: @notification,
-                                                                                              message: 'rechazado',
-                                                                                            choice: false }, class: 'btn btn-classic'
-    - else
-      .col-md-5.centered-text
-        .biblo-notice Esta solicitud #{notification_status(donation)}
+
+      - if donation.requested? && donation.giver == current_user
+        = button_to "Aceptar Solicitud", respond_request_notification_path, method: :post, params: { notification: @notification,
+                                                                                           message: 'aceptado',
+                                                                                           choice: true }, class: 'btn btn-classic btn-block btn-lg'
+        br
+        = button_to "Rechazar Solicitud", respond_request_notification_path, method: :post, params: { notification: @notification,
+                                                                                            message: 'rechazado',
+                                                                                            choice: false }, class: 'btn btn-contrast btn-block btn-lg'
+
+
+      - elsif donation.requested? && donation.requester == current_user
+        .centered-text
+          .biblo-notice Esta solicitud #{notification_status(donation)}
+
+
+      - elsif (donation.accepted? || donation.reception_confirmed?) && donation.giver == current_user
+        .centered-text
+          .biblo-notice Aceptaste la solicitud!
+          br
+        = button_to "Confirmar Entrega", confirm_delivery_notification_path, method: :post, params: {notification: @notification,
+                message: 'entregado'}, class: 'btn btn-classic btn-block btn-lg'
+
+
+      - elsif (donation.accepted? || donation.delivery_confirmed?) && donation.requester == current_user
+        .centered-text
+          .biblo-notice Su solicitud ha sido aceptada!
+        br
+          = button_to "Confirmar Recepción", confirm_reception_notification_path, method: :post, params: {notification: @notification,
+                  message: 'recibido'}, class: 'btn btn-classic btn-block btn-lg'
+
+
+      - elsif donation.reception_confirmed? && donation.requester == current_user
+        .centered-text
+          .biblo-notice En espera de confirmación de entrega
+
+
+      - elsif donation.delivery_confirmed? && donation.giver == current_user
+        .centered-text
+          .biblo-notice En espera de confirmación de recepción
+
+
+      - elsif donation.finished?
+        .centered-text
+          .biblo-notice La donación ha finalizado con éxito
+          br

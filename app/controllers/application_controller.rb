@@ -18,8 +18,8 @@ class ApplicationController < ActionController::Base
   def notification_status(donation)
     case donation.state
     when 'requested'          then 'aun no ha sido contestada.'
-    when 'donated',
-         'locked'             then 'ha sido rechazada.'
+    when 'available',
+         'unavailable'             then 'ha sido rechazada.'
     when 'accepted',
          'delivery_confirmed',
          'receive_confirmed',
@@ -35,10 +35,10 @@ class ApplicationController < ActionController::Base
   end
   helper_method :chose_if
 
-  def current_and_original_owner(donation)
-    donation.copy.current_and_original_owner(current_user)
+  def current_owner(donation)
+    donation.copy.current_owner(current_user)
   end
-  helper_method :current_and_original_owner
+  helper_method :current_owner
 
   protected
 

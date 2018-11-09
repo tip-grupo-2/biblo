@@ -5,19 +5,20 @@ class Donation < ActiveRecord::Base
   belongs_to :requester, class_name: User    #El que pidio la copia
   belongs_to :copy                           #La copia donada
   has_many :notifications
-  aasm column: 'state' do
+
+  aasm(:state) do
     #Los estados posibles de la donacion
-    state :donated, initial: true
-    state :locked
+    state :available, initial: true
+    state :unavailable
     state :requested
     state :accepted
     state :delivery_confirmed
-    state :receive_confirmed
+    state :reception_confirmed
     state :finished
 
     #Como cambiar de un estado a otro:
     # donacion = Donation.new
-    # donacion.state # returns donated
+    # donacion.state # returns available
     #
     # donacion.request(requester_user)
     # donacion.state # returns requested
@@ -31,34 +32,34 @@ class Donation < ActiveRecord::Base
     #
     # Osea:
     #                                    -> receive_confirmed -> deliver_confirmed v
-    # donated -> requested -> accepted -x                                           x> finished
+    # available -> requested -> accepted -x                                           x> finished
     #     ^--------------reject          -> deliver_confirmed -> receive_confirmed ^
 
-    event :lock do
-      transitions from: [:donated], to: :locked
+    event :make_unavailable do
+      transitions :from => :available, :to => :unavailable
     end
-    event :unlock do
-      transitions from: [:locked], to: :donated
+    event :make_available do
+      transitions :from => :unavailable, :to => :available
     end
     event :request, after: :set_requester do
-      transitions from: [:donated], to: :requested
+      transitions :from => :available, :to => :requested
     end
     event :accept do
-      transitions from: [:requested], to: :accepted
+      transitions :from => :requested, :to => :accepted
     end
     event :reject do
       before do
         self.requester = nil
       end
-      transitions from: [:requested, :accepted], to: :donated
+      transitions :from => :requested, :to => :available
     end
     event :confirm_delivery do
-      transitions from: [:receive_confirmed], to: :finished
-      transitions from: [:accepted], to: :delivery_confirmed
+      transitions :from => :reception_confirmed, :to => :finished
+      transitions :from => :accepted, :to => :delivery_confirmed
     end
-    event :confirm_receive do
-      transitions from: [:delivery_confirmed], to: :finished
-      transitions from: [:accepted], to: :receive_confirmed
+    event :confirm_reception do
+      transitions :from => :delivery_confirmed, :to => :finished
+      transitions :from => :accepted, :to => :reception_confirmed
     end
   end
 
@@ -68,13 +69,13 @@ class Donation < ActiveRecord::Base
 
   def getStateName
     case self.state
-    when 'donated'            then "Publico"
-    when 'locked'             then "Privado"
-    when 'requested'          then "Pedido"
-    when 'accepted'           then "Aceptado"
-    when 'delivery_confirmed' then "Con entrega confirmada"
-    when 'receive_confirmed'  then "Con recivo confirmado"
-    when 'finished'           then "Donacion finalizada"
+    when 'available'            then "Publico"
+    when 'unavailable'          then "Privado"
+    when 'requested'            then "Pedido"
+    when 'accepted'             then "Aceptado"
+    when 'delivery_confirmed'   then "Con entrega confirmada"
+    when 'reception_confirmed'  then "Con recivo confirmado"
+    when 'finished'             then "Donacion finalizada"
     else
       raise "Incorrect donation state"
     end
