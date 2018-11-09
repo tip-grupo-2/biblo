@@ -21,9 +21,9 @@
         td= donation.copy.book.author
         td= donation.copy.book.isbn
         td= donation.getStateName()
-        - if current_and_original_owner(donation)
-          - privacy_text = chose_if(donation.donated?, 'Marcar como privado', 'Marcar como publico')
-          - privacy_btn_style = chose_if(donation.donated?, 'btn-contrast', 'btn-classic')
+        - if current_owner(donation)
+          - privacy_text = chose_if(donation.available?, 'Marcar como privado', 'Marcar como publico')
+          - privacy_btn_style = chose_if(donation.available?, 'btn-contrast', 'btn-classic')
           td= link_to privacy_text, mark_as_private_book_path(donation), method: 'post', class: "btn #{privacy_btn_style}"
         - else
           td

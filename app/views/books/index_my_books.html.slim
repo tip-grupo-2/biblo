@@ -2,7 +2,7 @@
   h1 Mis Libros
   hr
   =render layout:'books/index_table' do |donation|
-    - if donation.locked?
+    - if donation.unavailable?
       td= button_to 'Finalizar Lectura', finish_book_path(donation), method: :put, class: 'btn btn-neutral'
     - else
       td= button_to 'Comenzar Lectura', start_book_path(donation), method: :put, class: 'btn btn-neutral'

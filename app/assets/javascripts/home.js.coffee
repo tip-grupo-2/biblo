@@ -40,6 +40,10 @@ $(document).on "turbolinks:load", ->
       $(".notification-marker-js")[0].innerText = "(0)"
       )
 
+  $('.see-all-button-js').on 'click', ->
+   location.href = '/all_notifications'
+
+
   notificationMessage = (notification) ->
     switch notification.action
       when 'solicitado' then "<li class='notification-js' data-notification-id='#{notification.id}'><a href='/notifications/#{notification.id}'>#{notification.requester} ha #{notification.action} tu ejemplar de #{notification.book_title}</a></li>"
