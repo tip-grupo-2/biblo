@@ -133,3 +133,23 @@ getDistanceAndTime = function(){
         document.getElementById('distance').innerHTML = "Distancia: " + distance;
     });
 };
+
+setDataInTable = function(cell){
+    var data = cell.dataset;
+    var point_a = { lat: parseFloat(data.originLat), lng: parseFloat(data.originLon)};
+    var point_b = { lat: parseFloat(data.destLat), lng: parseFloat(data.destLon)}
+    var service = new google.maps.DistanceMatrixService;
+    service.getDistanceMatrix({
+        origins: [point_a],
+        destinations: [point_b],
+        travelMode: 'WALKING',
+    }, function(response, status){
+        duration = response.rows[0].elements[0].duration.text;
+        cell.innerText = "Aprox. " + duration.toString();
+    })
+};
+
+showDistanceWalking = function(){
+    row = document.getElementsByClassName('distance-data-js');
+    Array.from(row).forEach(setDataInTable);
+};

@@ -1,3 +1,4 @@
+script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7FZ14h7xhNNN5QmXt5lJpzPArNjvNfOQ&language=es&libraries=places&callback=showDistanceWalking"
 .container.book_card
     h1 Todos los libros
     hr
@@ -9,9 +10,11 @@
         .col-sm-4
             = submit_tag "Buscar", class: 'btn btn-classic'
     =render layout: 'books/index_table' do |donation|
-        - distance = Geocoder::Calculations.distance_between([donation.giver.latitude, donation.giver.longitude],
-                [current_user.latitude, current_user.longitude], units: :km).round(1)
+        - giver_point = [donation.giver.latitude, donation.giver.longitude]
+        - req_point = [current_user.latitude, current_user.longitude]
+        - distance = Geocoder::Calculations.distance_between(giver_point, req_point, units: :km).round(1)
         td = "#{distance} Km."
+        td.fixed-width-75.distance-data-js data-origin-lat="#{giver_point[0]}" data-origin-lon="#{giver_point[1]}" data-dest-lat="#{req_point[0]}" data-dest-lon="#{req_point[1]}"
         - avatar = user_avatar(donation.giver)
         td=image_tag(avatar, class: 'l-profile-image')
         td= donation.giver.email

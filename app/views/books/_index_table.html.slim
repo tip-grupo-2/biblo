@@ -6,6 +6,8 @@ table.table.table-hover
     th Autores
     th ISBN
     th
+    - if current_page?(:controller => 'books', :action => 'index')
+      th Distancia
     th
   - @donations.each do |donation|
     tr
