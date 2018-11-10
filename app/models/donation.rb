@@ -66,9 +66,7 @@ class Donation < ActiveRecord::Base
         requester_id: nil,
         giver_id: giver_id,
         copy_id: copy_id,
-        address: address,
-        latitude: latitude,
-        longitude: longitude
+        address: address
     )
   end
 
