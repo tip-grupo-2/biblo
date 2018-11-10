@@ -1,11 +1,18 @@
 # frozen_string_literal: true
 class BooksController < ApplicationController
+  skip_before_filter :verify_authenticity_token
+
   def new
     @book = Book.new
   end
 
   def preview
-    @isbn = params[:book][:isbn]
+    if !params[:book]
+      @book = Book.new
+      @isbn = params[:isbn]
+    else
+      @isbn = params[:book][:isbn]
+    end
     response_data = getGoogleApiBooks("isbn:#{@isbn}")
     @book_data = response_data.dig('items', 0, 'volumeInfo')
     raise Book::ISBN_LENGTH_ERROR if @isbn.length != 13
@@ -67,23 +74,25 @@ class BooksController < ApplicationController
                      .where('books.title LIKE ?', "%#{title}%")
                      .where('books.author LIKE ?', "%#{author}%")
                      .where.not(giver_id: current_user.id)
-                     .where(state: :donated)
+                     .where(state: :available)
     filtered_donations = filter_by_max_distance(donations, current_user)
     @donations = sort_by_distance(filtered_donations, current_user)
   end
 
   def index_my_books
-    @donations = Donation.joins(:copy).where("copies.user_id = ?", current_user.id)
+    @donations = Donation.joins(:copy)
+                     .where("copies.user_id = ?", current_user.id)
+                     .where.not(state: 'finished')
+                     .where.not(state: 'rejected')
   end
   def index_my_donations
-    @donations = Donation.joins(:copy).where("copies.original_owner_id = ?", current_user.id)
-    #@copies = Copy.where(original_owner: current_user.id)
+    ids = Donation.select("MIN(id) as id").group(:copy_id).collect(&:id)
+    @donations = Donation.joins(:copy).where("copies.original_owner_id = ?", current_user.id).where(id: ids)
   end
 
   def edit
     @donation = Donation.find(params[:id])
-    raise Copy::ALREADY_REQUESTED_ERROR unless @donation.donated? || @donation.locked?
-    #request = BookRequest.new(requester_id: current_user.id, recipient_id: @copy.user_id, copy_id: @copy.id)
+    raise Copy::ALREADY_REQUESTED_ERROR unless @donation.available? || @donation.unavailable?
     @donation.request(current_user)
     ActiveRecord::Base.transaction do
       Notification.create!(requester_id: current_user.id, recipient_id: @donation.giver.id, copy_id: @donation.copy.id,
@@ -99,29 +108,29 @@ class BooksController < ApplicationController
 
   def start
     @donation = Donation.find(params[:id])
-    @donation.lock
+    @donation.make_unavailable!
     @donation.save
     redirect_to :back
   end
 
   def finish
     @donation = Donation.find(params[:id])
-    @donation.unlock
+    @donation.make_available!
     @donation.save
     redirect_to :back
   end
 
   def mark_as_private
     donation = Donation.find(params[:id])
-    raise Copy::NOT_IN_POSSESSION_ERROR unless donation.copy.current_and_original_owner(current_user)
-    raise Copy::ALREADY_REQUESTED_ERROR unless donation.donated? or donation.locked?
-    if(donation.donated?)
-      donation.lock
+    raise Copy::NOT_IN_POSSESSION_ERROR unless donation.copy.current_owner(current_user)
+    raise Copy::ALREADY_REQUESTED_ERROR unless donation.available? or donation.unavailable?
+    if(donation.available?)
+      donation.make_unavailable!
     else
-      donation.unlock
+      donation.make_available!
     end
     donation.save
-    flash[:notice] = mark_as_message(donation.copy.book.title, donation.donated?)
+    flash[:notice] = mark_as_message(donation.copy.book.title, donation.available?)
     redirect_to :back
   rescue Copy::NOT_IN_POSSESSION_ERROR
     flash[:notice] = "Oops! El libro seleccionado no se encuentra actualmente en tu poder."
@@ -130,6 +139,9 @@ class BooksController < ApplicationController
     flash[:notice] = "Oops! Alguien ha solicitado el prestamo de esta copia. Por favor responde la solicitud antes de
                       restringir su disponibilidad"
     redirect_to :back
+  end
+
+  def capture_barcode
   end
 
   private
@@ -147,8 +159,8 @@ class BooksController < ApplicationController
      current_user.add(@book)
    end
 
-  def mark_as_message(title, unlocked)
-    if unlocked
+  def mark_as_message(title, available)
+    if available
       "Tu ejemplar de #{title} se encuentra disponible para todos los usuarios de Biblo!"
     else
       "Restringiste la disponibilidad de tu ejemplar de #{title}. Solo será visible en tu colección y desaparecerá de

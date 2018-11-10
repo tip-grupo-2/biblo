@@ -8,7 +8,7 @@ class Copy < ActiveRecord::Base
   ALREADY_REQUESTED_ERROR = Class.new(StandardError)
   NOT_IN_POSSESSION_ERROR = Class.new(StandardError)
 
-  def current_and_original_owner(current_user)
-    user_id == current_user.id && original_owner_id == current_user.id
+  def current_owner(current_user)
+    user_id == current_user.id
   end
 end

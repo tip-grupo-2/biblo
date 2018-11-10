@@ -18,4 +18,4 @@ script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSy
         - avatar = user_avatar(donation.giver)
         td=image_tag(avatar, class: 'l-profile-image')
         td= donation.giver.email
-        td= link_to 'Pedir prestado', edit_book_path(donation), class: 'btn btn-contrast'
+        td= link_to 'Solicitar', edit_book_path(donation), class: 'btn btn-contrast'

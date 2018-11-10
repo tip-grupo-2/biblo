@@ -232,4 +232,39 @@ body {
   background: #BABABA;
 }
 
+.bottom-located {
+  position: absolute;
+  bottom:   0;
+}
+
+
 .fixed-width-75 { width: 75px }
+
+.finished {
+  background: $background-dark;
+}
+
+.requested {
+  background: gold;
+}
+
+.accepted {
+  background: $secondary-color;
+}
+
+.delivery_confirmed, .reception_confirmed {
+  background: lightgreen;
+}
+
+.rejected {
+  background: $contrast-color;
+}
+
+#barcode-scanner canvas.drawingBuffer, #barcode-scanner video.drawingBuffer {
+  display: none;
+}
+
+#barcode-scanner canvas, #barcode-scanner video {
+  width: 100%;
+  height: auto;
+}
