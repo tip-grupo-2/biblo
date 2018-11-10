@@ -239,3 +239,19 @@ body {
 
 
 .fixed-width-75 { width: 75px }
+
+.finished {
+  background: $background-dark;
+}
+
+.requested {
+  background: gold;
+}
+
+.accepted {
+  background: $secondary-color;
+}
+
+.delivery_confirmed, .reception_confirmed {
+  background: lightgreen;
+}
