@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   put '/finish_book/:id(.:format)', to: 'books#finish', as: 'finish_book'
   put '/start_book/:id(.:format)', to: 'books#start', as: 'start_book'
   get '/all_notifications', to: 'notifications#all_notifications'
+  get '/capture_barcode', to: 'books#capture_barcode'
   # devise
   devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions',
                                     omniauth_callbacks: 'users/omniauth_callbacks', users: 'users/' }

@@ -1,11 +1,18 @@
 # frozen_string_literal: true
 class BooksController < ApplicationController
+  skip_before_filter :verify_authenticity_token
+
   def new
     @book = Book.new
   end
 
   def preview
-    @isbn = params[:book][:isbn]
+    if !params[:book]
+      @book = Book.new
+      @isbn = params[:isbn]
+    else
+      @isbn = params[:book][:isbn]
+    end
     response_data = getGoogleApiBooks("isbn:#{@isbn}")
     @book_data = response_data.dig('items', 0, 'volumeInfo')
     raise Book::ISBN_LENGTH_ERROR if @isbn.length != 13
@@ -132,6 +139,9 @@ class BooksController < ApplicationController
     flash[:notice] = "Oops! Alguien ha solicitado el prestamo de esta copia. Por favor responde la solicitud antes de
                       restringir su disponibilidad"
     redirect_to :back
+  end
+
+  def capture_barcode
   end
 
   private
