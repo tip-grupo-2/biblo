@@ -89,3 +89,8 @@
         .centered-text
           .biblo-notice La donación ha finalizado con éxito
           br
+
+
+      - elsif donation.rejected?
+        .centered-text
+          .biblo-notice Esta donacion ha sido rechazada.

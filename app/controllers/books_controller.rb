@@ -73,7 +73,10 @@ class BooksController < ApplicationController
   end
 
   def index_my_books
-    @donations = Donation.joins(:copy).where("copies.user_id = ?", current_user.id).where.not(state: 'finished')
+    @donations = Donation.joins(:copy)
+                     .where("copies.user_id = ?", current_user.id)
+                     .where.not(state: 'finished')
+                     .where.not(state: 'rejected')
   end
   def index_my_donations
     ids = Donation.select("MIN(id) as id").group(:copy_id).collect(&:id)

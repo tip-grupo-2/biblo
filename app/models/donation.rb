@@ -12,6 +12,7 @@ class Donation < ActiveRecord::Base
     state :unavailable
     state :requested
     state :accepted
+    state :rejected
     state :delivery_confirmed
     state :reception_confirmed
     state :finished
@@ -28,11 +29,8 @@ class Donation < ActiveRecord::Base
     event :accept do
       transitions :from => :requested, :to => :accepted
     end
-    event :reject do
-      before do
-        self.requester = nil
-      end
-      transitions :from => :requested, :to => :available
+    event :reject, after: :rejectedAction do
+      transitions :from => :requested, :to => :rejected
     end
     event :confirm_delivery do
       transitions :from => :reception_confirmed, :to => :finished
@@ -54,12 +52,24 @@ class Donation < ActiveRecord::Base
     when 'unavailable'          then "Privada"
     when 'requested'            then "Donación Solicitada"
     when 'accepted'             then "Donación Aceptada"
+    when 'rejected'             then "Donación rechazada"
     when 'delivery_confirmed'   then "Entrega confirmada"
     when 'reception_confirmed'  then "Recepción confirmada"
     when 'finished'             then "Donación finalizada"
     else
       raise "Incorrect donation state"
     end
+  end
+
+  def rejectedAction
+    Donation.create!(
+        requester_id: nil,
+        giver_id: giver_id,
+        copy_id: copy_id,
+        address: address,
+        latitude: latitude,
+        longitude: longitude
+    )
   end
 
 end
