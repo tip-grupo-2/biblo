@@ -1,21 +1,36 @@
 .container.book_card
   h1 Mis Notificaciones
   hr
-  table.table.table-hover
-    tr
-      th Requester
-      th
-    - @notifications_as_requester.each do |notification|
+    .row
+  .col-sm-6
+    h3 Solicitudes
+    hr
+    table.table.table-hover
       tr
-        td= notification.donation.copy.book.title
-        td= link_to 'Ver detalle', notification_path(notification.id), class: 'btn btn-classic'
-        = yield notification
-  table.table.table-hover
-    tr
-      th Recipient
-      th
-    - @notifications_as_recipient.each do |notification|
+        th
+        th Libro
+        th Estado
+        th
+      - @notifications_as_requester.each do |notification|
+        tr
+          td class="#{notification.donation.state}"
+          td = notification.donation.copy.book.title
+          td = notification.donation.getStateName
+          td = link_to 'Ver detalle', notification_path(notification), class: 'btn btn-classic'
+          = yield notification
+  .col-sm-6
+    h3 Donaciones
+    hr
+    table.table.table-hover
       tr
-        td= notification.donation.copy.book.title
-        td= link_to 'Ver detalle', notification_path(notification), class: 'btn btn-classic'
-        = yield notification
+        th
+        th Libro
+        th Estado
+        th
+      - @notifications_as_recipient.each do |notification|
+        tr
+          td class="#{notification.donation.state}"
+          td = notification.donation.copy.book.title
+          td = notification.donation.getStateName
+          td = link_to 'Ver detalle', notification_path(notification), class: 'btn btn-classic'
+          = yield notification

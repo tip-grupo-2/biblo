@@ -24,6 +24,8 @@ html
           li
             = link_to "Mis libros", my_books_path, method: :get, class: 'navbar-brand'
           li
+            = link_to "Notificaciones", all_notifications_path, method: :get, class: 'navbar-brand'
+          li
             = link_to "Perfil", user_path(:id => current_user.id), method: :get, class: 'navbar-brand'
       ul.nav.navbar-nav.navbar-right.l-login-nav
         - if user_signed_in?

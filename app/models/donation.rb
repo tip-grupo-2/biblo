@@ -16,25 +16,6 @@ class Donation < ActiveRecord::Base
     state :reception_confirmed
     state :finished
 
-    #Como cambiar de un estado a otro:
-    # donacion = Donation.new
-    # donacion.state # returns available
-    #
-    # donacion.request(requester_user)
-    # donacion.state # returns requested
-    #
-    # donacion.accept
-    # donacion.state # returns accepted
-    # donacion.confirm_delivery || donacion.confirm_receive
-    # donacion.state # returns delivery_confirmed || receive_confirmed
-    # donacion.confirm_delivery || donacion.confirm_receive (el que falte de los 2)
-    # donacion.state # returns finished
-    #
-    # Osea:
-    #                                    -> receive_confirmed -> deliver_confirmed v
-    # available -> requested -> accepted -x                                           x> finished
-    #     ^--------------reject          -> deliver_confirmed -> receive_confirmed ^
-
     event :make_unavailable do
       transitions :from => :available, :to => :unavailable
     end
@@ -69,13 +50,13 @@ class Donation < ActiveRecord::Base
 
   def getStateName
     case self.state
-    when 'available'            then "Publico"
-    when 'unavailable'          then "Privado"
-    when 'requested'            then "Pedido"
-    when 'accepted'             then "Aceptado"
-    when 'delivery_confirmed'   then "Con entrega confirmada"
-    when 'reception_confirmed'  then "Con recivo confirmado"
-    when 'finished'             then "Donacion finalizada"
+    when 'available'            then "Pública"
+    when 'unavailable'          then "Privada"
+    when 'requested'            then "Donación Solicitada"
+    when 'accepted'             then "Donación Aceptada"
+    when 'delivery_confirmed'   then "Entrega confirmada"
+    when 'reception_confirmed'  then "Recepción confirmada"
+    when 'finished'             then "Donación finalizada"
     else
       raise "Incorrect donation state"
     end
