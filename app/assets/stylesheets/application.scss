@@ -259,6 +259,7 @@ body {
 .rejected {
   background: $contrast-color;
 }
+
 #barcode-scanner canvas.drawingBuffer, #barcode-scanner video.drawingBuffer {
   display: none;
 }
