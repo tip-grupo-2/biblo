@@ -55,9 +55,6 @@ class BooksController < ApplicationController
     redirect_to '/my_books'
   end
   def create_manual
-    #TODO: Estos 2 metodos quedaron re parecidos
-    # Intente en el metodo create pasar un book con title, author, y isbn desde preview.html, pero no pude
-    # Tambien intente no pasar un book en el create manual, desde el form_for y no encontre como hacerlo.
     create_book(params[:book][:isbn], params[:book][:title], params[:book][:author], nil, params[:book][:description], 'ES')
     redirect_to '/my_books'
   end
@@ -123,7 +120,7 @@ class BooksController < ApplicationController
   def mark_as_private
     donation = Donation.find(params[:id])
     raise Copy::NOT_IN_POSSESSION_ERROR unless donation.copy.current_owner(current_user)
-    raise Copy::ALREADY_REQUESTED_ERROR unless donation.available? or donation.unavailable?
+    raise Copy::ALREADY_REQUESTED_ERROR unless donation.available? or donation.rejected?
     if(donation.available?)
       donation.make_unavailable!
     else

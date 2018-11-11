@@ -104,17 +104,17 @@ initStaticGeoCodeMapWithZone = function(){
                 zoomControl: false,
                 scrollwheel: false
             });
-            var marker = new google.maps.Marker({
-                map: map,
-                anchorPoint: new google.maps.Point(0, -29),
-                icon: {
-                    path: google.maps.SymbolPath.CIRCLE,
-                    scale: 90.5,
-                    fillColor: "#481d5a",
-                    fillOpacity: 0.3,
-                    strokeWeight: 0.4
-                }
 
+                var marker = new google.maps.Marker({
+                    map: map,
+                    anchorPoint: new google.maps.Point(0, -29),
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        scale: 90.5,
+                        fillColor: "#481d5a",
+                        fillOpacity: 0.3,
+                        strokeWeight: 0.4
+                    }
             });
             marker.setPosition(locatedAt);
             marker.setVisible(true);

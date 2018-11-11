@@ -21,6 +21,7 @@ class Donation < ActiveRecord::Base
       transitions :from => :available, :to => :unavailable
     end
     event :make_available do
+      transitions :from => :rejected, :to => :available
       transitions :from => :unavailable, :to => :available
     end
     event :request, after: :set_requester do
@@ -66,9 +67,7 @@ class Donation < ActiveRecord::Base
         requester_id: nil,
         giver_id: giver_id,
         copy_id: copy_id,
-        address: address,
-        latitude: latitude,
-        longitude: longitude
+        address: address
     )
   end
 

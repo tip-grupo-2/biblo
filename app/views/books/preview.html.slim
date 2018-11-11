@@ -3,20 +3,23 @@
     .col-sm-2
       img src="#{@book_data['imageLinks']['thumbnail']}" class='square-thumbnail' width='150px'
     .col-sm-7
-      h2
-        = "Titulo: #{@book_data['title']}"
+      h1
+        = "#{@book_data['title']}"
       hr
       h3
-        ="ISBN: #{@isbn}"
+        ="#{@isbn}"
         - if !@book_data['authors'].nil?
           - authors = @book_data['authors'].join(", ")
         - else
           - authors = ""
       br
-      h4 = "Autor/es: #{authors}"
+      h3 = "#{authors}"
+      br
+      p
+        = @book_data['description']
     .col-sm-3
       - params = {isbn: @isbn, title: @book_data['title'], authors: authors, description: @book_data['description'],
               picture_url: @book_data['imageLinks']['thumbnail'],  country: @book_data['language']}
       = button_to "Aceptar", books_path, method: :post, params: params, class: 'btn btn-classic btn-block'
       br
-      = button_to "Cancelar", books_path, method: :get, class: 'btn btn-classic btn-block'
+      = button_to "Cancelar", '/books/new', method: :get, class: 'btn btn-classic btn-block'
