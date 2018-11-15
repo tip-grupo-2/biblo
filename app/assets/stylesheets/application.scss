@@ -7,6 +7,7 @@
 @import "typography";
 @import "map";
 @import "bootstrap-slider";
+@import "animate";
 
 // navbar
 
@@ -37,7 +38,7 @@ ul.nav.navbar-nav li a:hover {
 .navbar {
   background-color: $main-dark-color;
   margin : 0 !important;
-  font-family: "Helvetica Neue", Helvetica, Arial, Sans-Serif;
+  font-family: 'Pacifico', cursive;;
 }
 
 
@@ -79,8 +80,26 @@ hr {
   margin: 15px 0;
 }
 
+hr.white {
+  border-color: $background-light;
+  border-width: 1px 0;
+  margin: 5px 0;
+}
+
 .carousel-inner > .item > img, .carousel-inner > .item > a > img {
   width: 100%;
+}
+
+.carousel-caption h2 {
+  font-size: 60px;
+  font-family: 'Pacifico', cursive;
+  text-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.carousel-caption h3 {
+  font-size: 40px;
+  font-family: 'Pacifico', cursive;
+  text-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 body {
@@ -267,4 +286,14 @@ body {
 #barcode-scanner canvas, #barcode-scanner video {
   width: 100%;
   height: auto;
+}
+
+.footer {
+  background-color: $contrast-color;
+}
+
+.footer.title {
+  color: $background-light;
+  font-family: 'Pacifico', cursive;
+  text-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
