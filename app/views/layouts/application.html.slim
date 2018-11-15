@@ -2,6 +2,7 @@ doctype html
 
 html
   head
+    link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" /
     meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
     title BibliotecaPopular
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
@@ -60,3 +61,53 @@ html
         .content #{message}
     = yield
 
+.footer
+  br
+  .container
+    .row
+      .col-sm-5
+        .row
+          .col-sm-12
+            .centered-text
+              .nav-link href=""
+                i.fa.fa-facebook.fa-lg
+              .nav-link href=""
+                i.fa.fa-twitter.fa-lg
+              .nav-link href=""
+                i.fa.fa-github.fa-lg
+              .nav-link href=""
+                i.fa.fa-instagram.fa-lg
+
+        h5
+          i.fa.fa-road
+          | ACME CO INC.
+        .row
+          .col-6
+            ul.list-unstyled
+              li
+                a href=""  Product
+          .col-6
+            ul.list-unstyled
+              li
+                a href=""  Documentation
+              li
+                a href=""  Support
+              li
+                a href=""  Legal Terms
+              li
+                a href=""  About
+        ul.nav
+
+        br
+      .col-sm-2
+        h3.footer.title Contactanos!
+        hr.white
+        p.white-font Queremos saber tu opinión
+      .col-sm-5
+        form
+          fieldset.form-group
+            input#exampleInputEmail1.form-control placeholder=("Ingresa tu email") type="email" /
+          fieldset.form-group
+            textarea#exampleMessage.form-control placeholder="Mensaje"
+          fieldset.form-group.text-xs-right
+            button.btn.btn-classic type="button"  Enviar
