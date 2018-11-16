@@ -1,32 +1,35 @@
 .container.book_card
   h1 Resultados de la búsqueda
   hr
-  table.table.table-hover
-    tr
-      th
-      th
-      th
-    - @books.each do |book_data|
-      - image = book_data.dig('volumeInfo', 'imageLinks', 'thumbnail')
-      - next unless image
-      - isbn = book_data.dig('volumeInfo', 'industryIdentifiers', 1, 'identifier')
-      - title = book_data.dig('volumeInfo', 'title')
-      - description = book_data.dig('volumeInfo', 'description')
-      - authors = book_data.dig('volumeInfo', 'authors')
-      - if authors
-          - authors = authors.join(", ")
-      - language = book_data.dig('volumeInfo', 'language')
+  - if @books.present?
+    table.table.table-hover
       tr
-        td
-          img.thumbnail src="#{image}" height= "150px"
-        td
-          h3 #{title}
-          h5 #{authors}
-          p #{isbn}
-          hr
-          - if description
-            p #{description}
-        td
-          - params = { isbn: isbn, title: title, authors: authors, description: description, picture_url: image,
-                      country: language }
-          = button_to "Agregar", books_path, method: :post, class: 'btn btn-classic', params: params
+      - @books.each do |book_data|
+        - image = book_data.dig('volumeInfo', 'imageLinks', 'thumbnail')
+        - next unless image
+        - isbn = book_data.dig('volumeInfo', 'industryIdentifiers', 1, 'identifier')
+        - title = book_data.dig('volumeInfo', 'title')
+        - description = book_data.dig('volumeInfo', 'description')
+        - authors = book_data.dig('volumeInfo', 'authors')
+        - if authors
+          - authors = authors.join(", ")
+        - language = book_data.dig('volumeInfo', 'language')
+        tr
+          td
+            = image_tag image
+          td
+            h3 #{title}
+            h5 #{authors}
+            p #{isbn}
+            hr
+            - if description
+              p #{description}
+          td
+            - params = { isbn: isbn, title: title, authors: authors, description: description, picture_url: image,
+                        country: language }
+            = button_to "Agregar", books_path, method: :post, class: 'btn btn-classic', params: params
+  - else
+    h4 Lo sentimos, no encontramos ningún libro que contenga la/s palabra/s seleccionadas.
+    .row
+      .col-md-3
+        = button_to "Reintentar", new_book_path, method: :get, class: 'btn btn-classic top-15px'

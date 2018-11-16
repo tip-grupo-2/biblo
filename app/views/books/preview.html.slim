@@ -17,9 +17,11 @@
       br
       p
         = @book_data['description']
-    .col-sm-3
-      - params = {isbn: @isbn, title: @book_data['title'], authors: authors, description: @book_data['description'],
-              picture_url: @book_data['imageLinks']['thumbnail'],  country: @book_data['language']}
-      = button_to "Aceptar", books_path, method: :post, params: params, class: 'btn btn-classic btn-block'
-      br
-      = button_to "Cancelar", '/books/new', method: :get, class: 'btn btn-classic btn-block'
+  .row
+    .col-md-6
+      .col-md-3
+        - params = {isbn: @isbn, title: @book_data['title'], authors: authors, description: @book_data['description'],
+                picture_url: @book_data['imageLinks']['thumbnail'],  country: @book_data['language']}
+        = button_to "Aceptar", books_path, method: :post, params: params, class: 'btn btn-classic btn-block'
+      .col-md-3
+        = button_to "Cancelar", new_book_path, method: :get, params: [], class: 'btn btn-classic btn-block'
