@@ -1,19 +1,18 @@
 .container.book_card
   .row
-  .col-md-4
+  .col-md-6.col-md-offset-3
     h1 Ingreso manual
     hr
-  .col-md-4
     = form_for @book, url: create_manual_book_path do |f|
       p
-        = f.label :isbn, class: 'h4'
+        = f.label :isbn, 'ISBN', class: 'h4'
         br
         - if @book.isbn
           = f.text_field :isbn, value: @book.isbn, class: 'form-control form-control-lg'
         - else
           = f.text_field :isbn, placeholder: 'Ingrese n° de ISBN', class: 'form-control form-control-lg'
       p
-        = f.label :titulo, class: 'h4'
+        = f.label :titulo, 'Título', class: 'h4'
         br
         - if @book.title
           = f.text_field :title, value: @book.title, class: 'form-control form-control-lg'
@@ -27,14 +26,13 @@
         - else
           = f.text_field :author, placeholder: 'Ingrese autores del libro', class: 'form-control form-control-lg'
       p
-        = f.label :description, class: 'h4'
+        = f.label :description, 'Descripción', class: 'h4'
         br
         - if @book.description
           = f.text_field :description, value: @book.author, class: 'form-control form-control-lg'
         - else
           = f.text_field :description, placeholder: 'Ingrese una descripción del libro', class: 'form-control form-control-lg'
-      p
-        = f.submit 'Guardar', class: 'btn btn-classic'
-  .col-sm-2
-  .col-sm-2
-    = link_to 'Volver', '/books/new', class: 'btn btn-info btn-block'
+      .col-md-3
+        = f.submit 'Guardar', class: 'btn btn-classic full-width'
+      .col-md-3
+        = link_to 'Volver', '/books/new', class: 'btn btn-classic btn-block full-width'
