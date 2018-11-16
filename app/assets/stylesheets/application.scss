@@ -38,7 +38,7 @@ ul.nav.navbar-nav li a:hover {
 .navbar {
   background-color: $main-dark-color;
   margin : 0 !important;
-  font-family: 'Pacifico', cursive;;
+  font-family: 'Pacifico', cursive;
 }
 
 
@@ -54,6 +54,7 @@ ul.nav.navbar-nav li a:hover {
 }
 
 .dropdown-menu {
+  font-family: $heading-font-family;
   background-color: $background-light;
   li a {
     color: $dark-font-color;
@@ -378,4 +379,8 @@ body {
 .longhand {
   -webkit-flex-flow: wrap row;
   flex-flow: wrap row;
+}
+
+.carousel-caption {
+  color: $biblo-white;
 }
