@@ -18,7 +18,7 @@
         - if @book.title
           = f.text_field :title, value: @book.title, class: 'form-control form-control-lg'
         - else
-          = f.text_field :title, placeholder: 'Ingrese titulo del libro', class: 'form-control form-control-lg'
+          = f.text_field :title, placeholder: 'Ingrese título del libro', class: 'form-control form-control-lg'
       p
         = f.label :autores, class: 'h4'
         br
@@ -32,7 +32,7 @@
         - if @book.description
           = f.text_field :description, value: @book.author, class: 'form-control form-control-lg'
         - else
-          = f.text_field :description, placeholder: 'Ingrese una descripcion del libro', class: 'form-control form-control-lg'
+          = f.text_field :description, placeholder: 'Ingrese una descripción del libro', class: 'form-control form-control-lg'
       p
         = f.submit 'Guardar', class: 'btn btn-classic'
   .col-sm-2

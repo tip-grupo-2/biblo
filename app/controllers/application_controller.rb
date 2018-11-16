@@ -17,13 +17,13 @@ class ApplicationController < ActionController::Base
 
   def notification_status(donation)
     case donation.state
-    when 'requested'          then 'aun no ha sido contestada.'
+    when 'requested'          then 'aún no ha sido contestada.'
     when 'available',
          'unavailable'             then 'ha sido rechazada.'
     when 'accepted',
          'delivery_confirmed',
          'receive_confirmed',
-         'finished'           then "ha sido aceptada"
+         'finished'           then 'ha sido aceptada'
     else
       raise "Incorrect donation state"
     end
