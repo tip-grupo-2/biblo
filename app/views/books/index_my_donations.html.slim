@@ -3,9 +3,9 @@
   hr
   table.table.table-hover
     tr
-      th
       th ID
-      th Titulo
+      th
+      th Título
       th Autores
       th ISBN
       th Estado
@@ -14,13 +14,12 @@
       th
     - @donations.each do |donation|
       tr
-        td= donation.copy.id
-        td
-          img.thumbnail src="#{donation.copy.book.picture_url}" height= "100px"
-        td= donation.copy.book.title
-        td= donation.copy.book.author
-        td= donation.copy.book.isbn
-        td= donation.getStateName()
+        td = donation.copy.id
+        td = image_tag "#{donation.copy.book.picture_url}"
+        td = donation.copy.book.title
+        td = donation.copy.book.author
+        td = donation.copy.book.isbn
+        td = donation.getStateName()
         - if current_owner(donation)
           - privacy_text = chose_if(donation.available?, 'Marcar como privado', 'Marcar como publico')
           - privacy_btn_style = chose_if(donation.available?, 'btn-contrast', 'btn-classic')

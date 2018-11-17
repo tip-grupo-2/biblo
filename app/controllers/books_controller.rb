@@ -18,12 +18,12 @@ class BooksController < ApplicationController
     raise Book::ISBN_LENGTH_ERROR if @isbn.length != 13
     raise Book::ISBN_PROVIDER_ERROR if @book_data.nil?
   rescue Book::ISBN_LENGTH_ERROR
-    flash[:notice] = 'El ISBN debe tener 13 numeros'
+    flash[:notice] = 'El ISBN debe tener 13 números.'
     @book = Book.new
     @book.isbn = @isbn
     render :new and return
   rescue Book::ISBN_PROVIDER_ERROR
-    flash[:notice] = 'No pudimos encontrar ese ISBN en nuestra base de datos'
+    flash[:notice] = 'No pudimos encontrar ese ISBN en nuestra base de datos.'
     enter_manual
   end
 
@@ -37,6 +37,9 @@ class BooksController < ApplicationController
     @title = params[:book][:title].gsub(/\s/,'+')
     response_data = getGoogleApiBooks(@title)
     @books = response_data['items']
+  rescue RestClient::BadRequest
+    flash[:notice] = 'Por favor verificá los datos ingresados.'
+    redirect_to :back
   end
 
   def getGoogleApiBooks(queryBy)
@@ -134,7 +137,7 @@ class BooksController < ApplicationController
     redirect_to :back
   rescue Copy::ALREADY_REQUESTED_ERROR
     flash[:notice] = "Oops! Alguien ha solicitado el prestamo de esta copia. Por favor responde la solicitud antes de
-                      restringir su disponibilidad"
+                      restringir su disponibilidad."
     redirect_to :back
   end
 
