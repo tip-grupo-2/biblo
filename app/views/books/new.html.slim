@@ -13,7 +13,7 @@
           -else
             = f.text_field :isbn, placeholder: 'Ingrese n° de ISBN', class: 'form-control form-control-lg'
         p
-          = f.submit 'Buscar por isbn', class: 'btn btn-classic'
+          = f.submit 'Buscar por ISBN', class: 'btn btn-classic'
     .col-md-3
       h3 Búsqueda por Título
       hr
@@ -23,7 +23,7 @@
           - if @book.title
             = f.text_field :title, value: @book.title, class: 'form-control form-control-lg'
           - else
-            = f.text_field :title, placeholder: 'Ingrese título', class: 'form-control form-control-lg'
+            = f.text_field :title, placeholder: 'Ingrese título/autor o palabra clave', class: 'form-control form-control-lg'
         p
           = f.submit 'Buscar por título', class: 'btn btn-classic'
     .col-sm-3

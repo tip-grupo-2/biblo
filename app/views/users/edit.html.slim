@@ -16,19 +16,16 @@ script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSy
         = form.label :avatar, 'Avatar', class: 'h4'
         = form.text_field :avatar, placeholder: 'Inserte aquí la URL de la imagen deseada', class: 'form-control form-control-lg', type: 'text', required: true
         = form.label :phone_number, 'Celular', class: 'h4'
-        = form.text_field :phone_number, placeholder: 'Ingrese aqui su número telefónico', class: 'form-control form-control-lg', type: 'text'
-        = form.label :max_distance, 'Distancia maxima', class: 'h4'
+        = form.text_field :phone_number, placeholder: 'Ingrese aquí su número telefónico', class: 'form-control form-control-lg', type: 'text'
+        = form.label :max_distance, 'Distancia máxima', class: 'h4'
         = form.hidden_field :latitude, value: @user.latitude,  id: 'latitude'
         = form.hidden_field :longitude, value: @user.longitude, id: 'longitude'
         br
-        b 5km
-        = form.text_field :max_distance, id: 'ex1', type: 'text', \
-              data: {'slider-id' => 'ex1Slider', \
-                     'slider-min' => '5', \
-                      'slider-max' => '100', \
-                      'slider-step' => '1', \
-                      'slider-value' => @user.max_distance}
-        b 100km
+        b.side-margin-5px 5 Km.
+        = form.text_field :max_distance, id: 'ex1', type: 'text', class: '',
+              data: { 'slider-id' => 'ex1Slider','slider-min' => '5', 'slider-max' => '100', 'slider-step' => '1',
+                      'slider-value' => @user.max_distance }
+        b.side-margin-5px 100 Km.
         br
         br
         = form.submit 'Aceptar', class: 'btn btn-classic'
