@@ -1,0 +1,9 @@
+- ViewHelper::SLIDE_DATA.each do |slide|
+  .item.overlay-gradient
+    = image_tag slide[:back_image], class: 'mw-100'
+    .carousel-caption.d-none.d-md-block
+      div.animated.bounceInLeft
+        img.shadowed height="28%" src="http://img.fenixzone.net/i/uCHfzbI.png" width="28%"
+      br
+      h2.animated.bounceInRight #{slide[:main_caption]}
+      h3.animated.fadeInRight #{slide[:sub_caption]}
