@@ -5,22 +5,35 @@ link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" /
     #carouselExampleSlidesOnly.carousel.slide data-ride="carousel"
       .carousel-inner role="listbox"
         .item.active.overlay-gradient
-          = image_tag 'biblo_01_1800_500.jpg', class: 'mw-100'
-          .carousel-caption.d-none.d-md-block
-            h2.animated.bounceInRight Cataloga todos tus libros!
-            h3.animated.fadeInRight Nunca vuelvas a perder un libro, o a olvidar que lo prestaste
-        .item.overlay-gradient
-          = image_tag 'biblo_02_1800_500.jpg', class: 'mw-100'
-          .carousel-caption.d-none.d-md-block
-            h2.animated.bounceInRight Qué querés leer hoy?
-            h3.animated.fadeInRight Tu próxima aventura puede estar a metros de distancia!
-        .item.overlay-gradient
           = image_tag 'biblo_03_1800_500.jpg', class: 'mw-100'
           .carousel-caption.d-none.d-md-block
-            h2.animated.bounceInRight Libros guardados en un placard?
-            h3.animated.fadeInRight Tal vez alguien muy cerca quiere leerlos!
-        .item.overlay-gradient
-          = image_tag 'biblo_04_1800_500.jpg', class: 'mw-100'
-          .carousel-caption.d-none.d-md-block
-            h2.animated.bounceInRight Empezando un nuevo año escolar?
-            h3.animated.fadeInRight Seguro te sirven los libros de alguien que cursó el año anterior!
+            div.animated.bounceInDown
+              img.shadowed height="48%" src="http://img.fenixzone.net/i/uCHfzbI.png" width="48%"
+        = render 'books/carousel_slide'
+.div-home
+  .container-fluid
+    .row
+      .col-sm-3 style='text-align: center;'
+        = link_to new_user_registration_path
+          = image_tag 'icon_1.png', class: 'home-icon'
+        br
+        br
+        h4.pacific Registrate y empezá a leer
+      .col-sm-3 style='text-align: center;'
+        = link_to new_book_path
+          = image_tag 'icon_2.png', class: 'home-icon'
+        br
+        br
+        h4.pacific Doná ese libro que ya no leés
+      .col-sm-3 style='text-align: center;'
+        = link_to new_user_session_path
+          = image_tag 'icon_3.png', class: 'home-icon'
+        br
+        br
+        h4.pacific Pertenece a una comunidad lectora
+      .col-sm-3 style='text-align: center;'
+        = link_to capture_barcode_path
+          = image_tag 'icon_4.png', class: 'home-icon'
+        br
+        br
+        h4.pacific Ingresa tus libros con código de barras
