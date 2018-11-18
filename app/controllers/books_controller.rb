@@ -86,7 +86,7 @@ class BooksController < ApplicationController
                      .where.not(state: 'rejected')
   end
   def index_my_donations
-    ids = Donation.select("MIN(id) as id").group(:copy_id).collect(&:id)
+    ids = Donation.select("MAX(id) as id").group(:copy_id).collect(&:id)
     @donations = Donation.joins(:copy).where("copies.original_owner_id = ?", current_user.id).where(id: ids)
   end
 
@@ -104,12 +104,21 @@ class BooksController < ApplicationController
   rescue Copy::ALREADY_REQUESTED_ERROR
     flash[:danger] = 'Oops! Lo sentimos, la copia del libro fue solicitada por otro usuario.'
     redirect_to '/books'
+  rescue AASM::InvalidTransition
+    flash[:danger] = 'Oops! Lo sentimos, ha ocurrido un error. Por favor intente nuevamente.'
+    redirect_to :back
   end
 
   def start
     @donation = Donation.find(params[:id])
-    @donation.make_unavailable!
-    @donation.save
+    if !@donation.unavailable?
+      @donation.make_unavailable!
+      @donation.save
+    end
+    redirect_to :back
+  rescue AASM::InvalidTransition
+    flash[:danger] = 'Oops! Lo sentimos, ha ocurrido un error. Por favor chequeá tus notificaciones e intenta
+                      nuevamente. Puede que tu libro este en proceso de donación.'
     redirect_to :back
   end
 
@@ -123,7 +132,8 @@ class BooksController < ApplicationController
   def mark_as_private
     donation = Donation.find(params[:id])
     raise Copy::NOT_IN_POSSESSION_ERROR unless donation.copy.current_owner(current_user)
-    raise Copy::ALREADY_REQUESTED_ERROR unless donation.available? or donation.rejected?
+    raise Copy::ALREADY_REQUESTED_ERROR if donation.requested?
+    raise Copy::REJECTED_STATE_ERROR if donation.rejected?
     if(donation.available?)
       donation.make_unavailable!
     else
@@ -138,6 +148,9 @@ class BooksController < ApplicationController
   rescue Copy::ALREADY_REQUESTED_ERROR
     flash[:notice] = "Oops! Alguien ha solicitado el prestamo de esta copia. Por favor responde la solicitud antes de
                       restringir su disponibilidad."
+    redirect_to :back
+  rescue Copy::REJECTED_STATE_ERROR
+    flash[:notice] = "Lo sentimos, ha ocurrido un error. Por favor intentalo nuevamente."
     redirect_to :back
   end
 
