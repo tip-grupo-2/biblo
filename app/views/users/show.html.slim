@@ -5,7 +5,7 @@ script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSy
   .row
     .col-sm-2
       - avatar = user_avatar(@user)
-      = image_tag(avatar, class: 'square-thumbnail', size: "150")
+      = image_tag(avatar, class: 'square-thumbnail', width: "100%")
     .col-sm-4
       h1 #{@user.name}
       h3 #{@user.email}
@@ -19,4 +19,4 @@ script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSy
         span#place-address
   .row
     .col-sm-2
-      = link_to 'Volver', 'javascript:history.back()', class: 'btn btn-contrast btn-block'
+      = link_to 'Volver', '/', class: 'btn btn-contrast btn-block'
