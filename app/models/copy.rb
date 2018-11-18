@@ -7,6 +7,7 @@ class Copy < ActiveRecord::Base
 
   ALREADY_REQUESTED_ERROR = Class.new(StandardError)
   NOT_IN_POSSESSION_ERROR = Class.new(StandardError)
+  REJECTED_STATE_ERROR = Class.new(StandardError)
 
   def current_owner(current_user)
     user_id == current_user.id

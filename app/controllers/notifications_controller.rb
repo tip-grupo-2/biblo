@@ -74,7 +74,7 @@ class NotificationsController < ApplicationController
 
   def update_book_and_request(choice, donation)
     ActiveRecord::Base.transaction do
-      if choice == 'true' # :c
+      if choice == 'true'
         donation.accept!
       else
         donation.reject!
