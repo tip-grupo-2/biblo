@@ -35,6 +35,17 @@ class ApplicationController < ActionController::Base
   end
   helper_method :chose_if
 
+  def chose_privacy_state(donation, res1, res2, res3)
+    if donation.available?
+      res1
+    elsif donation.unavailable?
+      res2
+    else
+      res3
+    end
+  end
+  helper_method :chose_privacy_state
+
   def current_owner(donation)
     donation.copy.current_owner(current_user)
   end
