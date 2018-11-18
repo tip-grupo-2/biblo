@@ -14,13 +14,15 @@
       th
     - @donations.each do |donation|
       tr
-        td = donation.id
         td = donation.copy.id
         td = image_tag "#{donation.copy.book.picture_url}"
         td = donation.copy.book.title
         td = donation.copy.book.author
         td = donation.copy.book.isbn
-        td = donation.getStateName()
+        - if donation.giver_id == current_user.id
+          td = donation.getStateName()
+        - else
+          td Donado
         - if current_owner(donation)
           - privacy_text = chose_privacy_state(donation, 'Marcar como privado', 'Marcar como publico', 'Marcar como privado')
           - privacy_btn_style = chose_privacy_state(donation, 'btn-contrast', 'btn-classic', 'btn-neutral')

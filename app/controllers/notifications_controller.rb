@@ -9,8 +9,9 @@ class NotificationsController < ApplicationController
 
   def all_notifications
     notifications = Notification.where("recipient_id = ? or requester_id = ?", current_user.id, current_user.id)
-    @notifications_as_recipient = notifications.select{|notification| notification.donation.giver == current_user}
-    @notifications_as_requester = notifications.select{|notification| notification.donation.requester == current_user}
+    last_of = notifications.group_by(&:donation_id).map { |n| n.last.max_by(&:id) }
+    @notifications_as_recipient = last_of.select{|notification| notification.donation.giver == current_user}
+    @notifications_as_requester = last_of.select{|notification| notification.donation.requester == current_user}
   end
 
   def mark_as_read
@@ -35,18 +36,27 @@ class NotificationsController < ApplicationController
     notification = Notification.find(notification_params[:id])
     update_book_and_request(notification_params[:choice], notification.donation)
     notify_requester(notification_params[:message], notification)
+  rescue AASM::InvalidTransition
+    flash[:danger] = 'Oops! Lo sentimos, ha ocurrido un error. Por favor intente nuevamente.'
+    redirect_to :back
   end
 
   def confirm_delivery
     notification = Notification.find(notification_params[:id])
     confirm_book_delivery(notification.donation)
     notify_requester(notification_params[:message], notification)
+  rescue AASM::InvalidTransition
+    flash[:danger] = 'Oops! Lo sentimos, ha ocurrido un error. Por favor intente nuevamente.'
+    redirect_to :back
   end
 
   def confirm_reception
     notification = Notification.find(notification_params[:id])
     confirm_book_reception(notification.donation)
     notify_requester(notification_params[:message], notification)
+  rescue AASM::InvalidTransition
+    flash[:danger] = 'Oops! Lo sentimos, ha ocurrido un error. Por favor intente nuevamente.'
+    redirect_to :back
   end
 
   private
@@ -63,7 +73,7 @@ class NotificationsController < ApplicationController
   end
 
   def notify_requester(choice, notification)
-    notification.update!(requester_id: notification.recipient_id,
+    Notification.create!(requester_id: notification.recipient_id,
                          recipient_id: notification.requester_id,
                          copy_id: notification.copy.id,
                          action: choice,

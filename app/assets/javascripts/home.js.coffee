@@ -7,7 +7,6 @@ $(document).on "turbolinks:load", ->
     $(".notification-marker-js")[0].innerText = "(#{n})"
 
   toggleDropdown = (notifications) ->
-    console.log(notifications.length)
     if notifications.length == 0
       $('#notifications-dropdown').remove()
       $('#dropdownMenu1')[0].title = 'Sin notificaciones'
@@ -20,7 +19,6 @@ $(document).on "turbolinks:load", ->
       type: 'get',
       data: {user: $(".current-user-js").data("user-id")},
     }).done((data) ->
-      console.log(data)
       data.forEach((notification) ->
         $('.dropdown-menu').prepend(notificationMessage(notification))
       toggleDropdown(data)
@@ -33,7 +31,6 @@ $(document).on "turbolinks:load", ->
 
   $('.read-button-js').on 'click', ->
     ids = $('.notification-js').map( -> $(@).data('notification-id'))
-    console.log(ids)
     $.ajax({
       url: '/notifications/mark_as_read',
       type: 'post',
@@ -48,7 +45,6 @@ $(document).on "turbolinks:load", ->
 
 
   notificationMessage = (notification) ->
-    is_requester = $(".current-user-js").data("user-id") == notification
     switch notification.action
       when 'solicitado' then "<li class='notification-js' data-notification-id='#{notification.id}'><a href='/notifications/#{notification.id}'>#{notification.requester} ha #{notification.action} tu ejemplar de #{notification.book_title}</a></li>"
       when 'aceptado' then "<li class='notification-js' data-notification-id='#{notification.id}'><a href='/notifications/#{notification.id}'>#{notification.requester} ha #{notification.action} tu solicitud de prestamo de #{notification.book_title}!</a></li>"
