@@ -1,21 +1,33 @@
 .container.book_card
   h1 Mis Donaciones
   hr
-  .table-responsive-sm
-    table.table-hover
+  table.table.table-hover
+    tr
+      th ID
+      th
+      th Título
+      th Autores
+      th ISBN
+      th Estado
+      th
+      th
+      th
+    - @donations.each do |donation|
       tr
-        th
-        th ID
-        th Titulo
-        th Autores
-        th ISBN
-        th Estado
-        th
-        th
-        th
-      - @donations.each do |donation|
-        tr
-          td= donation.copy.id
+        td = donation.copy.id
+        td = image_tag "#{donation.copy.book.picture_url}"
+        td = donation.copy.book.title
+        td = donation.copy.book.author
+        td = donation.copy.book.isbn
+        - if donation.giver_id == current_user.id
+          td = donation.getStateName()
+        - else
+          td Donado
+        - if current_owner(donation)
+          - privacy_text = chose_privacy_state(donation, 'Marcar como privado', 'Marcar como publico', 'Marcar como privado')
+          - privacy_btn_style = chose_privacy_state(donation, 'btn-contrast', 'btn-classic', 'btn-neutral')
+          td= link_to privacy_text, mark_as_private_book_path(donation), method: 'post', class: "btn #{privacy_btn_style}"
+        - else
           td
             img.thumbnail src="#{donation.copy.book.picture_url}" height= "100px"
           td= donation.copy.book.title

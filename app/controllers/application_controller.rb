@@ -17,13 +17,13 @@ class ApplicationController < ActionController::Base
 
   def notification_status(donation)
     case donation.state
-    when 'requested'          then 'aun no ha sido contestada.'
+    when 'requested'          then 'aún no ha sido contestada.'
     when 'available',
          'unavailable'             then 'ha sido rechazada.'
     when 'accepted',
          'delivery_confirmed',
          'receive_confirmed',
-         'finished'           then "ha sido aceptada"
+         'finished'           then 'ha sido aceptada'
     else
       raise "Incorrect donation state"
     end
@@ -34,6 +34,17 @@ class ApplicationController < ActionController::Base
     predicate ? opt1 : opt2
   end
   helper_method :chose_if
+
+  def chose_privacy_state(donation, res1, res2, res3)
+    if donation.available?
+      res1
+    elsif donation.unavailable?
+      res2
+    else
+      res3
+    end
+  end
+  helper_method :chose_privacy_state
 
   def current_owner(donation)
     donation.copy.current_owner(current_user)

@@ -49,4 +49,7 @@ $(document).on "turbolinks:load", ->
       when 'solicitado' then "<li class='notification-js' data-notification-id='#{notification.id}'><a href='/notifications/#{notification.id}'>#{notification.requester} ha #{notification.action} tu ejemplar de #{notification.book_title}</a></li>"
       when 'aceptado' then "<li class='notification-js' data-notification-id='#{notification.id}'><a href='/notifications/#{notification.id}'>#{notification.requester} ha #{notification.action} tu solicitud de prestamo de #{notification.book_title}!</a></li>"
       when 'rechazado' then "<li class='notification-js' data-notification-id='#{notification.id}'><a href='/notifications/#{notification.id}'>Lamentablemente #{notification.requester} ha #{notification.action} tu solicitud de prestamo de #{notification.book_title}</a></li>"
+      when 'recibido' then "<li class='notification-js' data-notification-id='#{notification.id}'><a href='/notifications/#{notification.id}'>#{notification.requester} ha #{notification.action} su copia de #{notification.book_title}</a></li>"
+      when 'entregado' then "<li class='notification-js' data-notification-id='#{notification.id}'><a href='/notifications/#{notification.id}'>#{notification.requester} ha #{notification.action} su copia de #{notification.book_title}</a></li>"
+
 
