@@ -1,61 +1,16 @@
 doctype html
-
 html
   head
     link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" /
     meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
     meta content=("width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;") name="viewport" /
-    title BibliotecaPopular
+    meta name="google-site-verification" content="K9-nlvPLQN_vVIa4krARIaDyZjcGiScarrYv1UhkUjE"
+    title Biblo | Biblioteca virtual
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   body
-    .container
-    .navbar.bg-info
-      ul.nav.navbar-nav
-        li.home
-          = link_to root_path, method: :get, class: 'navbar-brand' do
-            = image_tag('logo_biblos.png', size: "140x50")
-        - if user_signed_in?
-          li
-            = link_to "Donar libro", new_book_path, method: :get, class: 'navbar-brand'
-          li
-            = link_to "Libros para pedir", books_path, method: :get, class: 'navbar-brand'
-          li
-            = link_to "Mis donaciones", my_donations_path, method: :get, class: 'navbar-brand'
-          li
-            = link_to "Mis libros", my_books_path, method: :get, class: 'navbar-brand'
-          li
-            = link_to "Notificaciones", all_notifications_path, method: :get, class: 'navbar-brand'
-          li
-            = link_to "Perfil", user_path(:id => current_user.id), method: :get, class: 'navbar-brand'
-      ul.nav.navbar-nav.navbar-right.l-login-nav
-        - if user_signed_in?
-          - avatar = user_avatar(current_user)
-          .navbar-left
-            = link_to user_path(:id => current_user.id) do
-              .navbar-picture-selecter
-                = image_tag(avatar, class: 'l-profile-image round-thumbnail', size: "45")
-              p
-                - current_user.name
-          .dropdown.navbar-brand.navbar-selector
-            li.dropdown-toggle id="dropdownMenu1" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button"
-              i.fa.fa-bell.notification-marker-js
-                | (0)
-            ul.dropdown-menu aria-labelledby="dropdownMenu1" id='notifications-dropdown'
-              li.divider role="separator"
-              li
-                a.read-button-js  Marcar como leidas
-                a.see-all-button-js Ver todas
-              .current-user-js data-user-id=current_user.id
-          ul.nav.navbar-nav
-            li
-              = link_to "Cerrar sesion", destroy_user_session_path, method: :delete, class: 'navbar-brand'
-        - else
-          li
-            = link_to "Registrarse", new_user_registration_path, class: 'navbar-brand'
-          li
-            = link_to "Iniciar sesión", new_user_session_path, class: 'navbar-brand'
+    =render 'biblioteca/navbar'
     - flash.each do |message_type, message|
       = content_tag :div, role: 'alert', class: "alert alert-#{message_type} col-md-6 biblo-alert"
         a.close aria-label="close" data-dismiss="alert" href="#"  &times;
