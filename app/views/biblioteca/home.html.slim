@@ -1,3 +1,4 @@
+script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7FZ14h7xhNNN5QmXt5lJpzPArNjvNfOQ&libraries=places&callback=booksNearYourZone"
 link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" /
 .container-fluid
   .row
@@ -37,3 +38,14 @@ link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" /
         br
         br
         h4.pacific Ingresa tus libros con código de barras
+.div
+  /input#address type="hidden" value="#{current_user.address}" /
+  - address = current_user.try(:address) || "Av. Corrientes 1051, Buenos Aires"
+  input#address type="hidden" value="#{address}" /
+  .col-md-12.left
+    h3 "Ubicación aproximada #{address}"
+    br
+    #map.home-map
+    #infowindow-content
+      span#place-address
+    br

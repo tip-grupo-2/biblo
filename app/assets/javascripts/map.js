@@ -117,7 +117,7 @@ initStaticGeoCodeMapWithZone = function(){
                     }
             });
             marker.setPosition(locatedAt);
-            marker.setVisible(true);
+            //marker.setVisible(true);
         });
 };
 
@@ -157,3 +157,83 @@ showDistanceWalking = function(){
     row = document.getElementsByClassName('distance-data-js');
     Array.from(row).forEach(setDataInTable);
 };
+
+createMarker = function(map, lat, lng) {
+    var pos = {};
+    pos["lat"] = lat;
+    pos["lng"] = lng;
+    var marker = new google.maps.Marker({position: pos, map: map, icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 10,
+            fillColor: "#481d5a",
+            fillOpacity: 0.3,
+            strokeWeight: 0.4
+        }});
+    return marker;
+};
+
+booksNearYourZone = function(){
+    var address = document.getElementById('address');
+    $.getJSON(`https://maps.googleapis.com/maps/api/geocode/json?address=${urlizeString(address.value)}&key=AIzaSyA7FZ14h7xhNNN5QmXt5lJpzPArNjvNfOQ`, function success(response){
+    })
+        .then(data => {
+        var locatedAt = data.results[0].geometry.location;
+        console.log(locatedAt);
+    var map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: locatedAt.lat, lng: locatedAt.lng},
+        maxZoom: 12,
+        gestureHandling: 'none',
+        zoomControl: false,
+        scrollwheel: false
+    });
+
+    var marker = new google.maps.Marker({
+        map: map,
+        anchorPoint: new google.maps.Point(0, -29),
+        icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 10,
+            fillColor: "#481d5a",
+            fillOpacity: 0.3,
+            strokeWeight: 0.4
+        }
+    });
+    marker.setPosition(locatedAt);
+    //marker.setVisible(true);
+    //var pos = { lat: -34.6035518​, lng: -58.382388};
+    var pos = {};
+    pos["lat"] = -34.7755;
+    pos["lng"] = -58.2583;
+    var pos2 = {};
+    pos2["lat"] = -33.7755;
+    pos2["lng"] = -57.2583;
+    var marker2 = new google.maps.Marker({position: pos, map: map, icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 10,
+            fillColor: "#481d5a",
+            fillOpacity: 0.3,
+            strokeWeight: 0.4
+        }});
+    // var marker3 = new google.maps.Marker({position: pos2, map: map, icon: {
+    //         path: google.maps.SymbolPath.CIRCLE,
+    //         scale: 10,
+    //         fillColor: "#481d5a",
+    //         fillOpacity: 0.3,
+    //         strokeWeight: 0.4
+    //     }});
+    var marker3 = createMarker(map, -33.7755, -50.2583);
+    //marker2.setPosition();
+    var markers = [marker, marker2, marker3];//some array
+    var bounds = new google.maps.LatLngBounds();
+    for (var i = 0; i < markers.length; i++) {
+        bounds.extend(markers[i].getPosition());
+    }
+    map.fitBounds(bounds);
+    console.log(map.getZoom())
+    if (map.getZoom() > 9){
+        console.log(map.getZoom())
+        map.setZoom(9);
+    }
+    });
+    };
+
