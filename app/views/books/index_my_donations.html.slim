@@ -29,5 +29,16 @@
           td= link_to privacy_text, mark_as_private_book_path(donation), method: 'post', class: "btn #{privacy_btn_style}"
         - else
           td
-        td= link_to 'Ver detalle', book_path(donation.copy.book), class: 'btn btn-classic'
-        = yield donation
+            img.thumbnail src="#{donation.copy.book.picture_url}" height= "100px"
+          td= donation.copy.book.title
+          td= donation.copy.book.author
+          td= donation.copy.book.isbn
+          td= donation.getStateName()
+          - if current_owner(donation)
+            - privacy_text = chose_if(donation.available?, 'Marcar como privado', 'Marcar como publico')
+            - privacy_btn_style = chose_if(donation.available?, 'btn-contrast', 'btn-classic')
+            td= link_to privacy_text, mark_as_private_book_path(donation), method: 'post', class: "btn #{privacy_btn_style}"
+          - else
+            td
+          td= link_to 'Ver detalle', book_path(donation.copy.book), class: 'btn btn-classic'
+          = yield donation

@@ -1,10 +1,11 @@
 table.table.table-hover
   tr
-    th ID
+
     th
-    th Título
-    th Autores
-    th ISBN
+    th.hidden-xs ID
+    th Titulo
+    th.hidden-xs Autores
+    th.hidden-xs ISBN
     th
     - if current_page?(:controller => 'books', :action => 'index')
       th Distancia
@@ -14,13 +15,18 @@ table.table.table-hover
     th
   - @donations.each do |donation|
     tr
-      td = donation.copy.id
-      td = image_tag "#{donation.copy.book.picture_url}"
+      td.hidden-xs = donation.copy.id
+      td
+        img.thumbnail src="#{donation.copy.book.picture_url}" height= "100px"
       td = donation.copy.book.title
-      td = donation.copy.book.author
-      td = donation.copy.book.isbn
+      td.hidden-xs = donation.copy.book.author
+      td.hidden-xs = donation.copy.book.isbn
       - if donation.available? && current_user != donation.copy.user
-        td = link_to 'Ver detalle', donation_path(donation), class: 'btn btn-classic'
+        td.hidden-xs = link_to 'Ver detalle', donation_path(donation), class: 'btn btn-classic'
+        td.hidden-lg.hidden-sm.hidden-md = link_to donation_path(donation), class: 'btn btn-classic'
+          i.glyphicon.glyphicon-sunglasses
       - else
-        td = link_to 'Ver detalle', book_path(donation.copy.book), class: 'btn btn-classic'
-      = yield donation
+        td.hidden-xs = link_to 'Ver detalle', book_path(donation.copy.book), class: 'btn btn-classic'
+        td.hidden-lg.hidden-sm.hidden-md = link_to book_path(donation.copy.book), class: 'btn btn-classic'
+          i.glyphicon.glyphicon-sunglasses
+      =yield donation

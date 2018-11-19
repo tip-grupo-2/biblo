@@ -1,0 +1,69 @@
+.navbar-brand,
+.navbar-nav li a, .nav.navbar-nav.navbar-right.l-login-nav {
+  color: $light-font-color;
+  line-height: 50px;
+  height: 50px;
+  padding-top: 0;
+}
+
+.navbar-nav li a:hover, .navbar-nav li a:focus {
+  background-color: $main-dark-color;
+  border-bottom: 3px solid $contrast-color;
+}
+
+.navbar-selector:hover {
+  border-bottom: 3px solid $contrast-color;
+  color: $contrast-color;
+  cursor: pointer;
+}
+
+ul.nav.navbar-nav li a:hover {
+  color: $contrast-color;
+  background-color: $main-dark-color;
+}
+
+.navbar {
+  background-color: $main-dark-color;
+  margin : 0 !important;
+  font-family: 'Pacifico', cursive;;
+}
+
+
+.round-thumbnail {
+  border-radius: 100%;
+  border: 3px solid transparent;
+}
+
+.round-thumbnail:hover {
+  border: 3px solid $contrast-color;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  background-color: $background-light;
+  li a {
+    color: $dark-font-color;
+  }
+
+  li a:hover {
+    color: $contrast-color!important;
+    background-color: $background-light!important;
+    border-bottom: 3px solid $background-light;
+  }
+}
+
+#myNavbar {
+  float: none;
+}
+#myNavbar > .navbar-collapse {
+  float: none;
+}
+#menu-main-menu {
+  float: none;
+  text-align: center;
+}
+#menu-main-menu > li {
+  float: none;
+  display: inline-block;
+}
