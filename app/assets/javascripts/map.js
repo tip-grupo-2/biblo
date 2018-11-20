@@ -158,10 +158,14 @@ showDistanceWalking = function(){
     Array.from(row).forEach(setDataInTable);
 };
 
-createMarker = function(map, lat, lng) {
+createMarker = function(map, data) {
     var pos = {};
-    pos["lat"] = lat;
-    pos["lng"] = lng;
+    console.log(data);
+    pos["lat"] = parseFloat(data.lat);
+    pos["lng"] = parseFloat(data.lng);
+    var infowindow = new google.maps.InfoWindow({
+        content:`<div style='float:left'><img style='max-height: 100px' src=${data.img}></div><div style='float:right; padding: 10px;'><b>${data.title}</b><br/>De: ${data.author}<br/><div style="margin:5px 0px"><a style="color: #ff83a4; margin:15px 0px" href="/donations/${data.donation}">Ver más</a></div></div>`
+    });
     var marker = new google.maps.Marker({position: pos, map: map, icon: {
             path: google.maps.SymbolPath.CIRCLE,
             scale: 10,
@@ -169,40 +173,25 @@ createMarker = function(map, lat, lng) {
             fillOpacity: 0.3,
             strokeWeight: 0.4
         }});
+    marker.addListener('click', function() {
+        infowindow.open(map, marker);
+    });
     return marker;
 };
 
 booksNearYourZone = function(){
-    // map creation
-    // var map = new google.maps.Map(document.getElementById('map'), {
-    //     maxZoom: 12,
-    //     gestureHandling: 'none',
-    //     zoomControl: false,
-    //     scrollwheel: false
-    // });
-    // var marker2 = createMarker(map, -34.7755, -58.2583);
-    // var marker3 = createMarker(map, -33.7755, -50.2583);
-    // var markers = [marker2, marker3];//some array
-    // var bounds = new google.maps.LatLngBounds();
-    // for (var i = 0; i < markers.length; i++) {
-    //     bounds.extend(markers[i].getPosition());
-    // }
-    // map.fitBounds(bounds);
     $.getJSON( "/nearest_books", function( data ) {
         console.log(data)
         map = new google.maps.Map(document.getElementById('map'), {
             maxZoom: 10,
-            //gestureHandling: 'none',
+            gestureHandling: 'scroll',
             //zoom: 15,
             zoomControl: false,
             scrollwheel: false
         });
-        // var marker2 = createMarker(map, -34.7755, -58.2583);
-        // var marker3 = createMarker(map, -33.7755, -50.2583);
-         //var markers = [marker2, marker3];
         var markers = data.map(function(d) {
            console.log(d.lat);
-          return createMarker(this.map, parseFloat(d.lat), parseFloat(d.lng));
+          return createMarker(this.map, d);
        });
         var bounds = new google.maps.LatLngBounds();
         for (var i = 0; i < markers.length; i++) {

@@ -42,8 +42,8 @@ link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" /
   /input#address type="hidden" value="#{current_user.address}" /
   - address = current_user.try(:address) || "Av. Corrientes 1051, Buenos Aires"
   input#address type="hidden" value="#{address}" /
-  .col-md-12.left
-    h3 "Ubicación aproximada #{address}"
+  .col-md-6
+    h3.white-font Libros cerca tuyo!
     br
     #map.home-map
     #infowindow-content
