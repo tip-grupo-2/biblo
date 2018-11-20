@@ -3,20 +3,25 @@
     .col-sm-2
       img src="#{@book_data['imageLinks']['thumbnail']}" class='square-thumbnail' width='150px'
     .col-sm-7
-      h2
-        = "Titulo: #{@book_data['title']}"
+      h1
+        = "#{@book_data['title']}"
       hr
       h3
-        ="ISBN: #{@isbn}"
+        ="#{@isbn}"
         - if !@book_data['authors'].nil?
           - authors = @book_data['authors'].join(", ")
         - else
           - authors = ""
       br
-      h4 = "Autor/es: #{authors}"
-    .col-sm-3
-      - params = {isbn: @isbn, title: @book_data['title'], authors: authors, description: @book_data['description'],
-              picture_url: @book_data['imageLinks']['thumbnail'],  country: @book_data['language']}
-      = button_to "Aceptar", books_path, method: :post, params: params, class: 'btn btn-classic btn-block'
+      h3 = "#{authors}"
       br
-      = button_to "Cancelar", books_path, method: :get, class: 'btn btn-classic btn-block'
+      p
+        = @book_data['description']
+  .row
+    .col-md-6
+      .col-md-3
+        - params = {isbn: @isbn, title: @book_data['title'], authors: authors, description: @book_data['description'],
+                picture_url: @book_data['imageLinks']['thumbnail'],  country: @book_data['language']}
+        = button_to "Aceptar", books_path, method: :post, params: params, class: 'btn btn-classic btn-block'
+      .col-md-3
+        = button_to "Cancelar", new_book_path, method: :get, params: [], class: 'btn btn-classic btn-block'

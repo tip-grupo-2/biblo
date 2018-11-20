@@ -3,6 +3,12 @@
   hr
   =render layout:'books/index_table' do |donation|
     - if donation.unavailable?
-      td= button_to 'Finalizar Lectura', finish_book_path(donation), method: :put, class: 'btn btn-neutral'
+      td= link_to 'Finalizar Lectura', rate_finish_book_path(donation), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-neutral'}
     - else
       td= button_to 'Comenzar Lectura', start_book_path(donation), method: :put, class: 'btn btn-neutral'
+
+
+
+      #modal-window.modal.fade aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
+        .modal-dialog role="document"
+          .modal-content

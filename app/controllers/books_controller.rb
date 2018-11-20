@@ -18,12 +18,12 @@ class BooksController < ApplicationController
     raise Book::ISBN_LENGTH_ERROR if @isbn.length != 13
     raise Book::ISBN_PROVIDER_ERROR if @book_data.nil?
   rescue Book::ISBN_LENGTH_ERROR
-    flash[:notice] = 'El ISBN debe tener 13 numeros'
+    flash[:notice] = 'El ISBN debe tener 13 números.'
     @book = Book.new
     @book.isbn = @isbn
     render :new and return
   rescue Book::ISBN_PROVIDER_ERROR
-    flash[:notice] = 'No pudimos encontrar ese ISBN en nuestra base de datos'
+    flash[:notice] = 'No pudimos encontrar ese ISBN en nuestra base de datos.'
     enter_manual
   end
 
@@ -37,6 +37,9 @@ class BooksController < ApplicationController
     @title = params[:book][:title].gsub(/\s/,'+')
     response_data = getGoogleApiBooks(@title)
     @books = response_data['items']
+  rescue RestClient::BadRequest
+    flash[:notice] = 'Por favor verificá los datos ingresados.'
+    redirect_to :back
   end
 
   def getGoogleApiBooks(queryBy)
@@ -55,9 +58,6 @@ class BooksController < ApplicationController
     redirect_to '/my_books'
   end
   def create_manual
-    #TODO: Estos 2 metodos quedaron re parecidos
-    # Intente en el metodo create pasar un book con title, author, y isbn desde preview.html, pero no pude
-    # Tambien intente no pasar un book en el create manual, desde el form_for y no encontre como hacerlo.
     create_book(params[:book][:isbn], params[:book][:title], params[:book][:author], nil, params[:book][:description], 'ES')
     redirect_to '/my_books'
   end
@@ -115,15 +115,25 @@ class BooksController < ApplicationController
 
   def finish
     @donation = Donation.find(params[:id])
+    rating = params[:rating]
+    Rate.create_for_book(@donation.copy.book, rating, current_user)
     @donation.make_available!
     @donation.save
     redirect_to :back
   end
 
+  def rate
+    @donation = Donation.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
   def mark_as_private
     donation = Donation.find(params[:id])
     raise Copy::NOT_IN_POSSESSION_ERROR unless donation.copy.current_owner(current_user)
-    raise Copy::ALREADY_REQUESTED_ERROR unless donation.available? or donation.unavailable?
+    raise Copy::ALREADY_REQUESTED_ERROR unless donation.available? or donation.rejected?
     if(donation.available?)
       donation.make_unavailable!
     else
@@ -137,7 +147,7 @@ class BooksController < ApplicationController
     redirect_to :back
   rescue Copy::ALREADY_REQUESTED_ERROR
     flash[:notice] = "Oops! Alguien ha solicitado el prestamo de esta copia. Por favor responde la solicitud antes de
-                      restringir su disponibilidad"
+                      restringir su disponibilidad."
     redirect_to :back
   end
 

@@ -1,6 +1,11 @@
 .container.book_card
-  .col-sm-4
-    h4 Acerca el código de barras a la cámara y sostenelo hasta que se efectue la captura
-    hr
-  .col-sm-4
-    #barcode-scanner.square-thumbnail
+  .row
+    .col-md-8.col-md-offset-2
+      h4 Acerca el código de barras a la cámara y sostenelo hasta que se efectue la captura.
+      hr
+  .row
+    .col-md-6.col-md-offset-3
+      #barcode-scanner.square-thumbnail
+  .row
+    .col-md-2.col-md-offset-3
+      = link_to 'Volver', '/books/new', class: 'btn btn-classic btn-block top-15px'

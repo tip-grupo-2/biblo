@@ -2,8 +2,9 @@ doctype html
 
 html
   head
+    link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" /
     meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
-    title BibliotecaPopular
+    title Biblo | Biblioteca virtual
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
@@ -43,12 +44,12 @@ html
             ul.dropdown-menu aria-labelledby="dropdownMenu1" id='notifications-dropdown'
               li.divider role="separator"
               li
-                a.read-button-js  Marcar como leidas
+                a.read-button-js  Marcar como leídas
                 a.see-all-button-js Ver todas
               .current-user-js data-user-id=current_user.id
           ul.nav.navbar-nav
             li
-              = link_to "Cerrar sesion", destroy_user_session_path, method: :delete, class: 'navbar-brand'
+              = link_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: 'navbar-brand'
         - else
           li
             = link_to "Registrarse", new_user_registration_path, class: 'navbar-brand'
@@ -59,4 +60,30 @@ html
         a.close aria-label="close" data-dismiss="alert" href="#"  &times;
         .content #{message}
     = yield
+br
+.footer
+  .col-sm-12
+    hr.grey
+  br
+  br
+  .col-sm-5
+    .flex-container.longhand
+      = link_to new_book_path
+        = image_tag 'https://techflourish.com/images/black-facebook-clipart-15.jpg', class: 'home-icon-small'
+      = link_to new_book_path
+        = image_tag 'https://static1.squarespace.com/static/59d7cda9b1ffb668562e9e71/t/59dfa317197aeae78556f9e2/1507828979870/TwitterIcon_white.png', class: 'home-icon-small'
+      = link_to new_book_path
+        = image_tag 'https://png.pngtree.com/element_our/md/20180520/md_5b012516425c1.png', class: 'home-icon-small'
 
+  .col-sm-2
+    h3.footer.title Contactanos!
+    hr.white
+    p.white-font Queremos saber tu opinión
+  .col-sm-4
+    form
+      fieldset.form-group
+        input#exampleInputEmail1.form-control placeholder=("Ingresa tu email") type="email" /
+      fieldset.form-group
+        textarea#exampleMessage.form-control placeholder="Mensaje"
+      fieldset.form-group.text-xs-right
+        button.btn.btn-classic type="button"  Enviar

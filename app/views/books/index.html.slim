@@ -1,21 +1,23 @@
 script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7FZ14h7xhNNN5QmXt5lJpzPArNjvNfOQ&language=es&libraries=places&callback=showDistanceWalking"
 .container.book_card
+  .row
     h1 Todos los libros
     hr
-    = form_tag(books_path, method: :get, id: "search-form") do
+      = form_tag(books_path, method: :get, id: "search-form") do
         .col-sm-4
-            = text_field_tag :search_title, params[:search_title], placeholder: "Buscar por título", class: 'form-control form-control-lg'
+          = text_field_tag :search_title, params[:search_title], placeholder: "Buscar por título", class: 'form-control form-control-lg'
         .col-sm-4
-            = text_field_tag :search_author, params[:search_author], placeholder: "Buscar por autor", class: 'form-control form-control-lg'
+          = text_field_tag :search_author, params[:search_author], placeholder: "Buscar por autor", class: 'form-control form-control-lg'
         .col-sm-4
-            = submit_tag "Buscar", class: 'btn btn-classic'
-    =render layout: 'books/index_table' do |donation|
-        - giver_point = [donation.giver.latitude, donation.giver.longitude]
-        - req_point = [current_user.latitude, current_user.longitude]
-        - distance = Geocoder::Calculations.distance_between(giver_point, req_point, units: :km).round(1)
-        td = "#{distance} Km."
-        td.fixed-width-75.distance-data-js data-origin-lat="#{giver_point[0]}" data-origin-lon="#{giver_point[1]}" data-dest-lat="#{req_point[0]}" data-dest-lon="#{req_point[1]}"
-        - avatar = user_avatar(donation.giver)
-        td=image_tag(avatar, class: 'l-profile-image')
-        td= donation.giver.email
-        td= link_to 'Solicitar', edit_book_path(donation), class: 'btn btn-contrast'
+          = submit_tag "Buscar", class: 'btn btn-classic'
+  .row.top-15px
+    = render layout: 'books/index_table' do |donation|
+      - giver_point = [donation.giver.latitude, donation.giver.longitude]
+      - req_point = [current_user.latitude, current_user.longitude]
+      - distance = Geocoder::Calculations.distance_between(giver_point, req_point, units: :km).round(1)
+      td = "#{distance} Km."
+      td.fixed-width-75.distance-data-js data-origin-lat="#{giver_point[0]}" data-origin-lon="#{giver_point[1]}" data-dest-lat="#{req_point[0]}" data-dest-lon="#{req_point[1]}"
+      - avatar = user_avatar(donation.giver)
+      td = image_tag(avatar, class: 'l-profile-image')
+      td = donation.giver.email
+      td = link_to 'Solicitar', edit_book_path(donation), class: 'btn btn-contrast'

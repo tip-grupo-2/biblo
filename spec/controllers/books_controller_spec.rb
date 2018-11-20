@@ -10,6 +10,7 @@ describe BooksController do
     request.env['HTTP_REFERER'] = '/'
   end
 
+=begin
   describe 'edit' do
     context 'when a user requests a book' do
       let(:new_user)     { FactoryBot.create(:user)}
@@ -60,5 +61,6 @@ describe BooksController do
       end
     end
   end
+=end
 
 end
