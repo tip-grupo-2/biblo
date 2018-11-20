@@ -1,0 +1,7 @@
+.modal-header
+  button.close data-dismiss="modal" type="button"  x
+  h4#myModalLabel.modal-title.centered-text ¿Le gusto el libro?
+.modal-body
+  td= @donation.copy.book.title
+  = link_to 'Finalizar Lectura', finish_book_path(:id => @donation, :rating => 5), method: :put, class: 'btn btn-neutral'
+
