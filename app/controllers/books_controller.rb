@@ -124,9 +124,19 @@ class BooksController < ApplicationController
 
   def finish
     @donation = Donation.find(params[:id])
+    rating = params[:rating]
+    Rate.create_for_book(@donation.copy.book, rating, current_user)
     @donation.make_available!
     @donation.save
     redirect_to :back
+  end
+
+  def rate
+    @donation = Donation.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def mark_as_private

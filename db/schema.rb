@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181109154628) do
+ActiveRecord::Schema.define(version: 20181118085019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20181109154628) do
     t.integer "original_owner_id"
     t.boolean "requested",         default: false
     t.boolean "reading",           default: false
+    t.boolean "for_donation"
     t.boolean "in_donation",       default: true
   end
 
@@ -54,11 +55,14 @@ ActiveRecord::Schema.define(version: 20181109154628) do
     t.integer  "copy_id"
     t.string   "state"
     t.string   "address"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "notification_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.float    "latitude"
     t.float    "longitude"
   end
+
+  add_index "donations", ["notification_id"], name: "index_donations_on_notification_id", using: :btree
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "recipient_id"
@@ -69,6 +73,14 @@ ActiveRecord::Schema.define(version: 20181109154628) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "donation_id"
+  end
+
+  create_table "rates", force: :cascade do |t|
+    t.integer "amount",   null: false
+    t.integer "owner_id", null: false
+    t.integer "user_id"
+    t.integer "copy_id"
+    t.integer "book_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -85,6 +97,7 @@ ActiveRecord::Schema.define(version: 20181109154628) do
     t.float    "longitude"
     t.string   "avatar"
     t.string   "phone_number"
+    t.integer  "donation_id"
     t.integer  "max_distance",        default: 5
   end
 

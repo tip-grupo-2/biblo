@@ -8,9 +8,9 @@ class Rate < ActiveRecord::Base
 
   def self.create_for_book(book, rating, current_user)
     Rate.create!(
-            owner_id: current_user.id,
-            book_id: book.id,
-            amount: rating
+        owner_id: current_user.id,
+        book_id: book.id,
+        amount: rating
     )
   end
 

@@ -3,8 +3,8 @@
   hr
   = render layout:'books/index_table' do |donation|
     - if donation.unavailable?
-      td.hidden-xs = button_to 'Finalizar Lectura', finish_book_path(donation), method: :put, class: 'btn btn-neutral'
-      td.hidden-lg.hidden-sm.hidden-md = button_to finish_book_path(donation), method: :put, class: 'btn btn-neutral'
+      td.hidden-xs = link_to 'Finalizar Lectura', rate_finish_book_path(donation), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-neutral'}
+      td.hidden-lg.hidden-sm.hidden-md = link_to rate_finish_book_path(donation), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-neutral'}
         i.glyphicon.glyphicon-eye-close
     - else
       td.hidden-xs= button_to 'Comenzar Lectura', start_book_path(donation), method: :put, class: 'btn btn-neutral'
@@ -13,7 +13,7 @@
 
 
 
-      #modal-window.modal.fade aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
-        .modal-dialog role="document"
-          .modal-content
+  #modal-window.modal.fade aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
+    .modal-dialog role="document"
+      .modal-content
 
