@@ -117,7 +117,7 @@ initStaticGeoCodeMapWithZone = function(){
                     }
             });
             marker.setPosition(locatedAt);
-            //marker.setVisible(true);
+            marker.setVisible(true);
         });
 };
 
@@ -160,7 +160,6 @@ showDistanceWalking = function(){
 
 createMarker = function(map, data) {
     var pos = {};
-    console.log(data);
     pos["lat"] = parseFloat(data.lat);
     pos["lng"] = parseFloat(data.lng);
     var infowindow = new google.maps.InfoWindow({
@@ -181,23 +180,38 @@ createMarker = function(map, data) {
 
 booksNearYourZone = function(){
     $.getJSON( "/nearest_books", function( data ) {
-        console.log(data)
-        map = new google.maps.Map(document.getElementById('map'), {
-            maxZoom: 10,
-            gestureHandling: 'scroll',
-            //zoom: 15,
-            zoomControl: false,
-            scrollwheel: false
-        });
-        var markers = data.map(function(d) {
-           console.log(d.lat);
-          return createMarker(this.map, d);
-       });
-        var bounds = new google.maps.LatLngBounds();
-        for (var i = 0; i < markers.length; i++) {
-            bounds.extend(markers[i].getPosition());
+        console.log(data.length);
+        if(data.length != 0) {
+            map = new google.maps.Map(document.getElementById('map'), {
+                maxZoom: 10,
+                gestureHandling: 'scroll',
+                zoomControl: false,
+                scrollwheel: false
+            });
+            var markers = data.map(function(d) {
+                console.log(d.lat);
+                return createMarker(this.map, d);
+            });
+            var bounds = new google.maps.LatLngBounds();
+            for (var i = 0; i < markers.length; i++) {
+                bounds.extend(markers[i].getPosition());
+            }
+            map.fitBounds(bounds);
         }
-        map.fitBounds(bounds);
+        else {
+            var lati = parseFloat(document.getElementById('lat').value);
+            var long = parseFloat(document.getElementById('lng').value);
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: lati, lng: long},
+                zoom: 15,
+                gestureHandling: 'none',
+                zoomControl: false,
+                scrollwheel: false
+            });
+            var marker = new google.maps.Marker({position: {lat: lati, lng: long}, map: map});
+            var infowindow = new google.maps.InfoWindow({content: "Desgraciadamente no encontramos ningún libro en las cercanías de tu ubicación."})
+            infowindow.open(map, marker);
+        }
     });
     };
 
