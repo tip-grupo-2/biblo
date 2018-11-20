@@ -6,11 +6,12 @@ class Rate < ActiveRecord::Base
 
   validates :amount, inclusion: 0..5
 
-  def self.create_for_book(book, rating, current_user)
+  def self.create_for_book(book, current_user, rating, comment)
     Rate.create!(
         owner_id: current_user.id,
         book_id: book.id,
-        amount: rating
+        amount: rating,
+        comment: comment
     )
   end
 

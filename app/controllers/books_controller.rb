@@ -123,9 +123,10 @@ class BooksController < ApplicationController
   end
 
   def finish
-    @donation = Donation.find(params[:id])
+    @donation = Donation.find(params[:rate][:id])
     rating = params[:rating]
-    Rate.create_for_book(@donation.copy.book, rating, current_user)
+    comment = params[:rate][:comment]
+    Rate.create_for_book(@donation.copy.book, current_user, rating, comment)
     @donation.make_available!
     @donation.save
     redirect_to :back
@@ -133,6 +134,7 @@ class BooksController < ApplicationController
 
   def rate
     @donation = Donation.find(params[:id])
+    @rating = Rate.new
     respond_to do |format|
       format.html
       format.js

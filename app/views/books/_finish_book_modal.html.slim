@@ -1,7 +1,28 @@
 .modal-header
   button.close data-dismiss="modal" type="button"  x
-  h4#myModalLabel.modal-title.centered-text ¿Le gusto el libro?
+  h4#myModalLabel.modal-title.centered-text ¿Cual es tu opinion del libro?
 .modal-body
-  td= @donation.copy.book.title
-  = link_to 'Finalizar Lectura', finish_book_path(:id => @donation, :rating => 5), method: :put, class: 'btn btn-neutral'
+  h3= @donation.copy.book.title
+  = form_for @rating, url:finish_book_path, method: :put do |f|
+    = f.hidden_field :id, value: @donation.id
+    td = 'Calificacion:'
+    fieldset.rating
+      input#star5 name="rating" type="radio" value="5" /
+      label.full for="star5" title=("")
 
+      input#star4 name="rating" type="radio" value="4" /
+      label.full for="star4" title=("")
+
+      input#star3 name="rating" type="radio" value="3" /
+      label.full for="star3" title=("")
+
+      input#star2 name="rating" type="radio" value="2" /
+      label.full for="star2" title=("")
+
+      input#star1 name="rating" type="radio" value="1" /
+      label.full for="star1" title=("")
+    p
+    td = 'Comentario: (Sin spoilers del libro)'
+    = f.text_field :comment, class: 'form-control form-control-lg'
+
+    td = f.submit 'Finalizar lectura'
