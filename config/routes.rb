@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   put '/finish_book', to: 'books#finish', as: 'finish_book'
   put '/start_book/:id(.:format)', to: 'books#start', as: 'start_book'
   get '/rate_finish_book/:id(.:format)', to: 'books#rate_finish', as: 'rate_finish_book'
+  get '/confirm_reception_rate/:id(.:format)', to: 'notifications#confirm_reception_rate', as: 'confirm_reception_rate'
+  get '/confirm_delivery_rate/:id(.:format)', to: 'notifications#confirm_delivery_rate', as: 'confirm_delivery_rate'
   get '/all_notifications', to: 'notifications#all_notifications'
   get '/capture_barcode', to: 'books#capture_barcode'
   # devise

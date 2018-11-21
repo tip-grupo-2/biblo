@@ -22,6 +22,14 @@ class Rate < ActiveRecord::Base
         comment: comment
     )
   end
+  def self.create_for_user(user, current_user, rating, comment)
+    Rate.create!(
+        owner_id: current_user.id,
+        user_id: user.id,
+        amount: rating,
+        comment: comment
+    )
+  end
 
 
 
