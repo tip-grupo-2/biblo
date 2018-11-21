@@ -62,7 +62,7 @@ class BooksController < ApplicationController
     redirect_to '/my_books'
   end
   def show
-    @book = Book.find(params[:id])
+    @donation = Donation.find(params[:id])
   end
 
   def index
@@ -124,9 +124,9 @@ class BooksController < ApplicationController
 
   def finish
     @donation = Donation.find(params[:rate][:id])
-    rating = params[:rating]
+    book_rating = params[:book_rating]
     comment = params[:rate][:comment]
-    Rate.create_for_book(@donation.copy.book, current_user, rating, comment)
+    Rate.create_for_book(@donation.copy.book, current_user, book_rating, comment)
     @donation.make_available!
     @donation.save
     redirect_to :back

@@ -9,7 +9,7 @@ class Book < ActiveRecord::Base
   ISBN_LENGTH_ERROR = Class.new(StandardError)
 
   def average_rate
-    rates = Rate.where(:book_id => :id).pluck(:amount)
+    rates = Rate.where(:book_id => self.id).pluck(:amount)
     average = 0
     if rates.count > 0
       average = rates.sum / rates.count

@@ -5,21 +5,21 @@
   h3= @donation.copy.book.title
   = form_for @rating, url:finish_book_path, method: :put do |f|
     = f.hidden_field :id, value: @donation.id
-    td = 'Calificacion:'
+    td = 'Calificacion del libro:'
     fieldset.rating
-      input#star5 name="rating" type="radio" value="5" /
+      input#star5 name="book_rating" type="radio" value="5" /
       label.full for="star5" title=("")
 
-      input#star4 name="rating" type="radio" value="4" /
+      input#star4 name="book_rating" type="radio" value="4" /
       label.full for="star4" title=("")
 
-      input#star3 name="rating" type="radio" value="3" /
+      input#star3 name="book_rating" type="radio" value="3" /
       label.full for="star3" title=("")
 
-      input#star2 name="rating" type="radio" value="2" /
+      input#star2 name="book_rating" type="radio" value="2" /
       label.full for="star2" title=("")
 
-      input#star1 name="rating" type="radio" value="1" /
+      input#star1 name="book_rating" type="radio" value="1" /
       label.full for="star1" title=("")
     p
     td = 'Comentario: (Sin spoilers del libro)'
