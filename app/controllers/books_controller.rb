@@ -157,6 +157,22 @@ class BooksController < ApplicationController
   def capture_barcode
   end
 
+  def nearest_books
+    donations = Donation.joins("INNER JOIN copies ON copies.id = donations.copy_id
+                             INNER JOIN books ON copies.book_id = books.id").where.not(giver_id: current_user.id)
+                    .where(state: :available)
+    nearest = [select_book_at_distance(donations, current_user, 0, 0.5),
+               select_book_at_distance(donations, current_user, 0.8, 1),
+               select_book_at_distance(donations, current_user, 1, 3),
+               select_book_at_distance(donations, current_user, 3, 5),
+               select_book_at_distance(donations, current_user, 5, 10),
+               select_book_at_distance(donations, current_user, 10, 15),
+               select_book_at_distance(donations, current_user, 15, 25),
+               select_book_at_distance(donations, current_user, 25, 30),
+               select_book_at_distance(donations, current_user, 30, 35)].compact
+    render :json => generate_response(nearest).first(5)
+  end
+
   private
 
    def create_book(isbn, title, author, picture_url, description, country)
@@ -203,5 +219,21 @@ class BooksController < ApplicationController
 
   def calculate_distance_between(point_a, point_b)
     Geocoder::Calculations.distance_between(point_a, point_b)
+  end
+
+  def select_book_at_distance(donations, current_user, initial_ratio, limit_ratio)
+    donations.detect do |d|
+      giver = d.giver
+      dist = calculate_distance_between([giver.latitude, giver.longitude],
+                                 [current_user.latitude, current_user.longitude])
+      dist >= initial_ratio && dist < limit_ratio
+    end
+  end
+
+  def generate_response(donations)
+    donations.map do |d|
+      { lat: d.giver.latitude, lng: d.giver.longitude, donation: d.id, title: d.copy.book.title, author: d.copy.book.author,
+        img: d.copy.book.picture_url   }
+    end
   end
 end
