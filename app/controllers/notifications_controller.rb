@@ -43,8 +43,13 @@ class NotificationsController < ApplicationController
 
   def confirm_delivery
     notification = Notification.find(notification_params[:id])
+    message = params[:rate][:message]
+    rating = params[:user_rating]
+    comment = params[:rate][:user_comment]
+
+    Rate.create_for_user(notification.donation.requester, current_user, rating, comment)
     confirm_book_delivery(notification.donation)
-    notify_requester(notification_params[:message], notification)
+    notify_requester(message, notification)
   rescue AASM::InvalidTransition
     flash[:danger] = 'Oops! Lo sentimos, ha ocurrido un error. Por favor intente nuevamente.'
     redirect_to :back
@@ -52,14 +57,37 @@ class NotificationsController < ApplicationController
 
   def confirm_reception
     notification = Notification.find(notification_params[:id])
+    message = params[:rate][:message]
+    rating = params[:user_rating]
+    comment = params[:rate][:user_comment]
+
+    Rate.create_for_user(notification.donation.giver, current_user, rating, comment)
     confirm_book_reception(notification.donation)
-    notify_requester(notification_params[:message], notification)
+    notify_requester(message, notification)
   rescue AASM::InvalidTransition
     flash[:danger] = 'Oops! Lo sentimos, ha ocurrido un error. Por favor intente nuevamente.'
     redirect_to :back
   end
 
+  def confirm_reception_rate
+    reception_rate('recibido', true)
+  end
+
+  def confirm_delivery_rate
+    reception_rate('entregado', false)
+  end
+
   private
+
+  def reception_rate(message, is_reception)
+    @message = message
+    @is_reception = is_reception
+    @notification = Notification.find(notification_params[:id])
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
 
   def notification_params
     params.permit(:user, :id, :choice, :message)

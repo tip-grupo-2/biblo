@@ -71,4 +71,10 @@ class Donation < ActiveRecord::Base
     )
   end
 
+  def needs_rating(current_user)
+    copy_not_rated = Rate.where(owner_id: current_user, copy_id:self.copy.id).blank?
+    book_not_rated = Rate.where(owner_id: current_user, book_id:self.copy.book.id).blank?
+    copy_not_rated or book_not_rated
+  end
+
 end

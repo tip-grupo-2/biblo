@@ -26,7 +26,7 @@ table.table.table-hover
         td.hidden-lg.hidden-sm.hidden-md = link_to donation_path(donation), class: 'btn btn-classic'
           i.glyphicon.glyphicon-sunglasses
       - else
-        td.hidden-xs = link_to 'Ver detalle', book_path(donation.copy.book), class: 'btn btn-classic'
-        td.hidden-lg.hidden-sm.hidden-md = link_to book_path(donation.copy.book), class: 'btn btn-classic'
+        td.hidden-xs = link_to 'Ver detalle', book_path(donation), class: 'btn btn-classic'
+        td.hidden-lg.hidden-sm.hidden-md = link_to book_path(donation), class: 'btn btn-classic'
           i.glyphicon.glyphicon-sunglasses
       =yield donation

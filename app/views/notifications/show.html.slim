@@ -63,16 +63,16 @@
         .centered-text
           .biblo-notice Aceptaste la solicitud!
           br
-        = button_to "Confirmar entrega", confirm_delivery_notification_path, method: :post, params: {notification: @notification,
-                message: 'entregado'}, class: 'btn btn-classic btn-block btn-lg'
+        = link_to "Confirmar entrega", confirm_delivery_rate_path(@notification),
+                {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-classic btn-block btn-lg' }
 
 
       - elsif (donation.accepted? || donation.delivery_confirmed?) && donation.requester == current_user
         .centered-text
           .biblo-notice Su solicitud ha sido aceptada!
         br
-          = button_to "Confirmar recepción", confirm_reception_notification_path, method: :post, params: {notification: @notification,
-                  message: 'recibido'}, class: 'btn btn-classic btn-block btn-lg'
+          = link_to "Confirmar recepción", confirm_reception_rate_path(@notification),
+                  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-classic btn-block btn-lg' }
 
 
       - elsif donation.reception_confirmed? && donation.requester == current_user
@@ -96,3 +96,8 @@
           .biblo-notice Esta donacion ha sido rechazada.
   br
   = link_to 'Volver', '/all_notifications', class: 'btn btn-info'
+
+
+  #modal-window.modal.fade aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
+    .modal-dialog role="document"
+      .modal-content
