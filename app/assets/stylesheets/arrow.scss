@@ -1,0 +1,71 @@
+.arrow {
+  cursor: pointer;
+  height: 15px;
+  left: 45%;
+  position: relative;
+  width: 100px;
+
+  $transition-time: .15s;
+
+  &-top,
+  &-bottom {
+    background-color: $contrast-color;
+    height: 4px;
+    left: -5px;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+
+    &:after {
+      background-color: #fff;
+      content: '';
+      height: 100%;
+      position: absolute;
+      top: 0;
+      transition: all $transition-time;
+    }
+  }
+
+  &-top {
+    transform: rotate(75deg);
+    transform-origin: bottom right;
+
+    &:after {
+      left: 100%;
+      right: 0;
+      transition-delay: 0s;
+    }
+  }
+
+  &-bottom {
+    transform: rotate(-75deg);
+    transform-origin: top right;
+
+    &:after {
+      left: 0;
+      right: 100%;
+      transition-delay: $transition-time;
+    }
+  }
+
+  &:hover & {
+
+    &-top:after {
+      left: 0;
+      transition-delay: $transition-time;
+    }
+
+    &-bottom:after {
+      right: 0;
+      transition-delay: 0s;
+    }
+  }
+}
+
+.rotate {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+}

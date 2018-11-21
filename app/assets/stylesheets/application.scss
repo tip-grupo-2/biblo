@@ -9,6 +9,7 @@
 @import "bootstrap-slider";
 @import "animate";
 @import "navbar";
+@import "arrow";
 
 
 // general
@@ -42,13 +43,13 @@ hr.white {
 }
 
 .carousel-caption h2 {
-  font-size: 60px;
+  font-size: 4em;
   font-family: 'Pacifico', cursive;
   text-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .carousel-caption h3 {
-  font-size: 40px;
+  font-size: 3em;
   font-family: 'Pacifico', cursive;
   text-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -66,6 +67,7 @@ hr.white {
 }
 
 body {
+  margin-top: 60px;
   background-color: $main-dark-color;
   color: $dark-font-color;
 }
@@ -279,7 +281,7 @@ body {
 
 .shadowed {
   -webkit-filter: drop-shadow(3px 3px 3px $background-light);
-  filter: drop-shadow(3px 3px 3px $background-light);
+  filter: drop-shadow(1px 1px 1px $neutral-primary);
 }
 
 .div-home {
@@ -336,6 +338,14 @@ body {
 
 .carousel-caption {
   color: $biblo-white;
+}
+
+.roboto {
+  font-family: 'Roboto', sans-serif;
+}
+
+.dosis {
+  font-family: 'Dosis', sans-serif;
 }
 
 .home-map {
