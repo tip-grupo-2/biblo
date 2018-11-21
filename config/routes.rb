@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   post '/manual_book', to: 'books#enter_manual'
   put '/finish_book', to: 'books#finish', as: 'finish_book'
   put '/start_book/:id(.:format)', to: 'books#start', as: 'start_book'
-  get '/rate_finish_book/:id(.:format)', to: 'books#rate', as: 'rate_finish_book'
+  get '/rate_finish_book/:id(.:format)', to: 'books#rate_finish', as: 'rate_finish_book'
   get '/all_notifications', to: 'notifications#all_notifications'
   get '/capture_barcode', to: 'books#capture_barcode'
   # devise

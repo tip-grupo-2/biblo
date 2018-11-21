@@ -14,6 +14,14 @@ class Rate < ActiveRecord::Base
         comment: comment
     )
   end
+  def self.create_for_copy(copy, current_user, rating, comment)
+    Rate.create!(
+        owner_id: current_user.id,
+        copy_id: copy.id,
+        amount: rating,
+        comment: comment
+    )
+  end
 
 
 

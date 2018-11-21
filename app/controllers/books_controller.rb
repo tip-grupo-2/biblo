@@ -125,19 +125,34 @@ class BooksController < ApplicationController
   def finish
     @donation = Donation.find(params[:rate][:id])
     book_rating = params[:book_rating]
-    comment = params[:rate][:comment]
-    Rate.create_for_book(@donation.copy.book, current_user, book_rating, comment)
+    copy_rating = params[:copy_rating]
+
+    book_comment = params[:rate][:book_comment]
+    copy_comment = params[:rate][:copy_comment]
+
+    if book_rating.to_i > 0
+      Rate.create_for_book(@donation.copy.book, current_user, book_rating, book_comment)
+    end
+    if copy_rating.to_i > 0
+      Rate.create_for_copy(@donation.copy, current_user, copy_rating, copy_comment)
+    end
+
     @donation.make_available!
     @donation.save
     redirect_to :back
   end
 
-  def rate
+  def rate_finish
     @donation = Donation.find(params[:id])
-    @rating = Rate.new
-    respond_to do |format|
-      format.html
-      format.js
+    @copy_not_rated = Rate.where(owner_id: current_user, copy_id:@donation.copy.id).blank?
+    @book_not_rated = Rate.where(owner_id: current_user, book_id:@donation.copy.book.id).blank?
+    if(@copy_not_rated or @book_not_rated)
+      respond_to do |format|
+        format.html
+        format.js
+      end
+    else
+      redirect_to finish_book_path(@donation), method(:post)
     end
   end
 
@@ -217,3 +232,5 @@ class BooksController < ApplicationController
     Geocoder::Calculations.distance_between(point_a, point_b)
   end
 end
+
+

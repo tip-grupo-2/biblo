@@ -3,9 +3,14 @@
   hr
   = render layout:'books/index_table' do |donation|
     - if donation.unavailable?
-      td.hidden-xs = link_to 'Finalizar Lectura', rate_finish_book_path(donation), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-neutral'}
-      td.hidden-lg.hidden-sm.hidden-md = link_to rate_finish_book_path(donation), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-neutral'}
-        i.glyphicon.glyphicon-eye-close
+      -if donation.needs_rating(current_user)
+        td.hidden-xs = link_to 'Finalizar Lectura', rate_finish_book_path(donation), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-neutral'}
+        td.hidden-lg.hidden-sm.hidden-md = link_to rate_finish_book_path(donation), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-neutral'}
+          i.glyphicon.glyphicon-eye-close
+      -else
+        td.hidden-xs = link_to 'Finalizar Lectura', finish_book_path(:rate => {:id => donation.id}), class: 'btn btn-neutral', method: :put
+        td.hidden-lg.hidden-sm.hidden-md = link_to finish_book_path(:rate => {:id => donation.id}), class: 'btn btn-neutral', method: :put
+          i.glyphicon.glyphicon-eye-close
     - else
       td.hidden-xs= button_to 'Comenzar Lectura', start_book_path(donation), method: :put, class: 'btn btn-neutral'
       td.hidden-lg.hidden-sm.hidden-md = button_to start_book_path(donation), method: :put, class: 'btn btn-neutral'
