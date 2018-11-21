@@ -157,3 +157,61 @@ showDistanceWalking = function(){
     row = document.getElementsByClassName('distance-data-js');
     Array.from(row).forEach(setDataInTable);
 };
+
+createMarker = function(map, data) {
+    var pos = {};
+    pos["lat"] = parseFloat(data.lat);
+    pos["lng"] = parseFloat(data.lng);
+    var infowindow = new google.maps.InfoWindow({
+        content:`<div style='float:left'><img style='max-height: 100px' src=${data.img}></div><div style='float:right; padding: 10px;'><b>${data.title}</b><br/>De: ${data.author}<br/><div style="margin:5px 0px"><a style="color: #ff83a4; margin:15px 0px" href="/donations/${data.donation}">Ver más</a></div></div>`
+    });
+    var marker = new google.maps.Marker({position: pos, map: map, icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 10,
+            fillColor: "#481d5a",
+            fillOpacity: 0.3,
+            strokeWeight: 0.4
+        }});
+    marker.addListener('click', function() {
+        infowindow.open(map, marker);
+    });
+    return marker;
+};
+
+booksNearYourZone = function(){
+    $.getJSON( "/nearest_books", function( data ) {
+        console.log(data.length);
+        if(data.length != 0) {
+            map = new google.maps.Map(document.getElementById('map'), {
+                maxZoom: 10,
+                gestureHandling: 'scroll',
+                zoomControl: false,
+                scrollwheel: false
+            });
+            var markers = data.map(function(d) {
+                console.log(d.lat);
+                return createMarker(this.map, d);
+            });
+            var bounds = new google.maps.LatLngBounds();
+            for (var i = 0; i < markers.length; i++) {
+                bounds.extend(markers[i].getPosition());
+            }
+            map.fitBounds(bounds);
+        }
+        else {
+            var lati = parseFloat(document.getElementById('lat').value);
+            var long = parseFloat(document.getElementById('lng').value);
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: lati, lng: long},
+                zoom: 15,
+                gestureHandling: 'none',
+                zoomControl: false,
+                scrollwheel: false
+            });
+            var marker = new google.maps.Marker({position: {lat: lati, lng: long}, map: map});
+            var infowindow = new google.maps.InfoWindow({content: "Desgraciadamente no encontramos ningún libro en las cercanías de tu ubicación."})
+            infowindow.open(map, marker);
+        }
+    });
+    };
+

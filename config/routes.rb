@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get '/confirm_delivery_rate/:id(.:format)', to: 'notifications#confirm_delivery_rate', as: 'confirm_delivery_rate'
   get '/all_notifications', to: 'notifications#all_notifications'
   get '/capture_barcode', to: 'books#capture_barcode'
+  get '/nearest_books', to: 'books#nearest_books'
   # devise
   devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions',
                                     omniauth_callbacks: 'users/omniauth_callbacks', users: 'users/' }
