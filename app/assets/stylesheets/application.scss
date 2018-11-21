@@ -339,17 +339,13 @@ body {
 }
 
 //rating
-
-fieldset, label { margin: 0; padding: 0; position: relative;}
-body{ margin: 20px; }
-h1 { font-size: 1.5em; margin: 10px; }
-
-/****** Style Star Rating Widget *****/
-
 .rating {
   border: none;
   display: inline-block;
   vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  position: relative;
 }
 
 .rating > input { display: none; }
