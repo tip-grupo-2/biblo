@@ -1,3 +1,4 @@
+script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7FZ14h7xhNNN5QmXt5lJpzPArNjvNfOQ&libraries=places&callback=booksNearYourZone"
 link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" /
 .container-fluid
   .row
@@ -37,3 +38,12 @@ link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" /
         br
         br
         h4.pacific Ingresa tus libros con código de barras
+- if current_user.present? && current_user.latitude.present?
+  .div
+    input#lat type="hidden" value="#{current_user.try(:latitude)}"
+    input#lng type="hidden" value="#{current_user.try(:longitude)}"
+    .row
+      .col-md-12
+        h2.white-font.map-text Hay muchos libros esperando cerca tuyo!
+        br
+        #map.home-map
