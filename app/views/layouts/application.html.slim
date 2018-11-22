@@ -16,30 +16,32 @@ html
         a.close aria-label="close" data-dismiss="alert" href="#"  &times;
         .content #{message}
     = yield
-br
 .footer
-  .col-sm-12
-    hr.grey
   br
+  hr
   br
-  .col-sm-5
-    .flex-container.longhand
-      = link_to new_book_path
-        = image_tag 'https://techflourish.com/images/black-facebook-clipart-15.jpg', class: 'home-icon-small'
-      = link_to new_book_path
-        = image_tag 'https://static1.squarespace.com/static/59d7cda9b1ffb668562e9e71/t/59dfa317197aeae78556f9e2/1507828979870/TwitterIcon_white.png', class: 'home-icon-small'
-      = link_to new_book_path
-        = image_tag 'https://png.pngtree.com/element_our/md/20180520/md_5b012516425c1.png', class: 'home-icon-small'
-
-  .col-sm-2
-    h3.footer.title Contactanos!
-    hr.white
-    p.white-font Queremos saber tu opinión
-  .col-sm-4
-    form
-      fieldset.form-group
-        input#exampleInputEmail1.form-control placeholder=("Ingresa tu email") type="email" /
-      fieldset.form-group
-        textarea#exampleMessage.form-control placeholder="Mensaje"
-      fieldset.form-group.text-xs-right
-        button.btn.btn-classic type="button"  Enviar
+  .row.centered-text
+    .col-sm-12
+      h3.pacific Te esperamos en nuestras redes sociales!
+      br
+      = link_to 'https://www.facebook.com/bibloargentina', target: "_blank"
+        = image_tag 'https://i2.wp.com/psisemadrid.org/wp-content/uploads/2017/02/facebook-circular.png', class: 'home-icon-small'
+      = link_to 'https://twitter.com/bibloargentina', target: "_blank"
+        = image_tag 'https://images-na.ssl-images-amazon.com/images/I/41ga9WxW5uL.png', class: 'home-icon-small'
+      = link_to 'https://www.instagram.com/bibloargentinaok', target: "_blank"
+        = image_tag 'https://storytellingacademy.nl/wp-content/uploads/2018/07/http-www.edigitalagency.com_.au-wp-content-uploads-instagram-logo-png-transparent-background.png', class: 'home-icon-small', style: 'margin-right: 0px;'
+      br
+      br
+      br
+      h3.pacific Contactanos. Queremos saber tu opinión
+      br
+  .row.centered-text
+    .col-sm-4
+    .col-sm-4
+      form
+        fieldset.form-group
+          input#exampleInputEmail1.form-control placeholder=("Ingresá tu email") type="email" /
+        fieldset.form-group
+          textarea#exampleMessage.form-control placeholder="Mensaje"
+        fieldset.form-group.text-xs-right
+          button.btn.btn-classic type="button"  Enviar

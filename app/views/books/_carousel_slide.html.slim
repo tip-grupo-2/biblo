@@ -2,13 +2,13 @@
 #carouselExampleSlidesOnly.carousel.slide data-ride="carousel"
   .carousel-inner role="listbox"
     .item.active.overlay-gradient
-      = image_tag 'biblo_03_1800_500.jpg', class: 'mw-100', style: "height: 500px;"
+      = image_tag 'biblo_03_1800_500.jpg', class: 'mw-100', style: "height: 520px;"
       .carousel-caption.d-none.d-md-block
         div.animated.bounceInDown
           img.shadowed src="http://img.fenixzone.net/i/NfjR18Q.png" width="68%"
     - ViewHelper::SLIDE_DATA.each do |slide|
       .item.overlay-gradient
-        = image_tag slide[:back_image], class: 'mw-100', style: "height: 500px;"
+        = image_tag slide[:back_image], class: 'mw-100', style: "height: 520px;"
         .carousel-caption.d-none.d-md-block
           div.animated.bounceInLeft
             img.hidden-xs.hidden-sm.shadowed src="http://img.fenixzone.net/i/NfjR18Q.png" width="35%" position="absolute"

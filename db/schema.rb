@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181109154628) do
+ActiveRecord::Schema.define(version: 20181120104850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,21 +43,18 @@ ActiveRecord::Schema.define(version: 20181109154628) do
     t.integer "user_id"
     t.integer "book_id"
     t.integer "original_owner_id"
+    t.boolean "for_donation"
     t.boolean "requested",         default: false
     t.boolean "reading",           default: false
     t.boolean "in_donation",       default: true
   end
 
   create_table "donations", force: :cascade do |t|
-    t.integer  "requester_id"
-    t.integer  "giver_id"
-    t.integer  "copy_id"
-    t.string   "state"
-    t.string   "address"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.float    "latitude"
-    t.float    "longitude"
+    t.integer "requester_id"
+    t.integer "giver_id"
+    t.integer "copy_id"
+    t.string  "state"
+    t.string  "address"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -71,18 +68,27 @@ ActiveRecord::Schema.define(version: 20181109154628) do
     t.integer  "donation_id"
   end
 
+  create_table "rates", force: :cascade do |t|
+    t.integer "amount",   null: false
+    t.integer "owner_id", null: false
+    t.integer "user_id"
+    t.integer "copy_id"
+    t.integer "book_id"
+    t.text    "comment"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",               default: "", null: false
     t.string   "encrypted_password",  default: "", null: false
-    t.string   "name",                             null: false
+    t.string   "name"
     t.string   "address"
     t.datetime "remember_created_at"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.string   "provider"
     t.string   "uid"
-    t.float    "latitude"
-    t.float    "longitude"
+    t.string   "latitude"
+    t.string   "longitude"
     t.string   "avatar"
     t.string   "phone_number"
     t.integer  "max_distance",        default: 5
