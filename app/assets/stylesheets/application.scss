@@ -10,6 +10,7 @@
 @import "animate";
 @import "navbar";
 @import "arrow";
+@import "carousel";
 
 
 // general
@@ -36,28 +37,6 @@ hr.white {
   border-color: $background-light;
   border-width: 1px 0;
   margin: 5px 0;
-}
-
-.carousel-inner > .item > img, .carousel-inner > .item > a > img {
-  width: 100%;
-}
-
-.carousel-caption h2 {
-  font-size: 4em;
-  font-family: 'Pacifico', cursive;
-  text-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.carousel-caption h3 {
-  font-size: 3em;
-  font-family: 'Pacifico', cursive;
-  text-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.carousel-caption h4 {
-  font-size: 20px;
-  font-family: 'Pacifico', cursive;
-  text-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .pacific {
@@ -270,7 +249,12 @@ body {
 }
 
 .footer {
-  background-color: $main-dark-color;
+  background: linear-gradient(to bottom, $neutral-primary, $main-dark-color);
+}
+
+.prefooter {
+  height: 100px;
+  background: linear-gradient(to bottom, $main-dark-color, $neutral-primary);
 }
 
 .footer.title {
@@ -284,13 +268,8 @@ body {
   filter: drop-shadow(1px 1px 1px $neutral-primary);
 }
 
-.div-home {
-  background: linear-gradient(180deg, $neutral-primary, $main-dark-color);
-  height: 300px;
-}
-
 .home-icon {
-  width: 40%;
+  width: 90%;
   margin-top: 20px;
   position: center;
   border-radius: 50%;
@@ -299,11 +278,12 @@ body {
 }
 
 .home-icon-small {
-  width: 50px;
-  margin-right: 20px;
+  width: 100px;
+  margin-right: 50px;
+  transition: 0.2s ease;
 }
 
-.home-icon:hover{
+.home-icon:hover, .home-icon-small:hover{
   -webkit-transform: scale(1.1);
   -ms-transform: scale(1.1);
   transform: scale(1.1);
@@ -340,11 +320,14 @@ body {
   color: $biblo-white;
 }
 
-.roboto {
-  font-family: 'Roboto', sans-serif;
+.merriweather {
+  font-family: 'Merriweather', serif;
+  color: $background-light;
+  font-size: 1.5em;
 }
 
 .dosis {
+  margin-top: 3px;
   font-family: 'Dosis', sans-serif;
 }
 
@@ -357,3 +340,68 @@ body {
   text-align: center;
   font-family: 'Pacifico', cursive;
 }
+
+.divider-home {
+  background: $neutral-primary;
+  height: 80px;
+}
+
+.div-home {
+  padding: 0px 15px;
+  background: $neutral-primary;
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+}
+
+.wrap-skew {
+  width: 800px;
+  top: -100px;
+  transform: rotate(30deg);
+  position: absolute;
+  height: 1000px;
+}
+
+.div-skew {
+  background: url("https://data.whicdn.com/images/40127583/original.jpg");
+  left: 50%;
+}
+
+.div-skew-short {
+  background: url("http://teachmag.com/wp-content/uploads/2010/09/boysarentlearning2.jpg");
+  left: 60%;
+  height: 1000px;
+}
+
+.div-skew {
+  background: url("https://data.whicdn.com/images/40127583/original.jpg");
+  left: 50%;
+}
+
+.div-skew-short {
+  background: url("http://teachmag.com/wp-content/uploads/2010/09/boysarentlearning2.jpg");
+  left: 60%;
+}
+
+.div-skew-left {
+  background: url("https://fotografias.antena3.com/clipping/cmsimages01/2016/12/07/D6347890-C56B-42C9-AEE6-5251CA73B9CD/58.jpg");
+  right: 60%;
+}
+
+.div-skew-left-short {
+  background: url("https://data.whicdn.com/images/106109781/original.jpg");
+  right: 70%;
+}
+
+.rating > label {
+  color: #ddd;
+  float: right;
+}
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }

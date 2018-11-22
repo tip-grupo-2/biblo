@@ -1,5 +1,4 @@
-
-.navbar.hidden-xs.navbar-fixed-top
+.navbar.navbar-fixed-top
   ul.nav.navbar-nav
     li.home
       = link_to root_path, method: :get, class: 'navbar-brand' do
@@ -44,49 +43,4 @@
         = link_to "Registrarse", new_user_registration_path, class: 'navbar-brand'
       li
         = link_to "Iniciar sesión", new_user_session_path, class: 'navbar-brand'
-.row.hidden-sm.hidden-lg.hidden-md
-  .col-sm-12.centered-text
-    br
-    = link_to root_path, method: :get, class: 'navbar_brand' do
-      = image_tag('logo_biblos.png', width: "50%")
-.navbar.hidden-sm.hidden-lg.hidden-md.navbar-fixed-top
-  ul.nav.navbar-nav
-    - if user_signed_in?
-      li
-        = link_to new_book_path, method: :get, class: 'navbar-brand'
-          i.glyphicon.glyphicon-plus
-      li
-        = link_to books_path, method: :get, class: 'navbar-brand'
-          i.glyphicon.glyphicon-cloud
-      li
-        = link_to my_donations_path, method: :get, class: 'navbar-brand'
-          i.glyphicon.glyphicon-send
-      li
-        = link_to my_books_path, method: :get, class: 'navbar-brand'
-          i.glyphicon.glyphicon-stats
-      li
-        = link_to all_notifications_path, method: :get, class: 'navbar-brand'
-          i.glyphicon.glyphicon-bell
-      li
-        = link_to user_path(:id => current_user.id), method: :get, class: 'navbar-brand'
-          i.glyphicon.glyphicon-user
-      .dropdown.navbar-brand.navbar-selector
-        li.dropdown-toggle id="dropdownMenu1" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button"
-          i.fa.fa-bell.notification-marker-js
-            | (0)
-        ul.dropdown-menu aria-labelledby="dropdownMenu1" id='notifications-dropdown'
-          li.divider role="separator"
-          li
-            a.read-button-js  Marcar como leidas
-            a.see-all-button-js Ver todas
-          .current-user-js data-user-id=current_user.id
-      li
-        = link_to destroy_user_session_path, method: :delete, class: 'navbar-brand'
-          i.glyphicon.glyphicon-log-out
-    - else
-    li
-      = link_to new_user_registration_path, class: 'navbar-brand'
-        i.glyphicon.glyphicon-new-window
-    li
-      = link_to new_user_session_path, class: 'navbar-brand'
-        i.glyphicon.glyphicon-log-in
+
