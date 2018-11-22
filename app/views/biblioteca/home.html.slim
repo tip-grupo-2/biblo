@@ -2,48 +2,129 @@ script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSy
 link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" /
 .container-fluid.hidden-xs
   .row
-    .col-md-12.color-connector
-    #carouselExampleSlidesOnly.carousel.slide data-ride="carousel"
-      .carousel-inner role="listbox"
-        .item.active.overlay-gradient
-          = image_tag 'biblo_03_1800_500.jpg', class: 'mw-100'
-          .carousel-caption.d-none.d-md-block
-            div.animated.bounceInDown
-              img.shadowed height="48%" src="http://img.fenixzone.net/i/uCHfzbI.png" width="48%"
-        = render 'books/carousel_slide'
-.div-home
-  .container-fluid
+    = render 'books/carousel_slide'
+  - if current_user.present? && current_user.latitude.present?
+    .div
+      input#lat type="hidden" value="#{current_user.try(:latitude)}"
+      input#lng type="hidden" value="#{current_user.try(:longitude)}"
+      .row style="background: $neutral-primary;"
+        .col-md-12
+          br
+          h2.white-font.map-text Hay muchos libros esperando cerca tuyo!
+          br
+          #map.home-map
+  - else
     .row
-      .col-sm-3 style='text-align: center;'
-        = link_to new_user_registration_path
-          = image_tag 'icon_1.png', class: 'home-icon'
-        br
-        br
-        h4.pacific Registrate y empezá a leer
-      .col-sm-3 style='text-align: center;'
-        = link_to new_book_path
-          = image_tag 'icon_2.png', class: 'home-icon'
-        br
-        br
-        h4.pacific Doná ese libro que ya no leés
-      .col-sm-3 style='text-align: center;'
-        = link_to new_user_session_path
-          = image_tag 'icon_3.png', class: 'home-icon'
-        br
-        br
-        h4.pacific Pertenece a una comunidad lectora
-      .col-sm-3 style='text-align: center;'
-        = link_to capture_barcode_path
-          = image_tag 'icon_4.png', class: 'home-icon'
-        br
-        br
-        h4.pacific Ingresa tus libros con código de barras
-- if current_user.present? && current_user.latitude.present?
-  .div
-    input#lat type="hidden" value="#{current_user.try(:latitude)}"
-    input#lng type="hidden" value="#{current_user.try(:longitude)}"
+      .divider-home.centered-text
+        .arrow.rotate
+          .arrow-top
+          .arrow-bottom
     .row
-      .col-md-12
-        h2.white-font.map-text Hay muchos libros esperando cerca tuyo!
+      .div-home
+        .wrap-skew.div-skew
         br
-        #map.home-map
+        h1.pacific.shadowed Qué es Biblo?
+        br
+        h3.merriweather
+          | Biblo es la oportunidad de encontrar ese libro que estás buscando
+          br
+          | a metros de tu casa. Imaginate un lugar donde puedas ver todos
+          br
+          | los libros disponibles en tu barrio, que en un par de clicks
+          br
+          | descubras que El Principito lo dona la vecina de enfrente, o
+          br
+          | que justo el libro de Ingles de quinto grado que necesitan
+          br
+          | tus hijes, lo dejó de usar el año pasado un chico que vive a
+          br
+          | cinco cuadras.Biblo es la posibilidad de compartir cultura,
+          br
+          | entretenimiento y conocimiento.
+        h3.pacific.shadowed
+          br
+          | Biblo es solidaridad, Biblo es comunidad.
+    .row
+      .div-home style="text-align: right;"
+        .wrap-skew.div-skew-left
+        br
+        h1.pacific.shadowed Nada más? Mucho más!!!
+        br
+        h3.merriweather
+          | Viste todos esos libros que tenés guardados en cajas en el garage?
+          br
+          | Pensá las aventuras que podrías compartir con tu barrio!
+          br
+          | Las horas de entretenimiento y días enteros de
+          br
+          | entretenimiento que guardan en sus hojas mientras se
+          br
+          | desgastan sin que nadie los lea. Vos también podés participar.
+          br
+          | Compartir, ser solidario, convertir esos libros que ya leiste
+          br
+          | en nuevos comienzos, en nuevas oportunidades. Aprovechar los
+          br
+          | que usaste clases pasadas para chiques que las empiezan este año.
+        h3.pacific.shadowed
+          br
+          | Biblo es compartir, Biblo es dar.
+    .row
+        .div-home
+          .wrap-skew.div-skew-short
+          br
+          h1.pacific.shadowed Será difícil? Naaaaah!
+          br
+          h3.merriweather
+            | Primero te tenés que registrar. Lo podés hacer con facebook o Google o con tu email.
+            br
+            | Una vez registrado cargás tu dirección super fácil y ya la vas a ver en el mapita.
+            br
+            | Elegís la cantidad de kilómetros que querés abarcar en tu búsqueda y listo!
+            br
+            | Cuando busques, te salen los resultados a tu alrededor.
+            br
+            | Podés donar los libros de muchas formas, ingresando el ISBN, o manualmente,
+            br
+            | también con la camarita de la compu o el celu capturando el código de barras.
+            br
+            | Cualquiera puede hacerlo. Y si tenés dudas, nos contactás en Facebook,
+            br
+            | o por mail, o en Twitter, o en Instagram. Registrate ya!
+          h3.pacific.shadowed
+            br
+            | Biblo es para vos, Biblo es para todos.
+    .row
+        .div-home style="text-align: right;"
+          .wrap-skew.div-skew-left-short
+          br
+          h1.pacific.shadowed Todavía con dudas? Te digo más...
+          br
+          h3.merriweather
+            | Nunca te preguntaste: "Mmmmm.. tengo este libro yo?" O: "Estoy seguro que se
+            br
+            | lo presté a alguien..." Ok, con Biblo podés tener todos tus libros catalogados.
+            br
+            | Ahh, y si tenés alma de crítico, también los podés comentar y puntuar.
+            br
+            | Problemas con los mails? No te preocupes. Biblo gestiona el contacto
+            br
+            | con tu contrapatre, sea donante o solicitante mediante wassapp, y además
+            br
+            | vas a poder ver y dar puntajes a los usuarios.
+            br
+            | Mirá, empezá por estos links de abajo. Vas a ver que te va a encantar.
+          .row
+            .col-sm-7
+            .col-sm-1 style='text-align: center;'
+              = link_to 'new_user_registration_path'
+                = image_tag 'icon_1.png', class: 'home-icon'
+            .col-sm-1 style='text-align: center;'
+              = link_to new_book_path
+                = image_tag 'icon_2.png', class: 'home-icon'
+            .col-sm-1 style='text-align: center;'
+              = link_to new_user_session_path
+                = image_tag 'icon_3.png', class: 'home-icon'
+            .col-sm-1 style='text-align: center;'
+              = link_to capture_barcode_path
+                = image_tag 'icon_4.png', class: 'home-icon'
