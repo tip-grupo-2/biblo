@@ -1,4 +1,4 @@
-.modal-header
+.modal-header.modal-color.modal-header-border-radius
   button.close data-dismiss="modal" type="button"  x
   - if @is_reception
     - path = confirm_reception_notification_path
@@ -6,30 +6,30 @@
   - else
     - path = confirm_delivery_notification_path
     - username = @notification.donation.requester.name
-  h4#myModalLabel.modal-title.centered-text
+  h3#myModalLabel.modal-title.centered-text
     = 'Calificando a ' + username
 
-.modal-body
+.modal-body.modal-color.modal-header-body-radius
   = form_for :rate, url: path, method: :post do |f|
     = f.hidden_field :id, value: @notification.id
     = f.hidden_field :message, value: @message
-    td = '¿Como calificarias a ' + username + '?'
-    fieldset.rating
-      input#star05 name="user_rating" type="radio" value="5" /
-      label.full for="star05" title=("")
+    .flex
+      .bold.centered-flex-child ¿Cómo calificarías a #{username}?
+      fieldset.rating.margin-stars.centered-flex-child.star-size
+        input#star05 name="user_rating" type="radio" value="5" /
+        label.full for="star05" title=("")
 
-      input#star04 name="user_rating" type="radio" value="4" /
-      label.full for="star04" title=("")
+        input#star04 name="user_rating" type="radio" value="4" /
+        label.full for="star04" title=("")
 
-      input#star03 name="user_rating" type="radio" value="3" /
-      label.full for="star03" title=("")
+        input#star03 name="user_rating" type="radio" value="3" /
+        label.full for="star03" title=("")
 
-      input#star02 name="user_rating" type="radio" value="2" /
-      label.full for="star02" title=("")
+        input#star02 name="user_rating" type="radio" value="2" /
+        label.full for="star02" title=("")
 
-      input#star01 name="user_rating" type="radio" value="1" /
-      label.full for="star01" title=("")
-    p
-    td = 'Comentario:'
-    = f.text_field :user_comment, class: 'form-control form-control-lg', placeholder: 'Genial! Llego puntual'
-    td = f.submit 'Calificar'
+        input#star01 name="user_rating" type="radio" value="1" /
+        label.full for="star01" title=("")
+    .comment-rating Comentario:
+    = f.text_field :user_comment, class: 'form-control form-control-lg rating-margin', placeholder: 'Ej.: "Genial! Llego puntual."'
+    = f.submit 'Calificar', class: 'btn btn-classic rating-margin'
