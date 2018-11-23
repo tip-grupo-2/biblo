@@ -12,7 +12,7 @@ class Book < ActiveRecord::Base
     rates = Rate.where(:book_id => self.id).pluck(:amount)
     average = 0
     if rates.count > 0
-      average = rates.sum / rates.count
+      average = rates.sum.to_f / rates.count
     end
 
     average

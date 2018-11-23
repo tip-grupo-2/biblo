@@ -1,0 +1,10 @@
+.pull-left
+  .pull-left style=("width:35px; line-height:1;")
+    div style=("height:9px; margin:5px 0;")
+      = number
+      span.glyphicon.glyphicon-star
+  .pull-left style="width:180px;"
+    .progress style=("height:9px; margin:8px 0;")
+      .progress-bar.progress-bar-success aria-valuemax= max aria-valuemin=min  aria-valuenow=amount role="progressbar" style=(percent)
+        span.sr-only
+  .pull-right style="margin-left:10px;" = amount
