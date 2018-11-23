@@ -7,7 +7,7 @@
       img.rounded.float-left.square-thumbnail src= "#{book.picture_url}"
       br
       br
-      = link_to 'Calificaciones', book_rating_path(book), class: 'btn btn-contrast btn-block'
+      = link_to 'Calificaciones', book_rating_path(@donation), class: 'btn btn-contrast btn-block'
       br
       = link_to 'Volver', 'javascript:history.back()', class: 'btn btn-contrast btn-block'
     .col-sm-10
