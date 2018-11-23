@@ -180,7 +180,6 @@ createMarker = function(map, data) {
 
 booksNearYourZone = function(){
     $.getJSON( "/nearest_books", function( data ) {
-        console.log(data.length);
         if(data.length != 0) {
             map = new google.maps.Map(document.getElementById('map'), {
                 maxZoom: 10,
@@ -189,7 +188,6 @@ booksNearYourZone = function(){
                 scrollwheel: false
             });
             var markers = data.map(function(d) {
-                console.log(d.lat);
                 return createMarker(this.map, d);
             });
             var bounds = new google.maps.LatLngBounds();
@@ -201,16 +199,16 @@ booksNearYourZone = function(){
         else {
             var lati = parseFloat(document.getElementById('lat').value);
             var long = parseFloat(document.getElementById('lng').value);
-            var map = new google.maps.Map(document.getElementById('map'), {
+            var mapp = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: lati, lng: long},
                 zoom: 15,
                 gestureHandling: 'none',
                 zoomControl: false,
                 scrollwheel: false
             });
-            var marker = new google.maps.Marker({position: {lat: lati, lng: long}, map: map});
-            var infowindow = new google.maps.InfoWindow({content: "Desgraciadamente no encontramos ningún libro en las cercanías de tu ubicación."})
-            infowindow.open(map, marker);
+            var marker = new google.maps.Marker({position: {lat: lati, lng: long}, map: mapp});
+            var infowindow = new google.maps.InfoWindow({content: "Lamentablemente no encontramos ningún libro en las cercanías de tu ubicación."});
+            infowindow.open(mapp, marker);
         }
     });
     };

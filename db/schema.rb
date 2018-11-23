@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20181121055754) do
 
   # These are extensions that must be enabled in order to support this database
@@ -43,6 +44,7 @@ ActiveRecord::Schema.define(version: 20181121055754) do
     t.integer "user_id"
     t.integer "book_id"
     t.integer "original_owner_id"
+    t.boolean "for_donation"
     t.boolean "requested",         default: false
     t.boolean "reading",           default: false
     t.boolean "for_donation"
@@ -59,7 +61,7 @@ ActiveRecord::Schema.define(version: 20181121055754) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.float    "latitude"
-    t.float    "longitude"
+    t.float    "longitude"r
   end
 
   add_index "donations", ["notification_id"], name: "index_donations_on_notification_id", using: :btree
@@ -89,15 +91,15 @@ ActiveRecord::Schema.define(version: 20181121055754) do
   create_table "users", force: :cascade do |t|
     t.string   "email",               default: "", null: false
     t.string   "encrypted_password",  default: "", null: false
-    t.string   "name",                             null: false
+    t.string   "name"
     t.string   "address"
     t.datetime "remember_created_at"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.string   "provider"
     t.string   "uid"
-    t.float    "latitude"
-    t.float    "longitude"
+    t.string   "latitude"
+    t.string   "longitude"
     t.string   "avatar"
     t.string   "phone_number"
     t.integer  "donation_id"

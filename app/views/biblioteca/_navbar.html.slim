@@ -1,5 +1,5 @@
 
-.navbar.hidden-xs
+.navbar.hidden-xs.navbar-fixed-top
   ul.nav.navbar-nav
     li.home
       = link_to root_path, method: :get, class: 'navbar-brand' do
@@ -49,7 +49,7 @@
     br
     = link_to root_path, method: :get, class: 'navbar_brand' do
       = image_tag('logo_biblos.png', width: "50%")
-.navbar.hidden-sm.hidden-lg.hidden-md
+.navbar.hidden-sm.hidden-lg.hidden-md.navbar-fixed-top
   ul.nav.navbar-nav
     - if user_signed_in?
       li
