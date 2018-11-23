@@ -1,0 +1,49 @@
+.container.book_card
+  .row
+    .col-sm-2
+      = image_tag(user_avatar(@user), class: 'square-thumbnail', size: "155")
+      br
+      br
+      = link_to 'Volver', 'javascript:history.back()', class: 'btn btn-contrast btn-block'
+    .col-sm-10
+      .col-sm-3
+        .rating-block
+          h4 Calificacion promedio
+          h2.bold.padding-bottom-7
+            = @user.average_rate
+            small = '/ 5'
+          = render partial: 'rate_stars', locals: {stars: @user.average_rate, style_options: "font-size:2em;"}
+      .col-sm-3
+        - max = @user_ratings.count.to_f
+        - min = 0
+        - five_stars = @user_ratings.select{ |rate| rate.amount == 5}.count
+        - four_stars = @user_ratings.select{ |rate| rate.amount == 4}.count
+        - three_stars = @user_ratings.select{|rate| rate.amount == 3}.count
+        - two_stars = @user_ratings.select{  |rate| rate.amount == 2}.count
+        - one_stars = @user_ratings.select{  |rate| rate.amount == 1}.count
+        = render partial: 'rate_percentage_bar', locals: {max: max, min: min, number: 5,
+                amount: five_stars,
+                percent: "width: " + ((five_stars   / max)* 100).to_s + "%"}
+
+        = render partial: 'rate_percentage_bar', locals: {max: max, min: min, number: 4,
+                amount: four_stars,
+                percent: "width: " + ((four_stars   / max)* 100).to_s + "%"}
+
+        = render partial: 'rate_percentage_bar', locals: {max: max, min: min, number: 3,
+                amount: three_stars,
+                percent: "width: " + ((three_stars  / max)* 100).to_s + "%"}
+
+        = render partial: 'rate_percentage_bar', locals: {max: max, min: min, number: 2,
+                amount: two_stars,
+                percent: "width: " + ((two_stars    / max)* 100).to_s + "%"}
+
+        = render partial: 'rate_percentage_bar', locals: {max: max, min: min, number: 1,
+                amount: one_stars,
+                percent: "width: " + ((one_stars    / max)* 100).to_s + "%"}
+    .row
+      .col-sm-6
+        h2.centered-text Calificaciones
+        hr
+        .review-block
+          - @user_ratings.each do |rating|
+            = render partial: 'rate_comment', locals: {rating: rating}

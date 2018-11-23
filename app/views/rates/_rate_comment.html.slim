@@ -3,7 +3,7 @@
     - avatar = user_avatar(rating.owner)
     = image_tag(avatar, class: 'square-thumbnail', size: "100")
     .review-block-name
-      = link_to rating.owner.name, user_rating_path
+      = link_to rating.owner.name, user_rating_path(rating.owner)
     .review-block-date
       = rating.created_at.strftime("%d/%m/%Y")
       br>/

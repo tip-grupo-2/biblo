@@ -58,4 +58,14 @@ class User < ActiveRecord::Base
     a_book.user_id = id
     a_book.save
   end
+
+  def average_rate()
+    rates = Rate.where(:user_id => self.id).pluck(:amount)
+    average = 0
+    if rates.count > 0
+      average = rates.sum.to_f / rates.count
+    end
+
+    average
+  end
 end

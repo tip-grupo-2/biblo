@@ -7,8 +7,7 @@
       img.rounded.float-left.square-thumbnail src= "#{book.picture_url}"
       br
       br
-      = link_to 'Calificaciones', book_rating_path(@donation), class: 'btn btn-contrast btn-block'
-      br
+      = link_to 'Calificaciones', book_rating_path(@donation), class: 'btn btn-classic btn-block'
       = link_to 'Volver', 'javascript:history.back()', class: 'btn btn-contrast btn-block'
     .col-sm-10
       .row
@@ -25,13 +24,11 @@
         strong ISBN:
         = book.isbn
       p
-        - if book.average_rate != 0
-          strong Calificacion de los usuarios:
-          = render partial: 'rates/rate_stars', locals: {stars: book.average_rate, style_options: ""}
+        strong Calificacion del libro:
+        = render partial: 'rates/rate_stars', locals: {stars: book.average_rate, style_options: ""}
       p
-        - if @donation.copy.last_rate_amount != 0
-          strong Estado de la copia:
-          = render partial: 'rates/rate_stars', locals: {stars: @donation.copy.last_rate_amount, style_options: ""}
+        strong Estado de la copia:
+        = render partial: 'rates/rate_stars', locals: {stars: @donation.copy.last_rate_amount, style_options: ""}
 
 
 
