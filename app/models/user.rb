@@ -61,11 +61,11 @@ class User < ActiveRecord::Base
 
   def average_rate()
     rates = Rate.where(:user_id => self.id).pluck(:amount)
-    average = 0
+    average = 0.to_f
     if rates.count > 0
       average = rates.sum.to_f / rates.count
     end
 
-    average
+    average.round(2)
   end
 end
