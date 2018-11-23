@@ -8,6 +8,7 @@ script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSy
     img.rounded.float-left.square-thumbnail src= "#{@donation.copy.book.picture_url}"
     br
     br
+    = link_to 'Calificaciones', book_rating_path(@donation), class: 'btn btn-classic btn-block'
     = link_to 'Solicitar', edit_book_path(@donation), class: 'btn btn-classic btn-block'
     = link_to 'Volver', 'javascript:history.back()', class: 'btn btn-contrast btn-block'
   .col-sm-4
