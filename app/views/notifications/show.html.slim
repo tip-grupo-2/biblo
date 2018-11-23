@@ -25,7 +25,7 @@
       hr
       - counterpart_name = counterpart.name
       - avatar = user_avatar(counterpart)
-      = image_tag(avatar, class: 'l-profile-image-bg')
+      = link_to(image_tag(avatar, class: 'l-profile-image-bg'), user_rating_path(counterpart))
       h2
         = "#{counterpart_name}"
       br
