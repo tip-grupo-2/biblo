@@ -41,6 +41,7 @@ ul.nav.navbar-nav li a:hover {
 }
 
 .dropdown-menu {
+  font-family: $heading-font-family;
   background-color: $background-light;
   li a {
     color: $dark-font-color;

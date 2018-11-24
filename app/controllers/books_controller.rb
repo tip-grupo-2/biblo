@@ -62,7 +62,7 @@ class BooksController < ApplicationController
     redirect_to '/my_books'
   end
   def show
-    @book = Book.find(params[:id])
+    @donation = Donation.find(params[:id])
   end
 
   def index
@@ -123,10 +123,36 @@ class BooksController < ApplicationController
   end
 
   def finish
-    @donation = Donation.find(params[:id])
-    @donation.make_available!
-    @donation.save
+    @donation = Donation.find(params[:rate][:id])
+    book_rating = params[:book_rating]
+    copy_rating = params[:copy_rating]
+
+    book_comment = params[:rate][:book_comment]
+    copy_comment = params[:rate][:copy_comment]
+
+    if book_rating.to_i > 0
+      Rate.create_for_book(@donation.copy.book, current_user, book_rating, book_comment)
+    end
+    if copy_rating.to_i > 0
+      Rate.create_for_copy(@donation.copy, current_user, copy_rating, copy_comment)
+    end
+    unless @donation.needs_rating(current_user)
+      @donation.make_available!
+      @donation.save
+    end
+
     redirect_to :back
+  end
+
+  def rate_finish
+    @donation = Donation.find(params[:id])
+    @copy_not_rated = Rate.where(owner_id: current_user, copy_id:@donation.copy.id).blank?
+    @book_not_rated = Rate.where(owner_id: current_user, book_id:@donation.copy.book.id).blank?
+    respond_to do |format|
+      format.html
+      format.js
+    end
+
   end
 
   def mark_as_private
@@ -237,3 +263,5 @@ class BooksController < ApplicationController
     end
   end
 end
+
+

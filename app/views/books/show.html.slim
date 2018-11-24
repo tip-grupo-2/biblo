@@ -3,24 +3,37 @@
   .col-sm-4
   .container.book_card
     .col-sm-2
-      img.rounded.float-left.square-thumbnail src= "#{@book.picture_url}"
+      - book = @donation.copy.book
+      img.rounded.float-left.square-thumbnail src= "#{book.picture_url}"
       br
       br
       = link_to 'Volver', 'javascript:history.back()', class: 'btn btn-contrast btn-block'
     .col-sm-10
       .row
         .col-sm-11
-          h1 = @book.title
+          h1 = book.title
         .col-sm-1
-          - if @book.country === 'es'
+          - if book.country === 'es'
             img src="https://www.countryflags.io/es/flat/64.png"
           - else
             img src="https://www.countryflags.io/gb/flat/64.png"
       p
-        h3 = @book.author
+        h3 = book.author
       p
         strong ISBN:
-        = @book.isbn
+        = book.isbn
+      p
+        - if book.average_rate != 0
+          strong Calificacion de los usuarios:
+          - book.average_rate.times do
+            i.fa.fa-star style="color:#FFD700;"
+      p
+        - if @donation.copy.last_rate_amount != 0
+          strong Estado de la copia:
+          - @donation.copy.last_rate.times do
+            i.fa.fa-star style="color:#FFD700;"
+
+
       hr
       p
-        = @book.description
+        = book.description

@@ -1,0 +1,49 @@
+.modal-header
+  button.close data-dismiss="modal" type="button"  x
+  - title = 'Calificando ' + @donation.copy.book.title
+  h4#myModalLabel.modal-title.centered-text
+    = title
+.modal-body
+  = form_for :rate, url:finish_book_path, method: :put do |f|
+    = f.hidden_field :id, value: @donation.id
+    - if @book_not_rated
+      td = '¿Que te parecio el libro?'
+      fieldset.rating
+        input#star05 name="book_rating" type="radio" value="5" /
+        label.full for="star05" title=("")
+
+        input#star04 name="book_rating" type="radio" value="4" /
+        label.full for="star04" title=("")
+
+        input#star03 name="book_rating" type="radio" value="3" /
+        label.full for="star03" title=("")
+
+        input#star02 name="book_rating" type="radio" value="2" /
+        label.full for="star02" title=("")
+
+        input#star01 name="book_rating" type="radio" value="1" /
+        label.full for="star01" title=("")
+      p
+      td = 'Comentario: (Sin spoilers del libro)'
+      = f.text_field :book_comment, class: 'form-control form-control-lg', placeholder: 'Me encantó! Muy descriptivo'
+    - if @copy_not_rated
+      td = '¿En que estado esta el libro?'
+      fieldset.rating
+        input#star5 name="copy_rating" type="radio" value="5" /
+        label.full for="star5" title=("")
+
+        input#star4 name="copy_rating" type="radio" value="4" /
+        label.full for="star4" title=("")
+
+        input#star3 name="copy_rating" type="radio" value="3" /
+        label.full for="star3" title=("")
+
+        input#star2 name="copy_rating" type="radio" value="2" /
+        label.full for="star2" title=("")
+
+        input#star1 name="copy_rating" type="radio" value="1" /
+        label.full for="star1" title=("")
+      p
+      td = 'Explica el estado:'
+      = f.text_field :copy_comment, class: 'form-control form-control-lg', placeholder: 'La tapa esta rota'
+    td = f.submit 'Calificar'

@@ -12,4 +12,13 @@ class Copy < ActiveRecord::Base
   def current_owner(current_user)
     user_id == current_user.id
   end
+
+  def last_rate_amount
+    rate = Rate.where(:copy_id => self.id).order("created_at").last
+    amount = 0
+    unless(rate.nil?)
+      amount = rate.amount
+    end
+    amount
+  end
 end
