@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources "contacts", only: [:new, :create]
+
   get '/biblioteca/:page' => 'biblioteca#show'
   get '/my_donations', to: 'books#index_my_donations', as: 'my_donations'
   get '/my_books', to: 'books#index_my_books', as: 'my_books'
