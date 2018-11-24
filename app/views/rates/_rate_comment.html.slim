@@ -1,0 +1,15 @@
+.row
+  .col-sm-3
+    - avatar = user_avatar(rating.owner)
+    = image_tag(avatar, class: 'square-thumbnail', size: "100")
+    .review-block-name
+      = link_to rating.owner.name, user_rating_path(rating.owner)
+    .review-block-date
+      = rating.created_at.strftime("%d/%m/%Y")
+      br>/
+      = "Hace " + time_ago_in_words(rating.created_at)
+  .col-sm-9
+    .review-block-rate
+      = render partial: 'rate_stars', locals: {stars: rating.amount, style_options: "font-size:2em;"}
+    .review-block-description = rating.comment
+  hr

@@ -9,6 +9,7 @@
 @import "bootstrap-slider";
 @import "animate";
 @import "navbar";
+@import "rating";
 @import "arrow";
 @import "carousel";
 
@@ -405,3 +406,4 @@ body {
 .rating > input:checked ~ label:hover,
 .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
 .rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
+
