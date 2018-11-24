@@ -16,6 +16,8 @@ html
         a.close aria-label="close" data-dismiss="alert" href="#"  &times;
         .content #{message}
     = yield
+- if current_user
+  .prefooter
 .footer
   br
   hr
@@ -36,8 +38,8 @@ html
       h3.pacific Contactanos. Queremos saber tu opinión
       br
   .row.centered-text
-    .col-sm-4
-    .col-sm-4
+    .col-sm-3
+    .col-sm-6
       form
         fieldset.form-group
           input#exampleInputEmail1.form-control placeholder=("Ingresá tu email") type="email" /
