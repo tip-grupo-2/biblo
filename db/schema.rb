@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181120104850) do
+
+ActiveRecord::Schema.define(version: 20181121055754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,16 +47,24 @@ ActiveRecord::Schema.define(version: 20181120104850) do
     t.boolean "for_donation"
     t.boolean "requested",         default: false
     t.boolean "reading",           default: false
+    t.boolean "for_donation"
     t.boolean "in_donation",       default: true
   end
 
   create_table "donations", force: :cascade do |t|
-    t.integer "requester_id"
-    t.integer "giver_id"
-    t.integer "copy_id"
-    t.string  "state"
-    t.string  "address"
+    t.integer  "requester_id"
+    t.integer  "giver_id"
+    t.integer  "copy_id"
+    t.string   "state"
+    t.string   "address"
+    t.integer  "notification_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.float    "latitude"
+    t.float    "longitude"r
   end
+
+  add_index "donations", ["notification_id"], name: "index_donations_on_notification_id", using: :btree
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "recipient_id"
@@ -69,12 +78,14 @@ ActiveRecord::Schema.define(version: 20181120104850) do
   end
 
   create_table "rates", force: :cascade do |t|
-    t.integer "amount",   null: false
-    t.integer "owner_id", null: false
-    t.integer "user_id"
-    t.integer "copy_id"
-    t.integer "book_id"
-    t.text    "comment"
+    t.integer  "amount",     null: false
+    t.integer  "owner_id",   null: false
+    t.integer  "user_id"
+    t.integer  "copy_id"
+    t.integer  "book_id"
+    t.text     "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -91,6 +102,7 @@ ActiveRecord::Schema.define(version: 20181120104850) do
     t.string   "longitude"
     t.string   "avatar"
     t.string   "phone_number"
+    t.integer  "donation_id"
     t.integer  "max_distance",        default: 5
   end
 
