@@ -61,6 +61,7 @@ class BooksController < ApplicationController
     create_book(params[:book][:isbn], params[:book][:title], params[:book][:author], nil, params[:book][:description], 'ES')
     redirect_to '/my_books'
   end
+
   def show
     @donation = Donation.find(params[:id])
   end
@@ -188,7 +189,7 @@ class BooksController < ApplicationController
                              INNER JOIN books ON copies.book_id = books.id").where.not(giver_id: current_user.id)
                     .where(state: :available)
     nearest = [select_book_at_distance(donations, current_user, 0, 0.5),
-               select_book_at_distance(donations, current_user, 0.8, 1),
+               select_book_at_distance(donations, current_user, 0.5, 1),
                select_book_at_distance(donations, current_user, 1, 3),
                select_book_at_distance(donations, current_user, 3, 5),
                select_book_at_distance(donations, current_user, 5, 10),

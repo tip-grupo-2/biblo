@@ -18,6 +18,6 @@ script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSy
       td = "#{distance} Km."
       td.fixed-width-75.distance-data-js data-origin-lat="#{giver_point[0]}" data-origin-lon="#{giver_point[1]}" data-dest-lat="#{req_point[0]}" data-dest-lon="#{req_point[1]}"
       - avatar = user_avatar(donation.giver)
-      td = image_tag(avatar, class: 'l-profile-image')
+      td = link_to(image_tag(avatar, class: 'l-profile-image'), user_rating_path(donation.giver))
       td = donation.giver.email
       td = link_to 'Solicitar', edit_book_path(donation), class: 'btn btn-contrast'
