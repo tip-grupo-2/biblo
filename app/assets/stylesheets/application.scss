@@ -9,7 +9,6 @@
 @import "bootstrap-slider";
 @import "animate";
 @import "navbar";
-@import "rating";
 @import "arrow";
 @import "carousel";
 
@@ -253,6 +252,11 @@ body {
   background: linear-gradient(to bottom, $neutral-primary, $main-dark-color);
 }
 
+.prefooter {
+  height: 100px;
+  background: linear-gradient(to bottom, $main-dark-color, $neutral-primary);
+}
+
 .footer.title {
   color: $background-light;
   font-family: 'Pacifico', cursive;
@@ -319,7 +323,7 @@ body {
 .merriweather {
   font-family: 'Merriweather', serif;
   color: $background-light;
-
+  font-size: 1.5em;
 }
 
 .dosis {
@@ -366,6 +370,17 @@ body {
 .div-skew-short {
   background: url("http://teachmag.com/wp-content/uploads/2010/09/boysarentlearning2.jpg");
   left: 60%;
+  height: 1000px;
+}
+
+.div-skew {
+  background: url("https://data.whicdn.com/images/40127583/original.jpg");
+  left: 50%;
+}
+
+.div-skew-short {
+  background: url("http://teachmag.com/wp-content/uploads/2010/09/boysarentlearning2.jpg");
+  left: 60%;
 }
 
 .div-skew-left {
@@ -378,6 +393,39 @@ body {
   right: 70%;
 }
 
-.cyan-yellow {
-  background: linear-gradient(110deg, $yellow-pastel, $secondary-color);
+//rating
+.rating {
+  border: none;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  position: relative;
 }
+
+.rating > input { display: none; }
+.rating > label:before {
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.rating > .half:before {
+  content: "\f089";
+  position: absolute;
+}
+
+.rating > label {
+  color: #ddd;
+  float: right;
+}
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
