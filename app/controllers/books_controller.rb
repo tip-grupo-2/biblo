@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class BooksController < ApplicationController
   skip_before_filter :verify_authenticity_token
-
+  before_action :authenticate_user!
   def new
     @book = Book.new
   end
