@@ -2,6 +2,7 @@
 
 class UsersController < ApplicationController
   before_filter :current_user_only
+  skip_before_filter :redirect_if_address_nil, :except => [:show, :sign_out]
   def show
     @user = User.find(params[:id])
   end

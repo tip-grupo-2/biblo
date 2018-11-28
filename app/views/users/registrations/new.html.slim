@@ -12,11 +12,6 @@
               span class="input-group-addon"
                 span class="fa fa-user fa-lg fa-fw"
               =f.text_field :name, class: 'form-control', placeholder: 'Nombre de usuario'
-          = form_group_for f, :address, label: false do
-            .input-group
-              span class="input-group-addon"
-                span class="fa fa-map-marker fa-lg fa-fw"
-              = f.text_field :address, class: 'form-control', placeholder: 'Dirección'
           = form_group_for f, :email, label: false do
             .input-group
               span class="input-group-addon"
