@@ -1,5 +1,5 @@
 class RatesController < ApplicationController
-
+  before_action :authenticate_user!
 
   def book_rating
     @donation = Donation.find(params[:id])

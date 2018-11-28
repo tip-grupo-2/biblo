@@ -2,9 +2,9 @@
 
 class BibliotecaController < ApplicationController
   def show
-    if current_user && current_user.address.empty?
-      redirect_to edit_user_path(current_user) and return
-    end
+    # if current_user && (!current_user.address || current_user.empty?)
+    #   redirect_to edit_user_path(current_user) and return
+    # end
     render template: "biblioteca/#{params[:page]}" and return
   end
 end

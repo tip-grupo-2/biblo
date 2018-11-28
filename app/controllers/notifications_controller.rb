@@ -2,6 +2,7 @@ class NotificationsController < ApplicationController
   before_filter :only_logged_users
   before_filter :only_recipient_or_requester_user, :only => :show
 
+
   def index
     notifications = Notification.where(recipient_id: params[:user]).order(created_at: :desc).limit(10).reverse
     render :json => generate_response(notifications)
