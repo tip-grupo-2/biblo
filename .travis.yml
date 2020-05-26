@@ -2,7 +2,6 @@ language: ruby
 rvm:
 - 2.4.2
 before_script:
-- bundle config set deployment 'true'
 - bundle exec rake db:create --all
 - psql -c "CREATE USER carlos;" -U postgres
 - bundle exec rake db:migrate
