@@ -33,6 +33,8 @@ gem 'pronto-rubocop', require: false
 gem 'devise'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'
+
 
 # ISBN library
 gem 'openlibrary', '~> 1.0.0'
